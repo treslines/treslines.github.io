@@ -1,0 +1,300 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/split.css">
+<script src="js/split.js"></script>
+<script src="js/yumlsyntax.js"></script>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href='http://fonts.googleapis.com/css?family=Chewy-Regular' rel='stylesheet' type='text/css'>
+
+</head>
+<body onload="onload()">
+
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom box-shadow">
+      <h3 class="my-0 mr-md-auto font-weight-normal" ><b>UML Natural</b></h3>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <label for="apps"><b>Other Apps:</b></label>
+        <a class="p-2 text-dark" href="https://play.google.com/store/apps/details?id=com.softsuit.orchid" target="_blank">Orchid Password</a>
+        <a class="p-2 text-dark" href="http://codegramm.herokuapp.com/index.html" target="_blank">Codegramm</a>
+      </nav>
+      <!-- <a class="btn btn-outline-primary" href="#">Sign up</a> -->
+    </div>
+
+<div class="splitter" style="margin-top: 32px;">
+    <div id="first">
+
+      <div class="jumbotron jumbotron-fluid" style="background:#563D7C; margin-top: -30px;">
+        <div class="container">
+          <h1 class="display-4 chewy-title text-center" style="color:#FBE084;">UML Made Easy!</h1>
+          <p class="lead text-center" style="color:#CBBDE2;">Create UML in natural language!</p>
+        </div>
+      </div>
+
+      <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" style="color:#907DAF" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Class Diagram</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color:#907DAF" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Use Case</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color:#907DAF" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Activity</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            
+            <div class="container">
+                <form>
+
+                  <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
+                    <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAddress">Class details:</label>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <input type="text" class="form-control" id="cla" placeholder="Classname">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <input type="text" class="form-control" id="ste" placeholder="Stereotype">
+                    </div>
+                    <select class="form-control col-md-4" id="bg">
+                      <option>Background Color</option>
+                      <option>yellowgreen</option>
+                      <option>yellow</option>
+                      <option>whitesmoke</option>
+                      <option>white</option>
+                      <option>wheat</option>
+                      <option>violet</option>
+                      <option>turquoise</option>
+                      <option>tomato</option>
+                      <option>thistle</option>
+                      <option>tan</option>
+                      <option>steelblue</option>
+                      <option>springgreen</option>
+                      <option>snow</option>
+                      <option>slategray</option>
+                      <option>slateblue</option>
+                      <option>skyblue</option>
+                      <option>sienna</option>
+                      <option>seashell</option>
+                      <option>seagreen</option>
+                      <option>sandybrown</option>
+                      <option>salmon</option>
+                      <option>saddlebrown</option>
+                      <option>royalblue</option>
+                      <option>rosybrown</option>
+                      <option>red</option>
+                      <option>purple</option>
+                      <option>powderblue</option>
+                      <option>plum</option>
+                      <option>pink</option>
+                      <option>peru</option>
+                      <option>peachpuff</option>
+                      <option>papayawhip</option>
+                      <option>palevioletred</option>
+                      <option>paleturquoise</option>
+                      <option>palegreen</option>
+                      <option>palegoldenrod</option>
+                      <option>orchid</option>
+                      <option>orangered</option>
+                      <option>orange</option>
+                      <option>olivedrab</option>
+                      <option>oldlace</option>
+                      <option>navajowhite</option>
+                      <option>moccasin</option>
+                      <option>mistyrose</option>
+                      <option>mediumvioletred</option>
+                      <option>mediumturquoise</option>
+                      <option>mediumspringgreen</option>
+                      <option>mediumslateblue</option>
+                      <option>mediumseagreen</option>
+                      <option>mediumpurple</option>
+                      <option>mediumorchid</option>
+                      <option>mediumblue</option>
+                      <option>mediumaquamarine</option>
+                      <option>maroon</option>
+                      <option>magenta</option>
+                      <option>linen</option>
+                      <option>limegreen</option>
+                      <option>lightyellow</option>
+                      <option>lightsteelblue</option>
+                      <option>lightslategray</option>
+                      <option>lightskyblue</option>
+                      <option>lightseagreen</option>
+                      <option>lightsalmon</option>
+                      <option>lightpink</option>
+                      <option>lightgray</option>
+                      <option>lightcyan</option>
+                      <option>lightcoral</option>
+                      <option>lightblue</option>
+                      <option>lemonchiffon</option>
+                      <option>lawngreen</option>
+                      <option>lavenderblush</option>
+                      <option>lavender</option>
+                      <option>khaki</option>
+                      <option>indianred</option>
+                      <option>hotpink</option>
+                      <option>honeydew</option>
+                      <option>greenyellow</option>
+                      <option>green</option>
+                      <option>gray</option>
+                      <option>goldenrod</option>
+                      <option>gold</option>
+                      <option>ghostwhite</option>
+                      <option>gainsboro</option>
+                      <option>forestgreen</option>
+                      <option>floralwhite</option>
+                      <option>firebrick</option>
+                      <option>dodgerblue</option>
+                      <option>deepskyblue</option>
+                      <option>deeppink</option>
+                      <option>darkviolet</option>
+                      <option>darkslateblue</option>
+                      <option>darkseagreen</option>
+                      <option>darksalmon</option>
+                      <option>darkorchid</option>
+                      <option>darkorange</option>
+                      <option>darkgoldenrod</option>
+                      <option>cyan</option>
+                      <option>crimson</option>
+                      <option>cornsilk</option>
+                      <option>coral</option>
+                      <option>chocolate</option>
+                      <option>chartreuse</option>
+                      <option>cadetblue</option>
+                      <option>burlywood</option>
+                      <option>brown</option>
+                      <option>blueviolet</option>
+                      <option>blue</option>
+                      <option>black</option>
+                      <option>bisque</option>
+                      <option>beige</option>
+                      <option>azure</option>
+                      <option>aquamarine</option>
+                      <option>antiquewhite</option>
+                      <option>aliceblue</option>
+                    </select>
+                    
+                  </div>
+
+                  <div class="form-group" >
+                    <label style="color:#CBBDE2; margin-bottom: 4px" for="inputAddress">Class attributes separeted by comma:</label>
+                    <input type="text" class="form-control" id="att" placeholder="Attributes - Ex: int age, String name">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="met" placeholder="Methods - Ex: int getAge(), setName(String name)">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="inh" placeholder="Inheritance- Ex: BaseCustomer, AbstractProduct">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="ass" placeholder="Associations - Ex: Login, Person">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="agg" placeholder="Aggregations - Ex: Session, Product">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="com" placeholder="Compositions - UserFactory, Util">
+                  </div>
+          
+                  <form class="form-inline">
+                    <button type="button" onclick="onGenerate()" class="btn btn-primary">Generate</button>
+                    <button type="button" onclick="onClear()" class="btn btn-primary" style="margin-left: 10px">Clear Fields</button>
+                  </form>
+
+
+                </form>
+              </div>
+
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+             
+              <div class="container">
+                <form>
+
+                  <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
+                    <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAddress">Comming soon!</label>
+                    <!-- TODO -->
+                  </div>
+
+                </form>
+              </div>
+
+          </div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+              
+              <div class="container">
+                <form>
+
+                  <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
+                    <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAddress">Comming soon!</label>
+                    <!-- TODO -->
+                  </div>
+
+                </form>
+              </div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="seperator1"></div>
+
+    <div id="second">
+
+      <div class="jumbotron jumbotron-fluid" style="background:#CBBDE2; margin-top: -30px;">
+        <div class="container">
+          <h1 class="display-4 center chewy-title text-center" >Powered by yUML!</h1>
+          <div class="lead text-center" >Just copy & paste the generated text.</div>
+        </div>
+      </div>
+
+      <div class="container">      
+
+            
+        <form style="margin-top: 50px;">
+          <div class="form-group">
+            <label for="inputAddress">Generated Yuml Text:</label>
+            <textarea class="form-control" id="outTxt" rows="14"></textarea>
+          </div>
+
+          <div class="form-group">
+            <a class="btn btn-secondary" href="https://yuml.me/diagram/scruffy/class/draw" target="_blank" role="button">Copy / Paste it here: Yuml.me</a>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div>
+  </div>
+  </div>
+</div>
+    <div class="container" style="margin-top: 30px;">
+
+      <!-- Footer -->
+      <footer class="margin-footer">
+        <div class="row">
+          <div class="col-lg-12">
+            <p class="text-center text-color">
+              <small> <b>UML Natural</b> - © 2020 <!-- <b>Icons powered by</b>
+                     <a href="http://glyphicons.com/" style="color:#87CEEB"> Glyphicons.com</a> -->
+              </small>
+            </p>
+            <p class="text-center text-color" style="margin-top: -20px;">
+              <small> Ricardo Ferreira • <a href="https://br.linkedin.com/in/ricardo-ferreira-04559531" target="_blank" style="color: #87CEEB"> LinkedIn</a> • <a href="https://www.xing.com/profile/Ricardo_Ferreira17" target="_blank" style="color: #87CEEB"> Xing</a> • <a href="http://codegramm.herokuapp.com/index.html" target="_blank" style="color: #87CEEB"> Codegramm</a> • <a href="https://play.google.com/store/apps/details?id=com.softsuit.orchid" target="_blank" style="color: #87CEEB"> Orchid Password</a>
+          </small></p></div><small>
+        </small></div><small>
+      </small></footer><small>
+
+    </small></div>
+</body>
+</html>

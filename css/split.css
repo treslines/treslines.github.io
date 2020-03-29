@@ -1,0 +1,39 @@
+.splitter {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+#seperator1 {
+	cursor: col-resize;
+	width: 10px;
+	height: 100%;
+	min-width: 10px;
+	background-color: #F7F7F7;
+	/* background-color: #FFE484; */
+	/* background: url(https://raw.githubusercontent.com/RickStrahl/jquery-resizable/master/assets/vsizegrip.png) center center no-repeat #535353;*/
+}
+
+#first {
+	background-color: #563D7C;
+	width: 50%;
+	height: 100%;
+	min-width: 10px;
+}
+
+#second {
+	background-color: #CBBDE2;
+	width: 50%;
+	height: 100%;
+	min-width: 10px;
+}
+
+@font-face {
+  font-family: chewy;
+  src: url(../font/Chewy-Regular.ttf);
+}
+
+.chewy-title {
+    font-family: chewy;
+    font-size:64px; 
+}
