@@ -82,3 +82,9 @@ function onClear(){
   document.getElementById("inh").value = "";
 }
 
+function copy() {
+  let textarea = document.getElementById("outTxt");
+  textarea.select();
+  document.execCommand("copy");
+}
+
