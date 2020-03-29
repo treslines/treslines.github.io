@@ -1,4 +1,4 @@
-# UML Natural
+# Natural UML 
 Create UML-Diagrams in natural language! Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a>
 
 ## Other Apps you may like:
@@ -6,6 +6,7 @@ Create UML-Diagrams in natural language! Give it a try: <a href="https://treslin
 - <a href="http://codegramm.herokuapp.com/index.html" target="_blank" style="color: #563D7C;"><b> Codegramm</b></a>
 
 # Contributions:
+  - Help me implement Use Case and Activity diagrams too! :)
   - Fork the project, implement your contribution, make a pull request
   
 ## License:
