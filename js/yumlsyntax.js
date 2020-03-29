@@ -88,7 +88,7 @@ class Clazz {
 		if(this._hasAttr(this.strBgColor) && this.strBgColor === "Background Color"){ 
 			strCla+='{bg:{0}}'.format("wheat");
 		}else{
-			strCla+='{bg:{0}}'.format("wheat");
+			strCla+='{bg:{0}}'.format(this.strBgColor);
 		}
 
 		var hasAttributes = this._hasArr(this.arrStrAttributes);
