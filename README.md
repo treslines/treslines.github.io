@@ -1,11 +1,12 @@
 # Natural UML 
 Create UML-Diagrams in natural language! Totally free, 100% online, fast and easy!
+ - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
 
 # Sample Class-Diagram
 ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/uml_01.PNG "UML Diagram")
 
 # Did you like it?
- - Give it a Star and motivate me keep going!
+ - Give it a __star__ and motivate me keep going!
 
 # Other Apps you may like:
 - <a href="https://play.google.com/store/apps/details?id=com.softsuit.orchid" target="_blank" style="color: #563D7C;"><b> Orchid Password</b></a> 
