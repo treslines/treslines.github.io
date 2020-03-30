@@ -55,7 +55,6 @@ function dragElement( element, direction, handler )
 
 function onGenerate(){
   let clazz = new Clazz();
-
   document.getElementById("outTxt").value = clazz.setName(document.getElementById("cla").value).
     setStereotype(document.getElementById("ste").value).
     setBgColor(document.getElementById("bg").value).
@@ -70,7 +69,6 @@ function onGenerate(){
 }
 
 function onClear(){
-  document.getElementById("outTxt").value = "Type something on the left side!";
   document.getElementById("cla").value = "";
   document.getElementById("ste").value = "";
   document.getElementById("bg").value = "Background Color";
@@ -80,6 +78,25 @@ function onClear(){
   document.getElementById("ass").value = "";
   document.getElementById("com").value = "";
   document.getElementById("inh").value = "";
+}
+
+function onAppend(){
+  let clazz = new Clazz();
+  let toAppend = clazz.setName(document.getElementById("cla").value).
+    setStereotype(document.getElementById("ste").value).
+    setBgColor(document.getElementById("bg").value).
+    setAttributes(document.getElementById("att").value.split(",")).
+    setMethods(document.getElementById("met").value.split(",")).
+    setAggregates(document.getElementById("agg").value.split(",")).
+    setAssociations(document.getElementById("ass").value.split(",")).
+    setCompositions(document.getElementById("com").value.split(",")).
+    setInheritances(document.getElementById("inh").value.split(",")).
+    getOutputStr();
+  document.getElementById("outTxt").value = document.getElementById("outTxt").value + toAppend;
+}
+
+function onClearArea(){
+  document.getElementById("outTxt").value = "";
 }
 
 function copy() {
