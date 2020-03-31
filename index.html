@@ -2,6 +2,7 @@
 <head>
 <link rel="stylesheet" href="css/split.css">
 <script src="js/split.js"></script>
+<script src="js/usecase.js"></script>
 <script src="js/yumlsyntax.js"></script>
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -221,10 +222,102 @@
              
               <div class="container">
                 <form>
-
                   <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
-                    <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAddress">Comming soon!</label>
                     <!-- TODO -->
+
+                        <div class="container text-center">
+                          <label  style="color:#CBBDE2; margin-bottom: 4px" for="inputAddress"><b>Use Case Attributes</b></label>
+                          <div class="row justify-content-md-center">
+                            <div class="col col-lg-3">
+                             
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios1" id="radioLeftActor" value="Actor" checked>
+                                <label class="form-check-label " style="color:#CBBDE2;" for="radioLeftActor">
+                                  Actor
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios1" id="radioLeftUsecase" value="Case">
+                                <label class="form-check-label " style="color:#CBBDE2;" for="radioLeftUsecase">
+                                  Case
+                                </label>
+                              </div>
+
+
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" id="use1" placeholder="Description">
+                                  </div>
+                                  <select class="form-control col-md-4" id="use2">
+                                    <option>Connection</option>
+                                    <option>Inheritance</option>
+                                    <option>Extends</option>
+                                    <option>Includes</option>
+                                  </select>
+                                  <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" id="use3" placeholder="A, B, C, D">
+                                  </div>
+                                </div>
+    
+                            </div>
+
+                            <div class="col col-lg-3">
+                              
+                              <div class="form-check form-check-inline ">
+                                <input class="form-check-input" type="radio" name="exampleRadios2" id="radioRightActor" value="Actor" >
+                                <label class="form-check-label" style="color:#CBBDE2;" for="radioRightActor">
+                                  Actor
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline ">
+                                <input class="form-check-input" type="radio" name="exampleRadios2" id="radioRightUsecase" value="Case" checked>
+                                <label class="form-check-label" style="color:#CBBDE2;" for="radioRightUsecase">
+                                  Case
+                                </label>
+                              </div>
+
+                            </div>
+                          </div>
+                          
+                        </div>
+
+
+                        <div class="container">
+                          <div class="row justify-content-md-center">
+                            
+                            <div class="col col-lg-3"></div>
+
+                            <div class="col-lg-6">
+
+                                <div class="form-row">
+
+                                  <div class="form-group col-md-4 text-center">
+                                    <button type="button" onclick="onGenerateUse()" class="btn btn-primary btn-block" >Append</button>
+                                  </div>
+
+                                  <div class="form-group col-md-4 text-center">
+                                    <button type="button" onclick="onSwapUse()" class="btn btn-warning btn-block" >Swap</button>
+                                  </div>
+
+                                  <div class="form-group col-md-4 text-center">
+                                    <button type="button" onclick="onClearUse()" class="btn btn-danger btn-block" >Clear</button>
+                                  </div>
+
+                                </div>
+    
+                            </div>
+
+                            <div class="col col-lg-3"></div>
+
+                          </div>
+                          
+                        </div>
+
+
                   </div>
 
                 </form>

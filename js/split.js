@@ -65,7 +65,6 @@ function onGenerate(){
     setCompositions(document.getElementById("com").value.split(",")).
     setInheritances(document.getElementById("inh").value.split(",")).
     getOutputStr();
-
 }
 
 function onClear(){
@@ -92,7 +91,41 @@ function onAppend(){
     setCompositions(document.getElementById("com").value.split(",")).
     setInheritances(document.getElementById("inh").value.split(",")).
     getOutputStr();
-  document.getElementById("outTxt").value = document.getElementById("outTxt").value + toAppend;
+    if(document.getElementById("outTxt").value !== "Type something on the left side!"){
+         document.getElementById("outTxt").value = document.getElementById("outTxt").value + toAppend;
+    }
+}
+
+function onClearUse(){
+  document.getElementById("use1").value = "";
+  document.getElementById("use2").value = "Connection";
+  document.getElementById("use3").value = "";
+}
+
+function onSwapUse(){
+    var swap = document.getElementById("use1").value;
+    document.getElementById("use1").value = document.getElementById("use3").value;
+    document.getElementById("use3").value = swap;
+}
+
+function onGenerateUse(){
+  let usecase = new Usecase();
+  let toAppend = usecase.setName(document.getElementById("use1").value).
+    setConnection(document.getElementById("use2").value).
+    setAssociations(document.getElementById("use3").value.split(",")).
+    setTypeFrom(document.querySelector('input[name = exampleRadios1]:checked').value).
+    setTypeTo(document.querySelector('input[name = exampleRadios2]:checked').value).
+    getOutputStr();
+    if(toAppend === "Type something on the left side!"){
+      document.getElementById("outTxt").value = toAppend;
+    }
+    else{
+        if(document.getElementById("outTxt").value.includes("Type something on the left side!")){
+          document.getElementById("outTxt").value = toAppend;
+        }else{
+          document.getElementById("outTxt").value = document.getElementById("outTxt").value + "\n"+ toAppend;
+        }
+    }
 }
 
 function onClearArea(){
