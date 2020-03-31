@@ -122,6 +122,8 @@ function onGenerateUse(){
     else{
         if(document.getElementById("outTxt").value.includes("Type something on the left side!")){
           document.getElementById("outTxt").value = toAppend;
+        }else if(document.getElementById("outTxt").value.trim() === ""){
+          document.getElementById("outTxt").value = toAppend;
         }else{
           document.getElementById("outTxt").value = document.getElementById("outTxt").value + "\n"+ toAppend;
         }
