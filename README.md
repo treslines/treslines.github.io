@@ -5,6 +5,8 @@ Create UML-Diagrams in natural language! Totally free, 100% online, fast and eas
 # Sample Class-Diagram
 ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/uml_01.PNG "UML Diagram")
 
+![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/uml_02.PNG "Use Case Diagram")
+
 # Did you like it?
  - Give it a __star__ and motivate me keep going!
 
@@ -13,7 +15,7 @@ Create UML-Diagrams in natural language! Totally free, 100% online, fast and eas
 - <a href="http://codegramm.herokuapp.com/index.html" target="_blank" style="color: #563D7C;"><b> Codegramm</b></a>
 
 # Contributions:
-  - Help me implement Use Case and Activity diagrams too! :)
+  - Help me implement Activity diagrams too! :)
   - Fork the project, implement your contribution, make a pull request
   
 ## License:
