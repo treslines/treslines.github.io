@@ -31,9 +31,9 @@
 <div class="splitter" style="margin-top: 38px;">
     <div id="first">
 
-      <div class="jumbotron jumbotron-fluid" style="background:#563D7C; margin-top: -30px;">
+      <div class="jumbotron jumbotron-fluid" style="background:#563D7C; margin-top: -30px; margin-bottom: -30px;">
         <div class="container">
-          <h1 class="display-4 chewy-title text-center" style="font-size: 42px; color:#FBE084;">UML Made Easy!</h1>
+          <h1 class="display-4 chewy-title text-center" style="font-size: 42px;  margin-top: -30px; color:#FBE084;">UML Made Easy!</h1>
           <p class="lead text-center" style="color:#CBBDE2;">Create UML in natural language!</p>
         </div>
       </div>
@@ -186,7 +186,10 @@
                     </select>
                     
                   </div>
-
+                  <div class="form-group" >
+                    <label style="color:#CBBDE2; margin-bottom: 4px" for="inputAddress">Note: Free text</label>
+                    <textarea class="form-control" id="not" rows="2" placeholder="Note - Ex: This class was designed to..."></textarea>
+                  </div>
                   <div class="form-group" >
                     <label style="color:#CBBDE2; margin-bottom: 4px" for="inputAddress">Class attributes separeted by comma:</label>
                     <input type="text" class="form-control" id="att" placeholder="Attributes - Ex: int age, String name">
@@ -348,47 +351,74 @@
 
     <div id="second">
 
-      <div class="jumbotron jumbotron-fluid" style="background:#CBBDE2; margin-top: -30px;">
+      <div class="jumbotron jumbotron-fluid" style="background:#CBBDE2; margin-top: -30px; margin-bottom: 0px;">
         <div class="container">
-          <h1 class="display-4 center chewy-title text-center" style="font-size: 42px; color: #322348;">Powered by yUML!</h1>
-
-          <div class="lead text-center" >Just copy & paste. Simple as that!</div>
+          <h1 class="display-4 center chewy-title text-center" style="font-size: 42px;  margin-top: -15px; color: #322348;">Powered by yUML!</h1>
         </div>
       </div>
 
       <div class="container">      
 
             
-        <form style="margin-top: 50px;">
-          <div class="form-group">
 
-            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="btn-group" role="group" aria-label="First group">
-                <label for="inputAddress"><b>Yuml:</b></label>
-              </div>
-              <div class="input-group">
-                <button type="button" onclick="copy()" id="clipboard" class="btn btn-default btn-sm">Copy to clipboard</button>
-              </div>
+     
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" style="color:#907DAF" id="diagram-tab" data-toggle="tab" href="#diagram" role="tab" aria-controls="diagram" aria-selected="true">Diagram</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " style="color:#907DAF" id="yuml-tab" data-toggle="tab" href="#yuml" role="tab" aria-controls="yuml" aria-selected="false">Yuml</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade " id="yuml" role="tabpanel" aria-labelledby="yuml-tab">
+              
+              <div class="container">
+                  <form style="margin-top: 50px;">
+                    <div class="form-group">
+
+                      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group" role="group" aria-label="First group">
+                          <label for="inputAddress"><b>Yuml:</b></label>
+                        </div>
+                        <div class="input-group">
+                          <button type="button" onclick="copy()" id="clipboard" class="btn btn-default btn-sm">Copy to clipboard</button>
+                        </div>
+                      </div>
+
+                      <textarea class="form-control" id="outTxt" rows="18" style="background-color: #F7F7F9"></textarea>
+                    </div>
+
+                    <div class="form-group">
+
+                      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group" role="group" aria-label="First group">
+                          <a class="btn btn-defalt" href="https://yuml.me/diagram/scruffy/class/draw" target="_blank" role="button">Paste it here: Yuml.me</a>
+                        </div>
+                        <div class="input-group">
+                          <button type="button" onclick="onClearArea()" class="btn btn-danger" style="margin-left: 10px">Clear</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
             </div>
 
-            <textarea class="form-control" id="outTxt" rows="18" style="background-color: #F7F7F9"></textarea>
-          </div>
+            <div class="tab-pane fade show active" id="diagram" role="tabpanel" aria-labelledby="diagram-tab">
+               
+                <div class="container">
+                  <div class="text-center">
+                    <img class="img-fluid" id="imgId" src="" >
+                  </div>
+                </div>
 
-          <div class="form-group">
-
-            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="btn-group" role="group" aria-label="First group">
-                <a class="btn btn-defalt" href="https://yuml.me/diagram/scruffy/class/draw" target="_blank" role="button">Paste it here: Yuml.me</a>
-              </div>
-              <div class="input-group">
-                <button type="button" onclick="onClearArea()" class="btn btn-danger" style="margin-left: 10px">Clear</button>
-              </div>
             </div>
-
-
             
           </div>
-        </form>
+      
+
+        
 
 
       </div>

@@ -55,8 +55,9 @@ function dragElement( element, direction, handler )
 
 function onGenerate(){
   let clazz = new Clazz();
-  document.getElementById("outTxt").value = clazz.setName(document.getElementById("cla").value).
+  var output = clazz.setName(document.getElementById("cla").value).
     setStereotype(document.getElementById("ste").value).
+    setNote(document.getElementById("not").value).
     setBgColor(document.getElementById("bg").value).
     setAttributes(document.getElementById("att").value.split(",")).
     setMethods(document.getElementById("met").value.split(",")).
@@ -65,10 +66,13 @@ function onGenerate(){
     setCompositions(document.getElementById("com").value.split(",")).
     setInheritances(document.getElementById("inh").value.split(",")).
     getOutputStr();
+  document.getElementById("outTxt").value = output;
+  document.getElementById("imgId").src = clazz.getOutputImageStr(output);
 }
 
 function onClear(){
   document.getElementById("cla").value = "";
+  document.getElementById("not").value = "";
   document.getElementById("ste").value = "";
   document.getElementById("bg").value = "Background Color";
   document.getElementById("att").value = "";
@@ -83,6 +87,7 @@ function onAppend(){
   let clazz = new Clazz();
   let toAppend = clazz.setName(document.getElementById("cla").value).
     setStereotype(document.getElementById("ste").value).
+    setNote(document.getElementById("not").value).
     setBgColor(document.getElementById("bg").value).
     setAttributes(document.getElementById("att").value.split(",")).
     setMethods(document.getElementById("met").value.split(",")).

@@ -154,7 +154,13 @@ class Clazz {
 			});
 		}
 
-		return strCla + strNot + strAss + strAgg + strCom + strInh + tag5;
+		return strCla + strNot + strAss + strAgg + strCom + strInh;
+		//return this.getOutputImageStr((strCla + strNot + strAss + strAgg + strCom + strInh));
+	}
+
+	getOutputImageStr(input){
+		var img = "http://yuml.me/diagram/scruffy/class/{0}"; 
+		return img.format(this._replaceAllLineBreaks(input, ', '));
 	}
 
 
@@ -169,6 +175,10 @@ class Clazz {
 
 	_removeLastChar(str){
 		return str.substring(0,str.length-1);
+	}
+
+	_replaceAllLineBreaks(input, replacement){
+		return input.replace(/[\n\r]/g, replacement)
 	}
 
 	_prototypeStringFormatFunction(){
