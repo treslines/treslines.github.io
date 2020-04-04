@@ -1,9 +1,11 @@
 class Usecase {
 	constructor(){
 		this.strName = '';
+		this.strNote = '';
 		this.strTypeTo = '';
 		this.strTypeFrom = '';
 		this.strConnection = '';
+		this.strNoteBgColor = '';
 		this.arrStrAssociations = [];
 		this._prototypeStringFormatFunction();
 	}
@@ -20,6 +22,16 @@ class Usecase {
 
 	setName(strName){
 		this.strName =  strName;
+		return this;
+	}
+
+	setNote(strNote){
+		this.strNote = strNote;
+		return this;
+	}
+
+	setNoteBgColor(strNoteBgColor){
+		this.strNoteBgColor = strNoteBgColor;
 		return this;
 	}
 
@@ -70,36 +82,69 @@ class Usecase {
 			isToActor = false;
 		}
 
+		
+
 		var strCla = "";
 		if(this._hasAttr(this.strConnection)){ 
 			if(this.strConnection === "Connection"){
 				this.arrStrAssociations.forEach(e => {
-					strCla+=strFromStart+this.strName+strFromEnd+'-'+strToStart+e.trim()+strToEnd+tag5; 
+					if(e.trim() !== ''){
+						strCla+=strFromStart+this.strName+strFromEnd+'-'+strToStart+e.trim()+strToEnd+tag5; 
+					}
 				});
 			}
 			else if(this.strConnection === "Inheritance"){
 				this.arrStrAssociations.forEach(e => {
-					strCla+=strFromStart+this.strName+strFromEnd+'^'+strToStart+e.trim()+strToEnd+tag5; 
+					if(e.trim() !== ''){
+						strCla+=strFromStart+this.strName+strFromEnd+'^'+strToStart+e.trim()+strToEnd+tag5; 
+					}
 				});
 			}
 			else if(this.strConnection === "Extends"){
 				this.arrStrAssociations.forEach(e => {
-					strCla+=strFromStart+this.strName+strFromEnd+'<'+strToStart+e.trim()+strToEnd+tag5; 
+					if(e.trim() !== ''){
+						strCla+=strFromStart+this.strName+strFromEnd+'<'+strToStart+e.trim()+strToEnd+tag5; 
+					}
 				});
 			}
 			else{
 				//Includes
 				this.arrStrAssociations.forEach(e => {
-					strCla+=strFromStart+this.strName+strFromEnd+'>'+strToStart+e.trim()+strToEnd+tag5; 
+					if(e.trim() !== ''){
+						strCla+=strFromStart+this.strName+strFromEnd+'>'+strToStart+e.trim()+strToEnd+tag5; 
+					}
 				});
 			}
 		}
+
+		// use case notes
+		var placeholder = strFromStart+this.strName+strFromEnd+"-(note: {0}{bg:{1}})";
+		var strNot = "";
+		if(this._hasAttr(this.strNote) && this._hasAttr(this.strNoteBgColor) && this.strNoteBgColor === "Background Color"){ 
+			strNot+=(placeholder.format(this.strNote, 'lightcoral') + tag5); 
+		}
+		if(this._hasAttr(this.strNote) && this._hasAttr(this.strNoteBgColor) && this.strNoteBgColor !== "Background Color"){
+			console.log(this.strNote +", "+ this.strNoteBgColor)
+			strNot+=(placeholder.format(this.strNote, this.strNoteBgColor) + tag5);
+		}
 		
-		return strCla.substring(0,strCla.length-1);
+		var usecase = strCla;
+		if(strNot !== ''){
+			usecase = strCla + strNot;
+		}
+		return usecase.substring(0,usecase.length-1);
 	}
 
+	getOutputImageStr(input){
+		var img = "http://yuml.me/diagram/scruffy/usecase/{0}"; 
+		return img.format(this._replaceAllLineBreaks(input, ', '));
+	}
 
 	// private methods
+	_replaceAllLineBreaks(input, replacement){
+		return input.replace(/[\n\r]/g, replacement)
+	}
+
 	_hasAttr(attr){
 		return (attr.length !== 0);
 	}

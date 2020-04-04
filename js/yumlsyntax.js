@@ -5,6 +5,7 @@ class Clazz {
 		this.strRefLabel = '';
 		this.strNote = '';
 		this.strBgColor = '';
+		this.strNoteBgColor = '';
 		this.arrStrAttributes = [];
 		this.arrStrMethods = [];
 		this.arrStrAggregates = [];
@@ -31,6 +32,11 @@ class Clazz {
 
 	setNote(strNote){
 		this.strNote = strNote;
+		return this;
+	}
+
+	setNoteBgColor(strNoteBgColor){
+		this.strNoteBgColor = strNoteBgColor;
 		return this;
 	}
 
@@ -95,7 +101,9 @@ class Clazz {
 		if(hasAttributes){ 
 			strCla+=tag3;
 			this.arrStrAttributes.forEach(e => {
-				strCla+=(e+tag4);
+				if(e.trim() !== ''){
+					strCla+=(e+tag4);
+				}
 			});
 		}
 		if(hasAttributes) { strCla = this._removeLastChar(strCla); }
@@ -104,7 +112,9 @@ class Clazz {
 		if(hasMethods){ 
 			strCla+=tag3;
 			this.arrStrMethods.forEach(e => {
-				strCla+=(e+tag4);
+				if(e.trim() !== ''){
+					strCla+=(e+tag4);
+				}
 			});
 		}
 		if(hasMethods) { strCla = this._removeLastChar(strCla); }
@@ -113,8 +123,11 @@ class Clazz {
 
 		// class notes
 		var strNot = "";
-		if(this._hasAttr(this.strNote)){ 
-			strNot+=('[{0}]-.-[note: {1}]'.format(this.strName, this.strNote) + tag5); 
+		if(this._hasAttr(this.strNote) && this._hasAttr(this.strNoteBgColor) && this.strNoteBgColor === "Background Color"){ 
+			strNot+=('[{0}]-.-[note: {1} {bg:lightcoral}]'.format(this.strName, this.strNote) + tag5); 
+		}
+		if(this._hasAttr(this.strNote) && this._hasAttr(this.strNoteBgColor) && this.strNoteBgColor !== "Background Color"){
+			strNot+=('[{0}]-.-[note: {1} {bg:{2}}]'.format(this.strName, this.strNote, this.strNoteBgColor) + tag5);
 		}
 
 
@@ -123,7 +136,9 @@ class Clazz {
 		var hasAssociations = this._hasArr(this.arrStrAssociations);
 		if(hasAssociations){ 
 			this.arrStrAssociations.forEach(e => {
-				strAss+=('[{0}]->[{1}]'.format(this.strName,e) + tag5);
+				if(e.trim() !== ''){
+					strAss+=('[{0}]->[{1}]'.format(this.strName,e) + tag5);
+				}
 			});
 		}
 
@@ -132,7 +147,9 @@ class Clazz {
 		var hasAggretations = this._hasArr(this.arrStrAggregates);
 		if(hasAggretations){ 
 			this.arrStrAggregates.forEach(e => {
-				strAgg+=('[{0}]<>->[{1}]'.format(this.strName,e) + tag5);
+				if(e.trim() !== ''){
+					strAgg+=('[{0}]<>->[{1}]'.format(this.strName,e) + tag5);
+				}
 			});
 		}
 
@@ -141,7 +158,9 @@ class Clazz {
 		var hasCompositions = this._hasArr(this.arrStrCompositions);
 		if(hasCompositions){ 
 			this.arrStrCompositions.forEach(e => {
-				strCom+=('[{0}]++->[{1}]'.format(this.strName,e) + tag5);
+				if(e.trim() !== ''){
+					strCom+=('[{0}]++->[{1}]'.format(this.strName,e) + tag5);
+				}
 			});
 		}
 
@@ -150,7 +169,9 @@ class Clazz {
 		var hasInheritances = this._hasArr(this.arrStrInheritances);
 		if(hasInheritances){ 
 			this.arrStrInheritances.forEach(e => {
-				strInh+=('[{1}]^[{0}]'.format(this.strName,e) + tag5);
+				if(e.trim() !== ''){
+					strInh+=('[{1}]^[{0}]'.format(this.strName,e) + tag5);
+				}
 			});
 		}
 
