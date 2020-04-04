@@ -1,5 +1,11 @@
 # Natural UML 
 Create UML-Diagrams in natural language! Totally free, 100% online, fast and easy!
+ - No Project needed, just fast and clean on the fly.
+ - Ideal to learn new projects while starting in new companies
+ - Perfect for brain storming and visualize potentially unthought paths
+ - Super suitable for wikis, architecture documentations or presentations.
+ - Very good for sharing or passing on knowledge between developers
+ - Good to spot out implementation details from existing projects
  - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
  
  ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/cla.PNG "Home")
