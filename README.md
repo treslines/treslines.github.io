@@ -2,12 +2,8 @@
 Create UML-Diagrams in natural language! Totally free, 100% online, fast and easy!
  - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
  
- ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/00.PNG "Home")
-
-# Sample Class-Diagram
-![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/uml_01.PNG "UML Diagram")
-
-![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/uml_02.PNG "Use Case Diagram")
+ ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/cla.PNG "Home")
+ ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/use.PNG "Home")
 
 # Did you like it?
  - Give it a __star__ and motivate me keep going!
