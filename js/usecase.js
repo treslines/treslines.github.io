@@ -61,11 +61,11 @@ class Usecase {
 		var isFromActor = false;
 		if(this._hasAttr(this.strTypeFrom) && this.strTypeFrom === "Actor"){
 			strFromEnd = tag2;
-			strFromStart = tag1
+			strFromStart = tag1;
 			isFromActor = true;
 		}else{
 			strFromEnd = tag4;
-			strFromStart = tag3
+			strFromStart = tag3;
 			isFromActor = false;
 		}
 
@@ -74,11 +74,11 @@ class Usecase {
 		var isToActor = false;
 		if(this._hasAttr(this.strTypeTo) && this.strTypeTo === "Actor"){
 			strToEnd = tag2;
-			strToStart = tag1
+			strToStart = tag1;
 			isToActor = true;
 		}else{
 			strToEnd = tag4;
-			strToStart = tag3
+			strToStart = tag3;
 			isToActor = false;
 		}
 

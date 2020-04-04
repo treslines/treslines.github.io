@@ -3,7 +3,8 @@
   <link rel="stylesheet" href="css/split.css">
   <script src="js/split.js"></script>
   <script src="js/usecase.js"></script>
-  <script src="js/yumlsyntax.js"></script>
+  <script src="js/clazz.js"></script>
+  <script src="js/activity.js"></script>
 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -510,8 +511,66 @@
             <div class="container">
               <form>
                 <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
-                  <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAddress">Comming soon!</label>
-                  <!-- TODO -->
+
+
+
+                  <form>
+                    <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
+                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct1">Activity details:</label>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="act1" placeholder="Activity name">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <select class="form-control " id="actTyp1" onchange="onChangeAct1()">
+                          <option>action</option>
+                          <option>start</option>
+                          <option>end</option>
+                          <option>object</option>
+                          <option>fork</option>
+                          <option>join</option>
+                          <option>decision</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="act2" placeholder="Decision Id. Ex: d1" >
+                      </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
+                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct2">Activity attributes separeted by comma:</label>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="act3" placeholder="Ex: A, B, C, D">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <select class="form-control " id="actTyp2" onchange="onChangeAct2()">
+                          <option>action</option>
+                          <option>start</option>
+                          <option>end</option>
+                          <option>object</option>
+                          <option>fork</option>
+                          <option>join</option>
+                          <option>decision</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="act4" placeholder="Decision Id. Ex: d1" >
+                      </div>
+                    </div>
+
+
+                    <form class="form-inline">
+                      <button type="button" onclick="onGenerateAct()" class="btn btn-success">Append</button>
+                      <button type="button" onclick="onSwapAct()" class="btn btn-primary" style="margin-left: 10px">Swap</button>
+                      <button type="button" onclick="onClearAct()" class="btn btn-danger" style="margin-left: 10px">Clear</button>
+                    </form>
+                  </form>
+
+
+
                 </div>
               </form>
             </div>

@@ -1,7 +1,7 @@
 function onload()
 {
   // define split pane separators
-	dragElement( document.getElementById("seperator1"), "H" );
+  dragElement( document.getElementById("seperator1"), "H" );
 }
 
 // function is used for dragging and moving
@@ -35,22 +35,22 @@ function dragElement( element, direction, handler )
     const offsetLeft = element.offsetLeft;
     const offsetTop = element.offsetTop;
 
-	
-	const first = document.getElementById("first");
-	const second = document.getElementById("second");
-	let firstWidth = first.offsetWidth;
-	let secondWidth = second.offsetWidth;
+
+    const first = document.getElementById("first");
+    const second = document.getElementById("second");
+    let firstWidth = first.offsetWidth;
+    let secondWidth = second.offsetWidth;
   if (direction === "H" ) // Horizontal
-	{
-		element.style.left = offsetLeft + delta.x + "px";
-		firstWidth += delta.x;
-		secondWidth -= delta.x;
-	}
-    drag.x = currentX;
-    drag.y = currentY;
-	first.style.width = firstWidth + "px";
-	second.style.width = secondWidth + "px";
+  {
+    element.style.left = offsetLeft + delta.x + "px";
+    firstWidth += delta.x;
+    secondWidth -= delta.x;
   }
+  drag.x = currentX;
+  drag.y = currentY;
+  first.style.width = firstWidth + "px";
+  second.style.width = secondWidth + "px";
+}
 }
 
 function onSwap(){
@@ -78,41 +78,51 @@ function onAppend(){
   let clazz = new Clazz();
   document.getElementById("yumlId").value = 'class';
   let toAppend = clazz.setName(document.getElementById("cla").value).
-    setStereotype(document.getElementById("ste").value).
-    setNote(document.getElementById("not").value).
-    setNoteBgColor(document.getElementById("notbg").value).
-    setBgColor(document.getElementById("bg").value).
-    setAttributes(document.getElementById("att").value.split(",")).
-    setMethods(document.getElementById("met").value.split(",")).
-    setAggregates(document.getElementById("agg").value.split(",")).
-    setAssociations(document.getElementById("ass").value.split(",")).
-    setCompositions(document.getElementById("com").value.split(",")).
-    setInheritances(document.getElementById("inh").value.split(",")).
-    getOutputStr();
-    if(document.getElementById("outTxt").value !== "Type something on the left side!"){
-         var newAppended = document.getElementById("outTxt").value + toAppend;
-         document.getElementById("outTxt").value = newAppended;
-         document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
-    }
+  setStereotype(document.getElementById("ste").value).
+  setNote(document.getElementById("not").value).
+  setNoteBgColor(document.getElementById("notbg").value).
+  setBgColor(document.getElementById("bg").value).
+  setAttributes(document.getElementById("att").value.split(",")).
+  setMethods(document.getElementById("met").value.split(",")).
+  setAggregates(document.getElementById("agg").value.split(",")).
+  setAssociations(document.getElementById("ass").value.split(",")).
+  setCompositions(document.getElementById("com").value.split(",")).
+  setInheritances(document.getElementById("inh").value.split(",")).
+  getOutputStr();
+  if(document.getElementById("outTxt").value !== "Type something on the left side!"){
+   var newAppended = document.getElementById("outTxt").value + toAppend;
+   document.getElementById("outTxt").value = newAppended;
+   document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
+ }
 }
 
-function onAppendArea(){ 
-  if(!document.getElementById("outTxt").value.includes("Type something on the left side!")){
-         if(document.getElementById("yumlId").value === 'class'){
-           let clazz = new Clazz();
-           var newAppended = document.getElementById("outTxt").value;
-           document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
-         }else if(document.getElementById("yumlId").value === 'usecase'){
-           let usecase = new Usecase();
-           var newAppended = document.getElementById("outTxt").value;
-           document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
-         }else{
-           // TODO: Activity
-           //let activity = new Activity();
-           //var newAppended = document.getElementById("outTxt").value;
-           //document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
-         }
+function onGenerateUse(){
+  let usecase = new Usecase();
+  document.getElementById("yumlId").value = 'usecase';
+  let toAppend = usecase.setName(document.getElementById("use1").value).
+  setConnection(document.getElementById("use2").value).
+  setAssociations(document.getElementById("use3").value.split(",")).
+  setNote(document.getElementById("usenot").value).
+  setNoteBgColor(document.getElementById("usenotbg").value).
+  setTypeFrom(document.getElementById("typ1").value).
+  setTypeTo(document.getElementById("typ2").value).
+  getOutputStr();
+  if(toAppend === "Type something on the left side!"){
+    document.getElementById("outTxt").value = "Type something on the left side!";
+  }
+  else{
+    if(document.getElementById("outTxt").value.includes("Type something on the left side!")){
+      document.getElementById("outTxt").value = toAppend;
+      document.getElementById("imgId").src = usecase.getOutputImageStr(toAppend);
+    }else if(document.getElementById("outTxt").value.trim() === ""){
+      document.getElementById("outTxt").value = toAppend;
+      document.getElementById("imgId").src = usecase.getOutputImageStr(toAppend);
+    }else{
+      var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
+      document.getElementById("outTxt").value = newAppended;
+      document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
     }
+  }
 }
 
 function onClearUse(){
@@ -126,21 +136,22 @@ function onClearUse(){
 }
 
 function onSwapUse(){
-    var swap = document.getElementById("use1").value;
-    document.getElementById("use1").value = document.getElementById("use3").value;
-    document.getElementById("use3").value = swap;
+  var swap = document.getElementById("use1").value;
+  document.getElementById("use1").value = document.getElementById("use3").value;
+  document.getElementById("use3").value = swap;
 }
 
-function onGenerateUse(){
-  let usecase = new Usecase();
-  document.getElementById("yumlId").value = 'usecase';
-  let toAppend = usecase.setName(document.getElementById("use1").value).
-    setConnection(document.getElementById("use2").value).
-    setAssociations(document.getElementById("use3").value.split(",")).
-    setNote(document.getElementById("usenot").value).
-    setNoteBgColor(document.getElementById("usenotbg").value).
-    setTypeFrom(document.getElementById("typ1").value).
-    setTypeTo(document.getElementById("typ2").value).
+
+function onGenerateAct(){
+  let activity = new Activity();
+  document.getElementById("yumlId").value = 'activity';
+  let toAppend = activity.
+    setName(document.getElementById("act1").value).
+    setTypeFrom(document.getElementById("actTyp1").value).
+    setDescription(document.getElementById("act2").value).
+    setAssociations(document.getElementById("act3").value.split(",")).
+    setTypeTo(document.getElementById("actTyp2").value).
+    setDecisionDescription(document.getElementById("act4").value).
     getOutputStr();
     if(toAppend === "Type something on the left side!"){
       document.getElementById("outTxt").value = "Type something on the left side!";
@@ -148,16 +159,85 @@ function onGenerateUse(){
     else{
         if(document.getElementById("outTxt").value.includes("Type something on the left side!")){
           document.getElementById("outTxt").value = toAppend;
-          document.getElementById("imgId").src = usecase.getOutputImageStr(toAppend);
+          document.getElementById("imgId").src = activity.getOutputImageStr(toAppend);
         }else if(document.getElementById("outTxt").value.trim() === ""){
           document.getElementById("outTxt").value = toAppend;
-          document.getElementById("imgId").src = usecase.getOutputImageStr(toAppend);
+          document.getElementById("imgId").src = activity.getOutputImageStr(toAppend);
         }else{
           var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
           document.getElementById("outTxt").value = newAppended;
-          document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
+          document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
         }
     }
+}
+
+function onClearAct(){
+  document.getElementById("act1").value = "";
+  document.getElementById("act3").value = "";
+  document.getElementById("actTyp1").value = "start";
+  document.getElementById("actTyp2").value = "start";
+  document.getElementById("act2").disabled = true;
+  document.getElementById("act4").disabled = true;
+}
+
+function onSwapAct(){
+  var swap = document.getElementById("act1").value;
+  document.getElementById("act1").value = document.getElementById("act3").value;
+  document.getElementById("act3").value = swap;
+}
+
+function onChangeAct1(){
+  if(document.getElementById("actTyp1").value === 'start' || document.getElementById("actTyp1").value === 'end'){
+    document.getElementById("act2").disabled = true;
+    document.getElementById("act1").disabled = true;
+    return;
+  }else{
+    document.getElementById("act2").disabled = false;
+    document.getElementById("act1").disabled = false;
+  }
+  if(document.getElementById("actTyp1").value === 'decision'){
+    document.getElementById("act2").disabled = false;
+    document.getElementById("act1").disabled = false;
+    return;
+  }else{
+    document.getElementById("act2").disabled = true;
+  }
+}
+
+function onChangeAct2(){
+  if(document.getElementById("actTyp2").value === 'start' || document.getElementById("actTyp2").value === 'end'){
+    document.getElementById("act4").disabled = true;
+    document.getElementById("act3").disabled = true;
+    return;
+  }else{
+    document.getElementById("act4").disabled = false;
+    document.getElementById("act3").disabled = false;
+  }
+  if(document.getElementById("actTyp2").value === 'decision'){
+    document.getElementById("act4").disabled = false;
+    document.getElementById("act3").disabled = false;
+    return;
+  }else{
+    document.getElementById("act4").disabled = true;
+  }
+}
+
+function onAppendArea(){ 
+  if(!document.getElementById("outTxt").value.includes("Type something on the left side!")){
+   if(document.getElementById("yumlId").value === 'class'){
+     let clazz = new Clazz();
+     var newAppended = document.getElementById("outTxt").value;
+     document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
+   }else if(document.getElementById("yumlId").value === 'usecase'){
+     let usecase = new Usecase();
+     var newAppended = document.getElementById("outTxt").value;
+     document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
+   }else{
+     let activity = new Activity();
+     var newAppended = document.getElementById("outTxt").value;
+     document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
+   }
+ }
 }
 
 function onClearArea(){
