@@ -3,10 +3,13 @@ Create UML-Diagrams in natural language! Totally free, 100% online, fast and eas
  - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
  
  ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/cla.PNG "Home")
+ 
  ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/use.PNG "Home")
+ 
+ - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
 
 # Did you like it?
- - Give it a __star__ and motivate me keep going!
+ - Motivate me keep going and give it a ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/star.png "Star")!
 
 # Other Apps you may like:
 - <a href="https://play.google.com/store/apps/details?id=com.softsuit.orchid" target="_blank" style="color: #563D7C;"><b> Orchid Password</b></a> 
