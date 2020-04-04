@@ -544,18 +544,19 @@
                 <div class="form-group">
                   <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group" role="group" aria-label="First group">
-                      <label for="inputAddress"><b>Yuml:</b></label>
+                      <a class="btn btn-default" href="https://yuml.me/diagram/scruffy/class/draw" target="_blank" role="button" style="padding-left: 0px"><b>Yuml.me</b></a>
+                      <label id="yumlId" style="color:#CBBDE2; opacity:0;" for="yumltxt">class|usecase|activity</label>
                     </div>
                     <div class="input-group">
                       <button type="button" onclick="copy()" id="clipboard" class="btn btn-default btn-sm">Copy to clipboard</button>
                     </div>
                   </div>
-                  <textarea class="form-control" id="outTxt" rows="18" style="background-color: #F7F7F9"></textarea>
+                  <textarea class="form-control" id="outTxt" rows="16" style="background-color: #F7F7F9"></textarea>
                 </div>
                 <div class="form-group">
                   <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group" role="group" aria-label="First group">
-                      <a class="btn btn-defalt" href="https://yuml.me/diagram/scruffy/class/draw" target="_blank" role="button">Paste it here: Yuml.me</a>
+                      <button type="button" onclick="onAppendArea()" class="btn btn-success" >Append Modifications</button>
                     </div>
                     <div class="input-group">
                       <button type="button" onclick="onClearArea()" class="btn btn-danger" style="margin-left: 10px">Clear</button>

@@ -76,6 +76,7 @@ function onClear(){
 
 function onAppend(){
   let clazz = new Clazz();
+  document.getElementById("yumlId").value = 'class';
   let toAppend = clazz.setName(document.getElementById("cla").value).
     setStereotype(document.getElementById("ste").value).
     setNote(document.getElementById("not").value).
@@ -92,6 +93,25 @@ function onAppend(){
          var newAppended = document.getElementById("outTxt").value + toAppend;
          document.getElementById("outTxt").value = newAppended;
          document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
+    }
+}
+
+function onAppendArea(){ 
+  if(!document.getElementById("outTxt").value.includes("Type something on the left side!")){
+         if(document.getElementById("yumlId").value === 'class'){
+           let clazz = new Clazz();
+           var newAppended = document.getElementById("outTxt").value;
+           document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
+         }else if(document.getElementById("yumlId").value === 'usecase'){
+           let usecase = new Usecase();
+           var newAppended = document.getElementById("outTxt").value;
+           document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
+         }else{
+           // TODO: Activity
+           //let activity = new Activity();
+           //var newAppended = document.getElementById("outTxt").value;
+           //document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
+         }
     }
 }
 
@@ -113,6 +133,7 @@ function onSwapUse(){
 
 function onGenerateUse(){
   let usecase = new Usecase();
+  document.getElementById("yumlId").value = 'usecase';
   let toAppend = usecase.setName(document.getElementById("use1").value).
     setConnection(document.getElementById("use2").value).
     setAssociations(document.getElementById("use3").value.split(",")).
