@@ -102,7 +102,7 @@ class Clazz {
 			strCla+=tag3;
 			this.arrStrAttributes.forEach(e => {
 				if(e.trim() !== ''){
-					strCla+=(e+tag4);
+					strCla+=(e.trim()+tag4);
 				}
 			});
 		}
@@ -113,7 +113,7 @@ class Clazz {
 			strCla+=tag3;
 			this.arrStrMethods.forEach(e => {
 				if(e.trim() !== ''){
-					strCla+=(e+tag4);
+					strCla+=(e.trim()+tag4);
 				}
 			});
 		}
@@ -137,7 +137,7 @@ class Clazz {
 		if(hasAssociations){ 
 			this.arrStrAssociations.forEach(e => {
 				if(e.trim() !== ''){
-					strAss+=('[{0}]->[{1}]'.format(this.strName,e) + tag5);
+					strAss+=('[{0}]->[{1}]'.format(this.strName,e.trim()) + tag5);
 				}
 			});
 		}
@@ -148,7 +148,7 @@ class Clazz {
 		if(hasAggretations){ 
 			this.arrStrAggregates.forEach(e => {
 				if(e.trim() !== ''){
-					strAgg+=('[{0}]<>->[{1}]'.format(this.strName,e) + tag5);
+					strAgg+=('[{0}]<>->[{1}]'.format(this.strName,e.trim()) + tag5);
 				}
 			});
 		}
@@ -159,7 +159,7 @@ class Clazz {
 		if(hasCompositions){ 
 			this.arrStrCompositions.forEach(e => {
 				if(e.trim() !== ''){
-					strCom+=('[{0}]++->[{1}]'.format(this.strName,e) + tag5);
+					strCom+=('[{0}]++->[{1}]'.format(this.strName,e.trim()) + tag5);
 				}
 			});
 		}
@@ -170,7 +170,7 @@ class Clazz {
 		if(hasInheritances){ 
 			this.arrStrInheritances.forEach(e => {
 				if(e.trim() !== ''){
-					strInh+=('[{1}]^[{0}]'.format(this.strName,e) + tag5);
+					strInh+=('[{1}]^[{0}]'.format(this.strName,e.trim()) + tag5);
 				}
 			});
 		}

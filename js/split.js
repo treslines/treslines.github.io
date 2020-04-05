@@ -1,5 +1,7 @@
+var activity;
 function onload()
 {
+  this.activity = new Activity();
   // define split pane separators
   dragElement( document.getElementById("seperator1"), "H" );
 }
@@ -141,17 +143,15 @@ function onSwapUse(){
   document.getElementById("use3").value = swap;
 }
 
-
 function onGenerateAct(){
-  let activity = new Activity();
   document.getElementById("yumlId").value = 'activity';
-  let toAppend = activity.
-    setName(document.getElementById("act1").value).
+  let toAppend = this.activity.
+    setArrNames(document.getElementById("act1").value.split(",")).
     setTypeFrom(document.getElementById("actTyp1").value).
-    setDescription(document.getElementById("act2").value).
+    //setDecisionIdFrom(document.getElementById("act2").value).
     setAssociations(document.getElementById("act3").value.split(",")).
     setTypeTo(document.getElementById("actTyp2").value).
-    setDecisionDescription(document.getElementById("act4").value).
+    //setDecisionIdTo(document.getElementById("act4").value).
     getOutputStr();
     if(toAppend === "Type something on the left side!"){
       document.getElementById("outTxt").value = "Type something on the left side!";
@@ -159,66 +159,95 @@ function onGenerateAct(){
     else{
         if(document.getElementById("outTxt").value.includes("Type something on the left side!")){
           document.getElementById("outTxt").value = toAppend;
-          document.getElementById("imgId").src = activity.getOutputImageStr(toAppend);
+          document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);
         }else if(document.getElementById("outTxt").value.trim() === ""){
           document.getElementById("outTxt").value = toAppend;
-          document.getElementById("imgId").src = activity.getOutputImageStr(toAppend);
+          document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);
         }else{
           var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
           document.getElementById("outTxt").value = newAppended;
-          document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
+          document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
         }
+    }
+}
+
+function onGenerateActDec(){
+  document.getElementById("yumlId").value = 'activity';
+  let toAppend = this.activity.
+    setDecFrom(document.getElementById("actdec1").value).
+    setDecId(document.getElementById("actdec2").value).
+    setDecTypeFrom(document.getElementById("actDecTyp1").value).
+    setDecTypeTo(document.getElementById("actDecTyp2").value).
+    setDecWhat(document.getElementById("actdec3").value).
+    setDecTo(document.getElementById("actdec4").value).
+    getOutputStrDec();
+    if(toAppend.trim() !== ""){
+      var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
+      document.getElementById("outTxt").value = newAppended;
+      document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
     }
 }
 
 function onClearAct(){
   document.getElementById("act1").value = "";
   document.getElementById("act3").value = "";
-  document.getElementById("actTyp1").value = "start";
-  document.getElementById("actTyp2").value = "start";
-  document.getElementById("act2").disabled = true;
-  document.getElementById("act4").disabled = true;
+  document.getElementById("actTyp1").value = "action";
+  document.getElementById("actTyp2").value = "action";
+}
+
+function onClearActDec(){
+  document.getElementById("actdec1").value = "";
+  document.getElementById("actdec2").value = "";
+  document.getElementById("actdec3").value = "";
+  document.getElementById("actdec4").value = "";
+  document.getElementById("actDecTyp1").value = "action";
+  document.getElementById("actDecTyp2").value = "action";
 }
 
 function onSwapAct(){
   var swap = document.getElementById("act1").value;
   document.getElementById("act1").value = document.getElementById("act3").value;
   document.getElementById("act3").value = swap;
+
+  swap = document.getElementById("actTyp1").value;
+  document.getElementById("actTyp1").value = document.getElementById("actTyp2").value;
+  document.getElementById("actTyp2").value = swap;
+
 }
 
 function onChangeAct1(){
   if(document.getElementById("actTyp1").value === 'start' || document.getElementById("actTyp1").value === 'end'){
-    document.getElementById("act2").disabled = true;
     document.getElementById("act1").disabled = true;
     return;
   }else{
-    document.getElementById("act2").disabled = false;
     document.getElementById("act1").disabled = false;
   }
-  if(document.getElementById("actTyp1").value === 'decision'){
-    document.getElementById("act2").disabled = false;
-    document.getElementById("act1").disabled = false;
+}
+
+function onChangeDecAct1(){
+  if(document.getElementById("actDecTyp1").value === 'start' || document.getElementById("actDecTyp1").value === 'end'){
+    document.getElementById("actdec1").disabled = true;
     return;
   }else{
-    document.getElementById("act2").disabled = true;
+    document.getElementById("actdec1").disabled = false;
+  }
+}
+
+function onChangeDecAct2(){
+  if(document.getElementById("actDecTyp2").value === 'start' || document.getElementById("actDecTyp2").value === 'end'){
+    document.getElementById("actdec4").disabled = true;
+    return;
+  }else{
+    document.getElementById("actdec4").disabled = false;
   }
 }
 
 function onChangeAct2(){
   if(document.getElementById("actTyp2").value === 'start' || document.getElementById("actTyp2").value === 'end'){
-    document.getElementById("act4").disabled = true;
     document.getElementById("act3").disabled = true;
     return;
   }else{
-    document.getElementById("act4").disabled = false;
     document.getElementById("act3").disabled = false;
-  }
-  if(document.getElementById("actTyp2").value === 'decision'){
-    document.getElementById("act4").disabled = false;
-    document.getElementById("act3").disabled = false;
-    return;
-  }else{
-    document.getElementById("act4").disabled = true;
   }
 }
 

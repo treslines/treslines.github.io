@@ -1,10 +1,10 @@
 <html>
 <head>
   <link rel="stylesheet" href="css/split.css">
+  <script src="js/activity.js"></script>
   <script src="js/split.js"></script>
   <script src="js/usecase.js"></script>
   <script src="js/clazz.js"></script>
-  <script src="js/activity.js"></script>
 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -486,7 +486,7 @@
 
                 <div class="form-row">
                   <div class="form-group col-md-8">
-                    <label style="color:#CBBDE2; margin-bottom: 4px" for="inputUse3">Use Case attributes separeted by comma:</label>
+                    <label style="color:#CBBDE2; margin-bottom: 4px" for="inputUse3">Destinations separeted by comma:</label>
                     <input type="text" class="form-control" id="use3" placeholder="Ex: A, B, C, D">
                   </div>
                   <div class="form-group col-md-4">
@@ -516,13 +516,13 @@
 
                   <form>
                     <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
-                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct1">Activity details:</label>
+                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct1">Activities separeted by comma:</label>
                     </div>
                     <div class="form-row">
-                      <div class="form-group col-md-4">
-                        <input type="text" class="form-control" id="act1" placeholder="Activity name">
+                      <div class="form-group col-md-9">
+                        <input type="text" class="form-control" id="act1" placeholder="Ex: A, B, C, D" >
                       </div>
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <select class="form-control " id="actTyp1" onchange="onChangeAct1()">
                           <option>action</option>
                           <option>start</option>
@@ -530,22 +530,18 @@
                           <option>object</option>
                           <option>fork</option>
                           <option>join</option>
-                          <option>decision</option>
                         </select>
-                      </div>
-                      <div class="form-group col-md-4">
-                        <input type="text" class="form-control" id="act2" placeholder="Decision Id. Ex: d1" >
                       </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 2px; margin-top: 18px;" >
-                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct2">Activity attributes separeted by comma:</label>
+                    <div class="form-group" style="margin-bottom: 2px; margin-top: -5px;" >
+                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct2">Destinations separeted by comma:</label>
                     </div>
                     <div class="form-row">
-                      <div class="form-group col-md-4">
-                        <input type="text" class="form-control" id="act3" placeholder="Ex: A, B, C, D">
+                      <div class="form-group col-md-9">
+                        <input type="text" class="form-control" id="act3" placeholder="Ex: A, B, C, D" >
                       </div>
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <select class="form-control " id="actTyp2" onchange="onChangeAct2()">
                           <option>action</option>
                           <option>start</option>
@@ -553,20 +549,70 @@
                           <option>object</option>
                           <option>fork</option>
                           <option>join</option>
-                          <option>decision</option>
                         </select>
                       </div>
-                      <div class="form-group col-md-4">
-                        <input type="text" class="form-control" id="act4" placeholder="Decision Id. Ex: d1" >
-                      </div>
                     </div>
-
 
                     <form class="form-inline">
                       <button type="button" onclick="onGenerateAct()" class="btn btn-success">Append</button>
                       <button type="button" onclick="onSwapAct()" class="btn btn-primary" style="margin-left: 10px">Swap</button>
                       <button type="button" onclick="onClearAct()" class="btn btn-danger" style="margin-left: 10px">Clear</button>
                     </form>
+
+                    <div class="form-group" style="margin-bottom: 2px; margin-top: 38px;" >
+                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct3">Decisions:</label>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <select class="form-control " id="actDecTyp1" onchange="onChangeDecAct1()">
+                          <option>action</option>
+                          <option>start</option>
+                          <option>end</option>
+                          <option>object</option>
+                          <option>fork</option>
+                          <option>join</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="actdec1" placeholder="From" >
+                      </div>
+                      
+                    </div>
+
+                    <div class="form-row">
+
+                      <div class="form-group col-md-2">
+                        <input type="text" class="form-control" id="actdec2" placeholder="ID" maxlength="3">
+                      </div>
+                      <div class="form-group col-md-10">
+                        <input type="text" class="form-control" id="actdec3" placeholder="When?" >
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+
+                      <div class="form-group col-md-6">
+                        <select class="form-control " id="actDecTyp2" onchange="onChangeDecAct2()" >
+                          <option>action</option>
+                          <option>start</option>
+                          <option>end</option>
+                          <option>object</option>
+                          <option>fork</option>
+                          <option>join</option>
+                        </select>
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="actdec4" placeholder="To">
+                      </div>
+                    </div>
+
+                    <form class="form-inline">
+                      <button type="button" onclick="onGenerateActDec()" class="btn btn-success">Append</button>
+                      <button type="button" onclick="onClearActDec()" class="btn btn-danger" style="margin-left: 10px">Clear</button>
+                    </form>
+
+
                   </form>
 
 
@@ -599,7 +645,7 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade " id="yuml" role="tabpanel" aria-labelledby="yuml-tab">
             <div class="container">
-              <form style="margin-top: 50px;">
+              <form style="margin-top: 10px;">
                 <div class="form-group">
                   <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group" role="group" aria-label="First group">
@@ -626,7 +672,7 @@
             </div>
           </div>
           <div class="tab-pane fade show active" id="diagram" role="tabpanel" aria-labelledby="diagram-tab">
-            <div class="container">
+            <div class="container" style="margin-top:20px;">
               <div class="text-center">
                 <!-- PLACEHOLDER IMAGE -->
                 <img class="img-fluid" id="imgId" src="" >
