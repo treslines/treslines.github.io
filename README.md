@@ -8,9 +8,11 @@ Create UML-Diagrams in natural language! Totally free, 100% online, fast and eas
  - Good to spot out implementation details from existing projects
  - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
  
- ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/cla.PNG "Home")
+ ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/cla.PNG "Class")
  
- ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/use.PNG "Home")
+ ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/use.PNG "Usecase")
+ 
+ ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/act.PNG "Activity")
  
  - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
 
@@ -22,7 +24,7 @@ Create UML-Diagrams in natural language! Totally free, 100% online, fast and eas
 - <a href="http://codegramm.herokuapp.com/index.html" target="_blank" style="color: #563D7C;"><b> Codegramm</b></a>
 
 # Contributions:
-  - Help me implement Activity diagrams too! :)
+  - Help me implement new features like: Save and Import buttons.
   - Fork the project, implement your contribution, make a pull request
   
 ## License:
