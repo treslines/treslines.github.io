@@ -146,8 +146,8 @@ function onSwapUse(){
 function onGenerateAct(){
   document.getElementById("yumlId").value = 'activity';
   let toAppend = this.activity.
-    setArrNames(document.getElementById("act1").value.split(",")).
-    setTypeFrom(document.getElementById("actTyp1").value).
+  setArrNames(document.getElementById("act1").value.split(",")).
+  setTypeFrom(document.getElementById("actTyp1").value).
     //setDecisionIdFrom(document.getElementById("act2").value).
     setAssociations(document.getElementById("act3").value.split(",")).
     setTypeTo(document.getElementById("actTyp2").value).
@@ -157,23 +157,23 @@ function onGenerateAct(){
       document.getElementById("outTxt").value = "Type something on the left side!";
     }
     else{
-        if(document.getElementById("outTxt").value.includes("Type something on the left side!")){
-          document.getElementById("outTxt").value = toAppend;
-          document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);
-        }else if(document.getElementById("outTxt").value.trim() === ""){
-          document.getElementById("outTxt").value = toAppend;
-          document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);
-        }else{
-          var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
-          document.getElementById("outTxt").value = newAppended;
-          document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
-        }
+      if(document.getElementById("outTxt").value.includes("Type something on the left side!")){
+        document.getElementById("outTxt").value = toAppend;
+        document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);
+      }else if(document.getElementById("outTxt").value.trim() === ""){
+        document.getElementById("outTxt").value = toAppend;
+        document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);
+      }else{
+        var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
+        document.getElementById("outTxt").value = newAppended;
+        document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
+      }
     }
-}
+  }
 
-function onGenerateActDec(){
-  document.getElementById("yumlId").value = 'activity';
-  let toAppend = this.activity.
+  function onGenerateActDec(){
+    document.getElementById("yumlId").value = 'activity';
+    let toAppend = this.activity.
     setDecFrom(document.getElementById("actdec1").value).
     setDecId(document.getElementById("actdec2").value).
     setDecTypeFrom(document.getElementById("actDecTyp1").value).
@@ -186,90 +186,90 @@ function onGenerateActDec(){
       document.getElementById("outTxt").value = newAppended;
       document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
     }
-}
-
-function onClearAct(){
-  document.getElementById("act1").value = "";
-  document.getElementById("act3").value = "";
-  document.getElementById("actTyp1").value = "action";
-  document.getElementById("actTyp2").value = "action";
-}
-
-function onClearActDec(){
-  document.getElementById("actdec1").value = "";
-  document.getElementById("actdec2").value = "";
-  document.getElementById("actdec3").value = "";
-  document.getElementById("actdec4").value = "";
-  document.getElementById("actDecTyp1").value = "action";
-  document.getElementById("actDecTyp2").value = "action";
-}
-
-function onSwapAct(){
-  var swap = document.getElementById("act1").value;
-  document.getElementById("act1").value = document.getElementById("act3").value;
-  document.getElementById("act3").value = swap;
-
-  swap = document.getElementById("actTyp1").value;
-  document.getElementById("actTyp1").value = document.getElementById("actTyp2").value;
-  document.getElementById("actTyp2").value = swap;
-
-}
-
-function onChangeAct1(){
-  if(document.getElementById("actTyp1").value === 'start' || document.getElementById("actTyp1").value === 'end'){
-    document.getElementById("act1").disabled = true;
-    return;
-  }else{
-    document.getElementById("act1").disabled = false;
   }
-}
 
-function onChangeDecAct1(){
-  if(document.getElementById("actDecTyp1").value === 'start' || document.getElementById("actDecTyp1").value === 'end'){
-    document.getElementById("actdec1").disabled = true;
-    return;
-  }else{
-    document.getElementById("actdec1").disabled = false;
+  function onClearAct(){
+    document.getElementById("act1").value = "";
+    document.getElementById("act3").value = "";
+    document.getElementById("actTyp1").value = "action";
+    document.getElementById("actTyp2").value = "action";
   }
-}
 
-function onChangeDecAct2(){
-  if(document.getElementById("actDecTyp2").value === 'start' || document.getElementById("actDecTyp2").value === 'end'){
-    document.getElementById("actdec4").disabled = true;
-    return;
-  }else{
-    document.getElementById("actdec4").disabled = false;
+  function onClearActDec(){
+    document.getElementById("actdec1").value = "";
+    document.getElementById("actdec2").value = "";
+    document.getElementById("actdec3").value = "";
+    document.getElementById("actdec4").value = "";
+    document.getElementById("actDecTyp1").value = "action";
+    document.getElementById("actDecTyp2").value = "action";
   }
-}
 
-function onChangeAct2(){
-  if(document.getElementById("actTyp2").value === 'start' || document.getElementById("actTyp2").value === 'end'){
-    document.getElementById("act3").disabled = true;
-    return;
-  }else{
-    document.getElementById("act3").disabled = false;
+  function onSwapAct(){
+    var swap = document.getElementById("act1").value;
+    document.getElementById("act1").value = document.getElementById("act3").value;
+    document.getElementById("act3").value = swap;
+
+    swap = document.getElementById("actTyp1").value;
+    document.getElementById("actTyp1").value = document.getElementById("actTyp2").value;
+    document.getElementById("actTyp2").value = swap;
+
   }
-}
 
-function onAppendArea(){ 
-  if(!document.getElementById("outTxt").value.includes("Type something on the left side!")){
-   if(document.getElementById("yumlId").value === 'class'){
-     let clazz = new Clazz();
-     var newAppended = document.getElementById("outTxt").value;
-     document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
-   }else if(document.getElementById("yumlId").value === 'usecase'){
-     let usecase = new Usecase();
-     var newAppended = document.getElementById("outTxt").value;
-     document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
-   }else{
-     let activity = new Activity();
-     var newAppended = document.getElementById("outTxt").value;
-     document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
+  function onChangeAct1(){
+    if(document.getElementById("actTyp1").value === 'start' || document.getElementById("actTyp1").value === 'end'){
+      document.getElementById("act1").disabled = true;
+      return;
+    }else{
+      document.getElementById("act1").disabled = false;
+    }
+  }
+
+  function onChangeDecAct1(){
+    if(document.getElementById("actDecTyp1").value === 'start' || document.getElementById("actDecTyp1").value === 'end'){
+      document.getElementById("actdec1").disabled = true;
+      return;
+    }else{
+      document.getElementById("actdec1").disabled = false;
+    }
+  }
+
+  function onChangeDecAct2(){
+    if(document.getElementById("actDecTyp2").value === 'start' || document.getElementById("actDecTyp2").value === 'end'){
+      document.getElementById("actdec4").disabled = true;
+      return;
+    }else{
+      document.getElementById("actdec4").disabled = false;
+    }
+  }
+
+  function onChangeAct2(){
+    if(document.getElementById("actTyp2").value === 'start' || document.getElementById("actTyp2").value === 'end'){
+      document.getElementById("act3").disabled = true;
+      return;
+    }else{
+      document.getElementById("act3").disabled = false;
+    }
+  }
+
+  function onAppendArea(){ 
+    if(!document.getElementById("outTxt").value.includes("Type something on the left side!")){
+     if(document.getElementById("yumlId").value === 'class'){
+       let clazz = new Clazz();
+       var newAppended = document.getElementById("outTxt").value;
+       document.getElementById("imgId").src = clazz.getOutputImageStr(newAppended);
+     }else if(document.getElementById("yumlId").value === 'usecase'){
+       let usecase = new Usecase();
+       var newAppended = document.getElementById("outTxt").value;
+       document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
+     }else{
+       let activity = new Activity();
+       var newAppended = document.getElementById("outTxt").value;
+       document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
+     }
    }
  }
-}
 
-function onClearArea(){
+ function onClearArea(){
   document.getElementById("outTxt").value = "";
 }
 

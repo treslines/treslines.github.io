@@ -23,30 +23,30 @@ class Activity {
 		this.strDecTypeFrom =  strDecTypeFrom;
 		return this;
 	}
-    setDecTypeTo(strDecTypeTo){
+	setDecTypeTo(strDecTypeTo){
 		this.strDecTypeTo =  strDecTypeTo;
 		return this;
-    }
+	}
 
 	setDecFrom(strDecFrom){
 		this.strDecFrom =  strDecFrom;
 		return this;
 	}
 
-    setDecTo(strDecTo){
-    	this.strDecTo =  strDecTo;
+	setDecTo(strDecTo){
+		this.strDecTo =  strDecTo;
 		return this;
-    }
+	}
 
-    setDecId(strDecId){
-    	this.strDecId =  strDecId;
+	setDecId(strDecId){
+		this.strDecId =  strDecId;
 		return this;
-    }
+	}
 
-    setDecWhat(strDecWhat){
-    	this.strDecWhat =  strDecWhat;
+	setDecWhat(strDecWhat){
+		this.strDecWhat =  strDecWhat;
 		return this;
-    }
+	}
 
 	getDecisionCountFrom(){
 		var id = 'dF' + this.intCountDecisionIdFrom;
@@ -125,8 +125,8 @@ class Activity {
 				start.push(op1.format(strFromStart, this.strTypeFrom, strFromEnd));
 			}else{
 				this.arrNames.forEach(e => {
-				if(e.trim() !== ''){
-					start.push(op1.format(strFromStart, e.trim(), strFromEnd));
+					if(e.trim() !== ''){
+						start.push(op1.format(strFromStart, e.trim(), strFromEnd));
 					}
 				});
 			}
@@ -247,8 +247,10 @@ class Activity {
 			end1 = tag5;
 		}
 
-		return (start1+'{0}'+start2+'-><{1}>[{2}]->'+end1+'{3}'+end2).format(this.strDecFrom,this.strDecId,this.strDecWhat,this.strDecTo);
-    }
+		var output = (start1+'{0}'+start2+'-><{1}>[{2}]->'+end1+'{3}'+end2).format(this.strDecFrom,this.strDecId,this.strDecWhat,this.strDecTo);
+		this._clear();
+		return output;
+	}
 
 	getOutputImageStr(input){
 		var img = "http://yuml.me/diagram/plain/activity/{0}"; 
@@ -288,19 +290,25 @@ class Activity {
 		this.strDecisionIdTo = '';
 		this.strDecisionIdFrom = '';
 		this.strDecisionIdTo = '';
+		this.strDecFrom = '';
+		this.strDecTo = '';
+		this.strDecId = '';
+		this.strDecWhat = '';
+		this.strDecTypeTo = '';
+		this.strDecTypeFrom = '';
 	}
 
 	_prototypeStringFormatFunction(){
-	  if (!String.prototype.format) {
-	    String.prototype.format = function() {
-	      var args = arguments;
-	      return this.replace(/{(\d+)}/g, function(match, number) { 
-	        return typeof args[number] != 'undefined'
-	          ? args[number]
-	          : match
-	        ;
-	      });
-	    };
-	  }
+		if (!String.prototype.format) {
+			String.prototype.format = function() {
+				var args = arguments;
+				return this.replace(/{(\d+)}/g, function(match, number) { 
+					return typeof args[number] != 'undefined'
+					? args[number]
+					: match
+					;
+				});
+			};
+		}
 	}
 }
