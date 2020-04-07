@@ -24,7 +24,7 @@ Create UML-Diagrams in natural language! Totally free, 100% online, fast and eas
 - <a href="http://codegramm.herokuapp.com/index.html" target="_blank" style="color: #563D7C;"><b> Codegramm</b></a>
 
 # Contributions:
-  - Help me implement new features like: Save and Import buttons.
+  - Are you missing any function or do you habe a suggestion? Help me!
   - Fork the project, implement your contribution, make a pull request
   
 ## License:
