@@ -659,15 +659,25 @@
                   <textarea class="form-control" id="outTxt" rows="16" style="background-color: #F7F7F9"></textarea>
                 </div>
                 <div class="form-group">
-                  <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-toolbar justify-content" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group" role="group" aria-label="First group">
-                      <button type="button" onclick="onAppendArea()" class="btn btn-success" >Append Modifications</button>
+                      <button type="button" onclick="onAppendArea()" class="btn btn-success" >Apply Modifications</button>
                     </div>
+
+                    <div class="input-group">
+                      <button type="button" onclick="savePrompt()" class="btn btn-primary" style="margin-left: 10px">Save</button>
+                    </div>
+
+                    <div class="input-group">
+                      <button type="button" onclick="importChooser()" class="btn btn-light" style="margin-left: 10px">Import</button>
+                    </div>
+
                     <div class="input-group">
                       <button type="button" onclick="onClearArea()" class="btn btn-danger" style="margin-left: 10px">Clear</button>
                     </div>
                   </div>
                 </div>
+
               </form>
             </div>
           </div>

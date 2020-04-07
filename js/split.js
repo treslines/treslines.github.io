@@ -261,10 +261,12 @@ function onGenerateAct(){
        let usecase = new Usecase();
        var newAppended = document.getElementById("outTxt").value;
        document.getElementById("imgId").src = usecase.getOutputImageStr(newAppended);
-     }else{
+     }else if(document.getElementById("yumlId").value === 'activity'){
        let activity = new Activity();
        var newAppended = document.getElementById("outTxt").value;
        document.getElementById("imgId").src = activity.getOutputImageStr(newAppended);
+     }else{
+
      }
    }
  }
@@ -278,4 +280,73 @@ function copy() {
   textarea.select();
   document.execCommand("copy");
 }
+
+function download(filename){
+  var text = document.getElementById("outTxt").value;
+  if(text.trim() !== ''){
+    text = text.replace(/\n/g, "\r\n"); // To retain the Line breaks.
+    var blob = new Blob([text], { type: "text/plain"});
+    var anchor = document.createElement("a");
+    anchor.download = (filename + '.txt');
+    anchor.href = window.URL.createObjectURL(blob);
+    anchor.target ="_blank";
+    anchor.style.display = "none"; // just to be safe!
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  }
+}
+
+function savePrompt() {
+    var txt;
+    var filename = prompt("Please enter file name:", "myDiagram");
+    if (filename == null || filename.trim() == "") {
+    // canceled, NOPE!
+    } else {
+      this.download(filename.trim());
+    }
+}
+
+function importChooser(){
+  var input = document.createElement('input');
+  input.type = 'file';
+
+  input.onchange = e => { 
+
+     // getting a hold of the file reference
+     var file = e.target.files[0]; 
+
+     // setting up the reader
+     var reader = new FileReader();
+     reader.readAsText(file,'UTF-8');
+
+     // here we tell the reader what to do when it's done reading...
+     reader.onload = readerEvent => {
+        var content = readerEvent.target.result; // this is the content!
+        if(content !== null && content.trim() !== ''){
+          var type = prompt("Which type of diagram is this? (Choose only one!)", "class, usecase or activity");
+          if(type === 'class'){
+            document.getElementById("yumlId").value = 'class';
+            document.getElementById("outTxt").innerHTML = content;
+            this.onAppendArea();
+          }else if(type === 'usecase'){
+            document.getElementById("yumlId").value = 'usecase';
+            document.getElementById("outTxt").innerHTML = content;
+            this.onAppendArea();
+          }else if(type === 'activity'){
+            document.getElementById("yumlId").value = 'activity';
+            document.getElementById("outTxt").innerHTML = content;
+            this.onAppendArea();
+          }else{
+            document.getElementById("yumlId").value = 'class';
+          }
+        }
+     }
+
+  }
+
+  input.click();
+}
+
+
 

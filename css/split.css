@@ -16,7 +16,7 @@
 
 #first {
 	background-color: #563D7C;
-	width: 50%;
+	width: 35%;
 	height: 100%;
 	min-width: 10px;
 }
@@ -24,7 +24,7 @@
 #second {
 	background-color: #CBBDE2;
 	/*  background-color: #FFFFFF; */
-	width: 50%;
+	width: 65%;
 	height: 100%;
 	min-width: 10px;
 }
