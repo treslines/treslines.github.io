@@ -560,7 +560,7 @@
                     </form>
 
                     <div class="form-group" style="margin-bottom: 2px; margin-top: 38px;" >
-                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct3">Decisions:</label>
+                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct3">Condition:</label>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
@@ -579,6 +579,9 @@
                       
                     </div>
 
+                    <div class="form-group" style="margin-bottom: 2px; margin-top: 0px;" >
+                      <label style="color:#CBBDE2;  margin-bottom: 2px" for="inputAct4">Decision:</label>
+                    </div>
                     <div class="form-row">
 
                       <div class="form-group col-md-2">
@@ -608,7 +611,9 @@
                     </div>
 
                     <form class="form-inline">
-                      <button type="button" onclick="onGenerateActDec()" class="btn btn-success">Append</button>
+                      <button type="button" onclick="onGenerateActDec()" class="btn btn-success">Append Condition + Decision</button>
+                      <button type="button" onclick="onAppendNextActDec()" class="btn btn-light" style="margin-left: 10px">Append Decision</button>
+                      <button type="button" onclick="onSwapActDec()" class="btn btn-primary" style="margin-left: 10px">Swap</button>
                       <button type="button" onclick="onClearActDec()" class="btn btn-danger" style="margin-left: 10px">Clear</button>
                     </form>
 

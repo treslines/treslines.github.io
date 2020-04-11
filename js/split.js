@@ -182,9 +182,36 @@ function onGenerateAct(){
     setDecTo(document.getElementById("actdec4").value).
     getOutputStrDec();
     if(toAppend.trim() !== ""){
-      var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
-      document.getElementById("outTxt").value = newAppended;
-      document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
+      if(document.getElementById("outTxt").value.trim() !== ""){
+        var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
+        document.getElementById("outTxt").value = newAppended;
+        document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
+      }else{
+        document.getElementById("outTxt").value = toAppend;
+        document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);        
+      }
+    }
+  }
+
+  function onAppendNextActDec(){
+    document.getElementById("yumlId").value = 'activity';
+    let toAppend = this.activity.
+    setDecFrom(document.getElementById("actdec1").value).
+    setDecId(document.getElementById("actdec2").value).
+    setDecTypeFrom(document.getElementById("actDecTyp1").value).
+    setDecTypeTo(document.getElementById("actDecTyp2").value).
+    setDecWhat(document.getElementById("actdec3").value).
+    setDecTo(document.getElementById("actdec4").value).
+    getOutputStrOnlyDec();
+    if(toAppend.trim() !== ""){
+      if(document.getElementById("outTxt").value.trim() !== ""){
+        var newAppended = document.getElementById("outTxt").value + "\n"+ toAppend;
+        document.getElementById("outTxt").value = newAppended;
+        document.getElementById("imgId").src = this.activity.getOutputImageStr(newAppended);
+      }else{
+        document.getElementById("outTxt").value = toAppend;
+        document.getElementById("imgId").src = this.activity.getOutputImageStr(toAppend);
+      }
     }
   }
 
@@ -213,6 +240,16 @@ function onGenerateAct(){
     document.getElementById("actTyp1").value = document.getElementById("actTyp2").value;
     document.getElementById("actTyp2").value = swap;
 
+  }
+
+  function onSwapActDec(){
+    var swap = document.getElementById("actdec1").value;
+    document.getElementById("actdec1").value = document.getElementById("actdec4").value;
+    document.getElementById("actdec4").value = swap;
+
+    swap = document.getElementById("actDecTyp1").value;
+    document.getElementById("actDecTyp1").value = document.getElementById("actDecTyp2").value;
+    document.getElementById("actDecTyp2").value = swap;
   }
 
   function onChangeAct1(){

@@ -252,6 +252,42 @@ class Activity {
 		return output;
 	}
 
+
+	getOutputStrOnlyDec(){
+
+		if( this.strDecTypeTo.trim() === "start" || this.strDecTypeTo.trim() === "end" ) {
+			this.strDecTo = this.strDecTypeTo;
+		}
+
+		if(this.strDecTo === "" || this.strDecId === "" || this.strDecWhat === "") return "";
+
+		var tag1 = "[";
+		var tag2 = "]";
+		var tag3 = "(";
+		var tag4 = ")";
+		var tag5 = "|";
+		var tag10 = "\n";
+
+		var end1 = '';
+		var end2 = '';
+		if( (this.strDecTypeTo === "start" || this.strDecTypeTo === "end" || this.strDecTypeTo === "action") ){
+			end2 = tag4;
+			end1 = tag3;
+		}
+		else if( this.strDecTypeTo === "object"){
+			end2 = tag2;
+			end1 = tag1;
+		}
+		else if( (this.strDecTypeTo === "fork" || this.strDecTypeTo === "join") ){
+			end2 = tag5;
+			end1 = tag5;
+		}
+
+		var output = ('<{0}>[{1}]->'+end1+'{2}'+end2).format(this.strDecId,this.strDecWhat,this.strDecTo);
+		this._clear();
+		return output;
+	}
+
 	getOutputImageStr(input){
 		var img = "http://yuml.me/diagram/plain/activity/{0}"; 
 		return img.format(this._replaceAllLineBreaks(input, ', '));
