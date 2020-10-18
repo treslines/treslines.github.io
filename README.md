@@ -37,5 +37,5 @@ Create UML-Diagrams in natural language! Totally free, 100% online, fast and eas
 <b>Ricardo Ferreira</b>
 Software Engineer
 Instagram: ricardo7307
-Twitter: r_i_c_a_r_d_o_f
+Twitter: ricardo_7307
 </pre>
