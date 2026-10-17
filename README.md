@@ -1,41 +1,41 @@
-# Natural UML 
-Create UML-Diagrams in natural language! Totally free, 100% online, fast and easy!
- - No Project needed, just fast and clean on the fly.
- - Ideal to learn new projects while starting in new companies
- - Perfect for brain storming and visualize potentially unthought paths
- - Super suitable for wikis, architecture documentations or presentations.
- - Very good for sharing or passing on knowledge between developers
- - Good to spot out implementation details from existing projects
- - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
- 
- ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/cla.PNG "Class")
- 
- ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/use.PNG "Usecase")
- 
- ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/act.PNG "Activity")
- 
- - Give it a try: <a href="https://treslines.github.io/" target="_blank" style="color: #563D7C;"><b> Natural UML</b></a> 
+# ScrumPulse
 
-# Did you like it?
- - Motivate me keep going and give it a ![alt text](https://github.com/treslines/treslines.github.io/blob/master/assets/star.png "Star")!
+Scrum, done right — from someone with more than two decades of Scrum experience.
 
-# Other Apps you may like:
-- <a href="https://play.google.com/store/apps/details?id=com.softsuit.orchid" target="_blank" style="color: #563D7C;"><b> Orchid Password</b></a> 
-- <a href="http://codegramm.herokuapp.com/index.html" target="_blank" style="color: #563D7C;"><b> Codegramm</b></a>
+I have seen Scrum work in practice, but I have also seen it fail far too often simply because it was done the wrong way. Simplicity, paired with the right process structure, is key. That is what this tool is all about.
 
-# Contributions:
-  - Are you missing any function or do you have a suggestion? Help me!
-  - Fork the project, implement your contribution, make a pull request
-  
-## License:
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
-- **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 © Ricardo Ferreira
+- Unsure how Scrum works, who decides what, or who is responsible for what? Scrum Search has you covered. Enter your question and get a clear answer.
+- Need to make sure everyone covers the right topics during the Daily Scrum? The Daily Scrum tab provides team members, timers, and guiding questions. It helps your meetings stay within the timebox.
+- Need to track your team's pace? Open Burndown to see how the team is performing and where it might need help.
+- Capacity and availability planning is where many teams struggle. ScrumPulse calculates both automatically and summarizes them clearly in one place.
+- Sprint Planning tracks your capacity while keeping the process simple, intuitive, and quick.
+- Unsure how to conduct a Sprint Review, who to involve, or what to cover? Use the timer and cheat sheet at your fingertips.
+- Retrospective helps you track what matters, focus on progress, and keep improving.
+- Stats gives you a single view of the entire team. You can only improve what you measure.
+- Simple but powerful settings let you configure your team, sprint length, ticket sizes, stats, and more.
+- Best of all, the entire project works offline. No internet connection and no database are required — only you, your team, and a tool designed to improve productivity and make Scrum work better.
 
-## Author:
-<pre>
-<b>Ricardo Ferreira</b>
-Software Engineer
-Instagram: ricardo7307
-Twitter: ricardo_7307
-</pre>
+Give it a try: [**ScrumPulse**](https://treslines.github.io/)
+
+## Did you like it?
+
+Support the project and motivate me to keep improving ScrumPulse.
+
+<a href="https://www.buymeacoffee.com/progdeelite" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy me a coffee" height="50"></a>
+
+## Contributions
+
+- Missing a feature or have a suggestion? Contributions are welcome.
+- Fork the project, implement your contribution, and open a pull request.
+
+## License
+
+- Copyright © 2026 Ricardo Ferreira
+
+## Author
+
+Connect with me on GitHub.
+
+**Ricardo Ferreira**
+
+GitHub: <https://github.com/treslines>
