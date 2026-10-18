@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Scrum Management Board</title>
+<title>ScrumPulse — Air Rebrand Preview</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%230d3d6b'/><polyline points='8,35 18,35 23,22 30,46 35,28 42,35 56,35' fill='none' stroke='%23ff8a3d' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 <style>
   :root{
@@ -271,9 +271,10 @@
   .overall-timer-text.expired{animation:blink 1s step-start infinite}
 
   .guest-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-  .guest-btn{border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 14px;font-weight:600;font-size:.8rem;transition:background .15s,transform .15s,border-color .15s}
+  .guest-btn{border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 14px;font-weight:600;font-size:.8rem;transition:background .15s,border-color .15s,box-shadow .15s}
   .guest-btn:disabled{opacity:.4;cursor:not-allowed}
-  .guest-btn:not(:disabled):hover{transform:translateY(-1px)}
+  .guest-btn:not(:disabled):hover{box-shadow:0 0 0 3px rgba(20,93,160,.14)}
+  .guest-btn:not(:disabled):active{box-shadow:0 0 0 2px rgba(20,93,160,.18)}
   .guest-btn.speaking{background:linear-gradient(135deg,#ffedd5,#fed7aa);border-color:var(--accent);color:#9a3412}
 
   .guiding-questions{background:#eef5fb;border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:10px;padding:14px 18px;margin-bottom:20px}
@@ -325,16 +326,279 @@
   .summary-list li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eef2f6;font-size:.88rem}
   .summary-close{margin-top:16px;background:var(--brand);color:#fff;border:0;border-radius:9px;padding:10px 18px;font-weight:700}
 </style>
+<style id="air-rebrand-styles">
+  /*
+    ScrumPulse "02 Air" rebrand preview.
+    This layer intentionally preserves the original application markup,
+    behavior, local storage, and offline-first architecture.
+  */
+  body.air-rebrand{
+    --brand:#117a8b;
+    --brand-dark:#073b4c;
+    --accent:#ff8a3d;
+    --ink:#102f39;
+    --muted:#657b82;
+    --bg:#eff8f8;
+    --card:#ffffff;
+    --border:#d3e7e6;
+    --good:#27a36f;
+    --warn:#d5a019;
+    --bad:#d95757;
+    --radius:24px;
+    --air-sidebar:216px;
+    color:var(--ink);
+    background:var(--bg);
+    font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:14px;
+    line-height:1.5;
+  }
+  .air-rebrand button,.air-rebrand input,.air-rebrand select,.air-rebrand textarea{font:inherit}
+  .air-rebrand button:focus-visible,.air-rebrand input:focus-visible,.air-rebrand select:focus-visible,.air-rebrand textarea:focus-visible,.air-rebrand a:focus-visible{
+    outline:3px solid rgba(255,138,61,.35);outline-offset:2px
+  }
+  .air-workspace{min-width:0;min-height:100vh;margin-left:var(--air-sidebar)}
+
+  /* Air sidebar */
+  .air-sidebar{
+    position:fixed;inset:0 auto 0 0;z-index:30;width:var(--air-sidebar);display:flex;flex-direction:column;
+    padding:26px 14px 16px;color:var(--ink);background:#fff;border-right:1px solid var(--border);overflow-y:auto
+  }
+  .air-brand{display:flex;align-items:center;gap:10px;padding:0 10px 24px}
+  .air-brand svg{flex:0 0 auto}
+  .air-brand-name{display:block;color:var(--brand-dark);font-size:17px;font-weight:800;letter-spacing:-.03em}
+  .air-brand-tagline{display:block;color:var(--muted);font-size:9px;line-height:1.4;letter-spacing:.06em;text-transform:uppercase}
+  .air-nav-section+.air-nav-section{margin-top:21px}
+  .air-nav-label{margin:0 10px 7px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .air-side-nav{display:flex;flex-direction:column;gap:4px}
+  .air-nav-item{
+    display:flex;align-items:center;gap:11px;width:100%;border:0;border-radius:11px;padding:10px 11px;
+    color:var(--muted);background:transparent;text-align:left;font-weight:650;transition:color .18s ease,background .18s ease
+  }
+  .air-nav-item:hover{color:var(--ink);background:#f3faf9}
+  .air-nav-item.active{color:var(--brand);background:#e8f5f4}
+  .air-nav-icon{display:grid;place-items:center;width:20px;height:20px;flex:0 0 20px;color:currentColor;font-size:12px}
+  .air-step{border:1px solid var(--border);border-radius:50%;font-size:10px}
+  .air-nav-item.active .air-step{color:#fff;background:var(--brand);border-color:var(--brand)}
+  .air-sidebar-bottom{margin-top:auto;padding-top:22px}
+  .air-offline-status{display:flex;align-items:center;gap:8px;margin:13px 10px 0;color:var(--muted);font-size:10px}
+  .air-status-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#58d39a;box-shadow:0 0 0 4px rgba(88,211,154,.12)}
+  .air-copyright{display:block;margin:12px 10px 0;color:var(--muted);font-size:10px;text-decoration:none}
+  .air-copyright:hover{color:var(--brand)}
+
+  /* Compact workspace top bar */
+  .air-rebrand header.app-header{
+    position:sticky;top:0;z-index:24;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 46px;background:rgba(239,248,248,.94);border:0;border-bottom:1px solid var(--border);box-shadow:none;backdrop-filter:blur(12px)
+  }
+  .air-rebrand .app-logo{display:none}
+  .air-rebrand .app-title{margin:0;color:var(--muted);font-size:12px;font-weight:500;letter-spacing:0;text-align:left}
+  .air-rebrand .app-title strong{color:var(--ink)}
+  .air-top-actions{display:flex;align-items:center;gap:9px;margin-left:auto}
+  .air-search-shortcut{
+    display:flex;align-items:center;gap:8px;width:min(260px,25vw);border:1px solid var(--border);border-radius:10px;
+    padding:9px 11px;color:var(--muted);background:#fff;text-align:left;font-size:12px;font-weight:500
+  }
+  .air-search-shortcut:hover{color:var(--ink);border-color:#bcd9d7}
+  .air-rebrand .menu-btn{width:38px;height:38px;border:1px solid var(--border);border-radius:10px;color:var(--ink);background:#fff;box-shadow:none;font-size:1rem}
+  .air-rebrand .menu-btn:hover{color:var(--brand);background:#f3faf9;box-shadow:none;transform:none}
+
+  /* Original tabs remain available as the compact/mobile navigation. */
+  .air-rebrand nav.tabs{display:none}
+  .air-page-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:30px 46px 22px}
+  .air-eyebrow{margin:0 0 5px;color:var(--brand);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .air-page-title{margin:0;color:var(--ink);font-size:clamp(28px,3vw,38px);line-height:1.1;letter-spacing:-.045em}
+  .air-page-description{max-width:650px;margin:8px 0 0;color:var(--muted);font-size:14px}
+  .air-local-chip{display:flex;align-items:center;gap:10px;flex:0 0 auto;border:1px solid var(--border);border-radius:13px;padding:10px 14px;background:#fff;box-shadow:0 4px 14px rgba(7,59,76,.05)}
+  .air-local-chip strong,.air-local-chip span{display:block}
+  .air-local-chip strong{font-size:12px}
+  .air-local-chip span{color:var(--muted);font-size:10px}
+
+  /* Real application content, restyled with the Air tokens. */
+  .air-rebrand main{max-width:none;margin:0;padding:0 46px 48px}
+  .air-rebrand .panel{animation:none}
+  .air-rebrand .card{
+    padding:26px 28px;border:1px solid transparent;border-radius:var(--radius);background:#fff;
+    box-shadow:0 18px 42px rgba(7,59,76,.08)
+  }
+  .air-rebrand .card h2,.air-rebrand .daily-header h2,.air-rebrand .capacity-header h2,.air-rebrand .planning-header h2,.air-rebrand #retroCard h2{
+    color:var(--ink);font-weight:800;letter-spacing:-.025em
+  }
+  .air-rebrand .section-note{line-height:1.5}
+  .air-rebrand .muted{color:var(--muted)}
+  .air-rebrand .empty-state{min-height:240px;border:1px dashed var(--border);box-shadow:none;background:rgba(255,255,255,.74)}
+  .air-rebrand .big-emoji{filter:saturate(.8)}
+
+  .air-rebrand .btn-primary,.air-rebrand .search-form button,.air-rebrand .add-member-form button,.air-rebrand .summary-close{
+    background:var(--brand);border-color:var(--brand);border-radius:9px;box-shadow:none
+  }
+  .air-rebrand .btn-primary:hover,.air-rebrand .search-form button:not(:disabled):hover,.air-rebrand .add-member-form button:hover,.air-rebrand .summary-close:hover{background:var(--brand-dark)}
+  .air-rebrand .btn-ghost{border-color:var(--border);border-radius:9px;color:var(--ink);background:#fff}
+  .air-rebrand .btn-ghost:hover{background:#f3faf9}
+  .air-rebrand .btn-ghost.active{color:#fff;background:var(--brand);border-color:var(--brand)}
+  .air-rebrand .control-panel button{border-radius:9px;padding:10px 15px;box-shadow:none}
+  .air-rebrand .control-panel .primary{background:var(--brand)}
+  .air-rebrand .control-panel .secondary{background:#f1f7f7;color:var(--ink)}
+  .air-rebrand .control-panel .danger{background:#fee7e7;color:#ad3030}
+  .air-rebrand .overall-timer-bar{height:46px;border-color:var(--brand);border-radius:11px;background:#e7f1f1}
+  .air-rebrand .overall-timer-fill{background:var(--brand)}
+  .air-rebrand .guest-btn{border-color:var(--border);background:#fff}
+  .air-rebrand .guest-btn:not(:disabled):hover{box-shadow:0 0 0 3px rgba(17,122,139,.15)}
+  .air-rebrand .guest-btn:not(:disabled):active{box-shadow:0 0 0 2px rgba(17,122,139,.2)}
+  .air-rebrand .guest-btn.speaking{color:#8c4419;background:#fff1e7;border-color:var(--accent)}
+  .air-rebrand .guiding-questions{border-color:var(--border);border-left-color:var(--brand);border-radius:13px;background:#f3faf9}
+  .air-rebrand .dev-badge .pill{border-color:var(--border);background:#fff}
+  .air-rebrand .dev-badge.current .pill{border-color:var(--brand);box-shadow:0 8px 20px rgba(7,59,76,.14)}
+
+  .air-rebrand .capacity-total,.air-rebrand .planning-count,.air-rebrand .planning-hours{color:var(--brand-dark);background:#e8f5f4}
+  .air-rebrand .capacity-table .week-label{color:var(--brand-dark);background:#edf7f6}
+  .air-rebrand .capacity-table .role-separator-row td{color:var(--muted);background:#f5fafa}
+  .air-rebrand .capacity-table tbody td,.air-rebrand .capacity-table .role-separator-row td{border-color:var(--border)}
+  .air-rebrand .capacity-table .member-col,.air-rebrand .capacity-table .member-cell,.air-rebrand .capacity-table .week-sep,.air-rebrand .capacity-table .week-end{border-color:var(--border)}
+  .air-rebrand .capacity-table input[type=checkbox]{accent-color:var(--brand)}
+  .air-rebrand .member-bulk-btn{border-color:var(--brand)}
+  .air-rebrand .member-bulk-btn.filled{background:var(--brand)}
+  .air-rebrand .ticket-badge{color:var(--brand-dark);background:#edf7f6;border-color:var(--brand)}
+  .air-rebrand .ticket-badge:hover{color:#fff;background:var(--brand)}
+  .air-rebrand .ticket-done-btn,.air-rebrand .ticket-corner-btn{border-color:var(--brand)}
+  .air-rebrand .sprint-goal-input,.air-rebrand .search-form input{border-color:var(--border);border-radius:10px;background:#fff}
+  .air-rebrand .poker-ref-card{border-color:var(--border);border-radius:10px;box-shadow:0 4px 12px rgba(7,59,76,.07)}
+
+  .air-rebrand .burndown-chart-wrap,.air-rebrand .stats-info,.air-rebrand .stat-tile{border-color:var(--border);background:#f6fbfb}
+  .air-rebrand .burndown-chart-wrap{border-radius:16px}
+  .air-rebrand .stat-tile{border-radius:14px}
+  .air-rebrand .stat-tile .stat-value{color:var(--brand-dark)}
+  .air-rebrand .retro-subtabs button{color:var(--brand-dark);background:#f3f8f8;border-color:var(--border)}
+  .air-rebrand .retro-subtabs button:hover{background:#e8f5f4}
+  .air-rebrand .retro-subtabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
+  .air-rebrand .retro-group-title,.air-rebrand .retro-row{border-color:var(--border)}
+  .air-rebrand .search-result-item{border-color:var(--border);border-left-color:var(--brand);background:#f8fcfc}
+  .air-rebrand .sr-tag{color:var(--brand-dark);background:#e8f5f4}
+
+  /* Settings and dialogs */
+  .air-rebrand .overlay{z-index:80;background:rgba(7,36,48,.38);backdrop-filter:blur(2px)}
+  .air-rebrand .drawer{z-index:90;border-left:1px solid var(--border);box-shadow:-18px 0 45px rgba(7,59,76,.15)}
+  .air-rebrand .drawer-head{border-color:var(--border)}
+  .air-rebrand .drawer-head h2{color:var(--ink)}
+  .air-rebrand .team-row,.air-rebrand .timebox-grid .tb-row{border-color:var(--border);background:#f5fafa}
+  .air-rebrand .sprint-select,.air-rebrand .add-member-form input,.air-rebrand .add-member-form select,.air-rebrand .timebox-grid input[type=number],.air-rebrand .retro-meta select,.air-rebrand .retro-meta input,.air-rebrand .field-row input{
+    border-color:var(--border);border-radius:9px;background:#fff
+  }
+  .air-rebrand .settings-section{border-color:var(--border)}
+  .air-rebrand .summary-overlay{z-index:100;background:rgba(7,36,48,.44);backdrop-filter:blur(3px)}
+  .air-rebrand .summary-card{border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 60px rgba(7,36,48,.22)}
+  .air-rebrand .summary-card h2{color:var(--ink)}
+  .air-rebrand>.app-footer,.air-workspace>.app-footer{display:none}
+
+  @media (max-width:1050px){
+    body.air-rebrand{--air-sidebar:82px}
+    .air-sidebar{padding:22px 10px}
+    .air-brand{justify-content:center;padding:0 0 23px}
+    .air-brand-copy,.air-nav-label,.air-nav-item span:last-child,.air-offline-status,.air-copyright{display:none}
+    .air-nav-item{justify-content:center;padding:11px 8px}
+    .air-rebrand header.app-header,.air-page-intro{padding-left:28px;padding-right:28px}
+    .air-rebrand main{padding-left:28px;padding-right:28px}
+  }
+
+  @media (max-width:760px){
+    body.air-rebrand{--air-sidebar:0px}
+    .air-sidebar{display:none}
+    .air-workspace{margin-left:0}
+    .air-rebrand header.app-header{position:static;min-height:66px;padding:10px 14px;background:#fff}
+    .air-rebrand .app-logo{display:flex}
+    .air-rebrand .app-title,.air-search-shortcut{display:none}
+    .air-rebrand nav.tabs{
+      position:sticky;top:0;z-index:23;display:flex;flex-wrap:nowrap;max-width:none;margin:0;padding:10px 12px;
+      gap:7px;overflow-x:auto;background:rgba(239,248,248,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)
+    }
+    .air-rebrand nav.tabs button{flex:0 0 auto;border-color:var(--border);border-radius:999px;color:var(--muted);background:#fff;box-shadow:none}
+    .air-rebrand nav.tabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
+    .air-page-intro{align-items:flex-start;flex-direction:column;padding:24px 16px 18px}
+    .air-page-title{font-size:30px}
+    .air-local-chip{display:none}
+    .air-rebrand main{padding:0 12px 34px}
+    .air-rebrand .card{padding:22px 20px;border-radius:18px}
+    .air-rebrand .daily-controls-row{gap:14px}
+    .air-rebrand .control-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+    .air-rebrand .control-panel button{width:100%}
+    .air-rebrand .overall-timer-area{min-width:100%;width:100%}
+    .air-rebrand .planning-actions{width:100%;margin-left:0}
+    .air-rebrand .capacity-header{align-items:flex-start}
+  }
+
+  @media (max-width:460px){
+    .air-rebrand .app-logo svg{width:30px;height:30px}
+    .air-rebrand .app-logo-text{font-size:1rem}
+    .air-page-title{font-size:27px}
+    .air-page-description{font-size:13px}
+    .air-rebrand .card{padding:20px 16px}
+    .air-rebrand .planning-actions{flex-wrap:wrap}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .air-rebrand *,.air-rebrand *::before,.air-rebrand *::after{scroll-behavior:auto!important;transition:none!important;animation-duration:.01ms!important}
+  }
+
+  @media print{
+    .air-sidebar,.air-rebrand header.app-header,.air-rebrand nav.tabs,.air-page-intro{display:none!important}
+    .air-workspace{margin:0}
+    .air-rebrand main{padding:0}
+    .air-rebrand .card{box-shadow:none;border-color:var(--border)}
+  }
+</style>
 </head>
-<body>
+<body class="air-rebrand">
+
+<aside class="air-sidebar" aria-label="Primary navigation">
+  <div class="air-brand">
+    <svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#073b4c"/><polyline points="8,35 18,35 23,22 30,46 35,28 42,35 56,35" fill="none" stroke="#ff8a3d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="air-brand-copy"><span class="air-brand-name">ScrumPulse</span><span class="air-brand-tagline">Scrum management board</span></div>
+  </div>
+
+  <div class="air-nav-section">
+    <div class="air-nav-label">Every day</div>
+    <nav class="air-side-nav" aria-label="Daily tools">
+      <button class="air-nav-item active" type="button" data-air-tab="daily"><span class="air-nav-icon">●</span><span>Daily Scrum</span></button>
+    </nav>
+  </div>
+
+  <div class="air-nav-section">
+    <div class="air-nav-label">Sprint workflow</div>
+    <nav class="air-side-nav" aria-label="Sprint workflow">
+      <button class="air-nav-item" type="button" data-air-tab="capacity"><span class="air-nav-icon air-step">1</span><span>Capacity</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="planning"><span class="air-nav-icon air-step">2</span><span>Planning</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="review"><span class="air-nav-icon air-step">3</span><span>Review</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="retro"><span class="air-nav-icon air-step">4</span><span>Retrospective</span></button>
+    </nav>
+  </div>
+
+  <div class="air-nav-section">
+    <div class="air-nav-label">Insights</div>
+    <nav class="air-side-nav" aria-label="Insights and help">
+      <button class="air-nav-item" type="button" data-air-tab="burndown"><span class="air-nav-icon">⌁</span><span>Burndown</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="stats"><span class="air-nav-icon">▥</span><span>Stats</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="search"><span class="air-nav-icon">?</span><span>Scrum Search</span></button>
+    </nav>
+  </div>
+
+  <div class="air-sidebar-bottom">
+    <button class="air-nav-item" type="button" id="airSettingsButton"><span class="air-nav-icon">⚙</span><span>Board settings</span></button>
+    <div class="air-offline-status"><span class="air-status-dot" aria-hidden="true"></span><span>Offline and saved locally</span></div>
+    <a class="air-copyright" href="https://ch.linkedin.com/in/jricardogferreira?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">© 2026 by Ricardo Ferreira</a>
+  </div>
+</aside>
+
+<div class="air-workspace">
 
 <header class="app-header">
   <div class="app-logo">
     <svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#0d3d6b"/><polyline points="8,35 18,35 23,22 30,46 35,28 42,35 56,35" fill="none" stroke="#ff8a3d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span class="app-logo-text">ScrumPulse</span>
   </div>
-  <h1 class="app-title">Scrum Management Board</h1>
-  <button class="menu-btn" id="settingsBtn" aria-label="Board Settings" title="Board Settings">☰</button>
+  <h1 class="app-title">Workspace / <strong id="airCurrentView">Daily Scrum</strong></h1>
+  <div class="air-top-actions">
+    <button class="air-search-shortcut" type="button" id="airSearchShortcut"><span aria-hidden="true">⌕</span><span>Search Scrum knowledge</span></button>
+    <button class="menu-btn" id="settingsBtn" aria-label="Board Settings" title="Board Settings">☰</button>
+  </div>
 </header>
 
 <nav class="tabs" id="tabs">
@@ -347,6 +611,18 @@
   <button data-tab="retro">4. Retro</button>
   <button data-tab="stats">Stats</button>
 </nav>
+
+<section class="air-page-intro" aria-labelledby="airPageTitle">
+  <div>
+    <p class="air-eyebrow" id="airEyebrow">Daily alignment</p>
+    <h1 class="air-page-title" id="airPageTitle">Daily Scrum</h1>
+    <p class="air-page-description" id="airPageDescription">Keep the team aligned, focused on the Sprint Goal, and within the 15-minute timebox.</p>
+  </div>
+  <div class="air-local-chip">
+    <span class="air-status-dot" aria-hidden="true"></span>
+    <div><strong>Local workspace</strong><span>Offline ready</span></div>
+  </div>
+</section>
 
 <main>
   <section class="panel" id="panel-search">
@@ -619,6 +895,7 @@
 <footer class="app-footer">
   <a class="footer-copyright" href="https://ch.linkedin.com/in/jricardogferreira?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">© 2026 by Ricardo Ferreira</a>
 </footer>
+</div>
 
 <div class="overlay" id="overlay"></div>
 <aside class="drawer" id="settingsDrawer" aria-label="Board Settings">
@@ -762,11 +1039,22 @@
 (function(){
   "use strict";
 
-  // Tiny localStorage helper: namespaced JSON get/set with safe fallback.
+  // Preview storage starts as a snapshot of the original board, then remains isolated.
+  const PREVIEW_STORAGE_PREFIX = "scrumBoardAirPreview.";
+  const SOURCE_STORAGE_PREFIX = "scrumBoard.";
   const Store = {
-    key: k => `scrumBoard.${k}`,
+    key: k => `${PREVIEW_STORAGE_PREFIX}${k}`,
     get(k, fallback){
-      try{ const raw = localStorage.getItem(Store.key(k)); return raw ? JSON.parse(raw) : fallback; }
+      try{
+        const previewRaw = localStorage.getItem(Store.key(k));
+        if(previewRaw) return JSON.parse(previewRaw);
+        const sourceRaw = localStorage.getItem(`${SOURCE_STORAGE_PREFIX}${k}`);
+        if(sourceRaw){
+          localStorage.setItem(Store.key(k), sourceRaw);
+          return JSON.parse(sourceRaw);
+        }
+        return fallback;
+      }
       catch(e){ return fallback; }
     },
     set(k, value){
@@ -1166,19 +1454,30 @@
   }
 
   function renderGuestButtons(){
-    guestRowEl.innerHTML = "";
     const enabled = (session.status === "running" || session.status === "paused");
-    guestMembers().forEach(m => {
+    const members = guestMembers();
+    const memberIds = new Set(members.map(m => m.id));
+
+    guestRowEl.querySelectorAll("button[data-id]").forEach(btn => {
+      if(!memberIds.has(btn.dataset.id)) btn.remove();
+    });
+
+    members.forEach((m, index) => {
       const active = !!session.guestActive[m.id];
-      const btn = document.createElement("button");
-      btn.className = "guest-btn" + (active ? " speaking" : "");
+      let btn = Array.from(guestRowEl.children).find(el => el.dataset.id === m.id);
+      if(!btn){
+        btn = document.createElement("button");
+        btn.className = "guest-btn";
+        btn.dataset.id = m.id;
+      }
+      const currentAtIndex = guestRowEl.children[index];
+      if(currentAtIndex !== btn) guestRowEl.insertBefore(btn, currentAtIndex || null);
+      btn.classList.toggle("speaking", active);
       btn.disabled = !enabled;
-      btn.dataset.id = m.id;
       const elapsed = session.guestElapsedMs[m.id] || 0;
       btn.textContent = active
         ? `${ROLE_EMOJI[m.role]} ${m.name} speaking ${formatMs(elapsed)}`
         : `${ROLE_EMOJI[m.role]} ${m.name} speaks`;
-      guestRowEl.appendChild(btn);
     });
   }
 
@@ -2526,6 +2825,90 @@
   renderStats();
   activateRetroTab(Store.get("ui.retroTab", "previous"));
   activateTab(Store.get("ui.activeTab", "daily"));
+})();
+</script>
+<script>
+(() => {
+  const views = {
+    daily: {
+      label: "Daily Scrum",
+      eyebrow: "Daily alignment",
+      description: "Keep the team aligned, focused on the Sprint Goal, and within the 15-minute timebox."
+    },
+    capacity: {
+      label: "Capacity planning",
+      eyebrow: "Sprint workflow · Step 1",
+      description: "Review team availability before committing work to the sprint."
+    },
+    planning: {
+      label: "Sprint planning",
+      eyebrow: "Sprint workflow · Step 2",
+      description: "Shape the Sprint Goal, size the work, and plan within the team's available capacity."
+    },
+    review: {
+      label: "Sprint review",
+      eyebrow: "Sprint workflow · Step 3",
+      description: "Inspect the outcome with stakeholders and adapt what comes next."
+    },
+    retro: {
+      label: "Sprint retrospective",
+      eyebrow: "Sprint workflow · Step 4",
+      description: "Reflect on the sprint and turn team learning into focused improvements."
+    },
+    burndown: {
+      label: "Burndown",
+      eyebrow: "Sprint insight",
+      description: "Compare planned and actual progress across the sprint's business days."
+    },
+    stats: {
+      label: "Stats",
+      eyebrow: "Team insight",
+      description: "Review recent ceremony and delivery trends without leaving the board."
+    },
+    search: {
+      label: "Scrum Search",
+      eyebrow: "Scrum Guide knowledge",
+      description: "Ask a focused question about Scrum roles, events, artifacts, or accountabilities."
+    }
+  };
+
+  const originalTabs = Array.from(document.querySelectorAll("#tabs button[data-tab]"));
+  const airTabs = Array.from(document.querySelectorAll("[data-air-tab]"));
+  const currentView = document.getElementById("airCurrentView");
+  const pageTitle = document.getElementById("airPageTitle");
+  const pageDescription = document.getElementById("airPageDescription");
+  const eyebrow = document.getElementById("airEyebrow");
+
+  function syncAirNavigation(){
+    const active = originalTabs.find(button => button.classList.contains("active"));
+    const name = active ? active.dataset.tab : "daily";
+    const view = views[name] || views.daily;
+    airTabs.forEach(button => button.classList.toggle("active", button.dataset.airTab === name));
+    currentView.textContent = view.label;
+    pageTitle.textContent = view.label;
+    pageDescription.textContent = view.description;
+    eyebrow.textContent = view.eyebrow;
+    document.title = `${view.label} — ScrumPulse Air Preview`;
+  }
+
+  airTabs.forEach(button => button.addEventListener("click", () => {
+    const original = originalTabs.find(tab => tab.dataset.tab === button.dataset.airTab);
+    if(original) original.click();
+    syncAirNavigation();
+  }));
+
+  originalTabs.forEach(button => button.addEventListener("click", syncAirNavigation));
+  document.getElementById("airSettingsButton").addEventListener("click", () => document.getElementById("settingsBtn").click());
+  document.getElementById("airSearchShortcut").addEventListener("click", () => {
+    const searchTab = originalTabs.find(tab => tab.dataset.tab === "search");
+    if(searchTab) searchTab.click();
+    syncAirNavigation();
+    window.setTimeout(() => document.getElementById("searchInput").focus(), 0);
+  });
+
+  const tabObserver = new MutationObserver(syncAirNavigation);
+  originalTabs.forEach(button => tabObserver.observe(button, { attributes:true, attributeFilter:["class"] }));
+  syncAirNavigation();
 })();
 </script>
 </body>
