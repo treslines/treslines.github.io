@@ -2754,37 +2754,246 @@
   const searchSendBtn = document.getElementById("searchSendBtn");
   const searchResultsEl = document.getElementById("searchResults");
 
-  const SEARCH_STOPWORDS = new Set(["the","and","for","are","with","that","this","what","who","whose","should","does","from",
-    "have","has","not","can","could","would","into","about","when","where","which","how","why","its","their","they","them",
-    "then","than","such","any","all","out","was","were","will","shall","you","your","our","ours","per","via"]);
+  const SEARCH_STOPWORDS = new Set(["a","an","the","and","or","for","are","is","am","with","that","this","what","who","whose","should","does","do","did","from",
+    "have","has","had","can","could","would","into","about","when","where","which","how","why","its","their","they","them","there","here",
+    "then","than","such","any","all","many","much","out","was","were","will","shall","you","your","our","ours","per","via","to","of","in","on","at","by","be","been","being"]);
+
+  // Preserve common Scrum concepts before tokenization so natural wording and official terminology meet in the middle.
+  const SEARCH_PHRASES = [
+    [/definition\s+of\s+done/g, " definitiondone done "],
+    [/product\s+backlog\s+items?/g, " productbacklogitem backlog item "],
+    [/product\s+backlog/g, " productbacklog backlog "],
+    [/sprint\s+backlog/g, " sprintbacklog backlog "],
+    [/scrum\s+masters?/g, " scrummaster "],
+    [/product\s+owners?/g, " productowner owner "],
+    [/scrum\s+teams?/g, " scrumteam team "],
+    [/daily\s+(scrum|standups?)/g, " dailyscrum daily "],
+    [/stand[\s-]?ups?/g, " dailyscrum daily "],
+    [/sprint\s+plannings?/g, " sprintplanning planning "],
+    [/sprint\s+reviews?/g, " sprintreview review "],
+    [/sprint\s+retrospectives?/g, " sprintretrospective retrospective "],
+    [/sprint\s+goals?/g, " sprintgoal goal "],
+    [/product\s+goals?/g, " productgoal goal "],
+    [/self[\s-]+manag(?:ement|ing)/g, " selfmanagement "],
+    [/cross[\s-]+functional(?:ity)?/g, " crossfunctional "],
+    [/time[\s-]*boxes?/g, " timebox "],
+    [/story\s+points?/g, " storypoint "],
+    [/planning\s+poker/g, " planningpoker "],
+    [/release\s+plannings?/g, " releaseplanning planning "]
+  ];
+
+  const SEARCH_CONCEPT_GROUPS = {
+    accountable: ["accountability","accountabilities","responsible","responsibility","responsibilities","own","owns","owned","ownership"],
+    effectiveness: ["effective","performance","performing","productivity","successful","success"],
+    impediment: ["impediments","blocker","blockers","blocked","obstacle","obstacles","obstruction","obstructions"],
+    duration: ["timebox","timeboxed","length","long","hours","hour","minutes","minute"],
+    done: ["complete","completed","completion","finish","finished","finishing"],
+    developer: ["developers","engineer","engineers","programmer","programmers"],
+    stakeholder: ["stakeholders","customer","customers","client","clients"],
+    estimate: ["estimates","estimated","estimating","estimation","estimations","size","sized","sizing"],
+    forecast: ["forecasts","forecasting","predict","predicts","prediction","predictions","projection","projections"],
+    value: ["valuable","utility","benefit","benefits"],
+    inspect: ["inspects","inspected","inspecting","inspection","inspections","examine","examines"],
+    adapt: ["adapts","adapted","adapting","adaptation","adaptations","adjust","adjusts","adjusted","adjustment","adjustments"],
+    facilitate: ["facilitates","facilitated","facilitating","facilitation","facilitator"],
+    selfmanagement: ["autonomy","autonomous","selfmanaged","selfmanaging"],
+    priority: ["priorities","prioritize","prioritized","prioritization","order","ordered","ordering"],
+    remove: ["removes","removed","removing","removal","resolve","resolves","resolved","eliminate","eliminates"],
+    required: ["require","requires","requirement","requirements","mandatory","must"],
+    optional: ["optionally","elective"],
+    attend: ["attends","attending","attendance","join","joins","participate","participates","participant","participants"],
+    create: ["creates","created","creating","make","makes","made","build","builds"],
+    decide: ["decides","decided","deciding","decision","decisions","determine","determines","determined"],
+    goal: ["goals","objective","objectives","target","targets"],
+    plan: ["plans","planned","planning"],
+    event: ["events","ceremony","ceremonies","meeting","meetings"],
+    cancel: ["cancels","cancelled","canceled","cancelling","canceling","cancellation"],
+    release: ["releases","released","releasing","delivery","deliver"]
+  };
+
+  const SEARCH_CANONICAL = new Map();
+  Object.entries(SEARCH_CONCEPT_GROUPS).forEach(([canonical, aliases]) => {
+    SEARCH_CANONICAL.set(canonical, canonical);
+    aliases.forEach(alias => SEARCH_CANONICAL.set(alias, canonical));
+  });
+
+  function editDistance(a, b, limit){
+    if(a === b) return 0;
+    if(Math.abs(a.length - b.length) > limit) return limit + 1;
+    let previous = Array.from({ length: b.length + 1 }, (_, index) => index);
+    for(let i = 1; i <= a.length; i++){
+      const current = [i];
+      let rowBest = current[0];
+      for(let j = 1; j <= b.length; j++){
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        current[j] = Math.min(current[j - 1] + 1, previous[j] + 1, previous[j - 1] + cost);
+        rowBest = Math.min(rowBest, current[j]);
+      }
+      if(rowBest > limit) return limit + 1;
+      previous = current;
+    }
+    return previous[b.length];
+  }
+
+  function normalizeSearchText(text){
+    let normalized = String(text || "")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/&/g, " and ");
+    SEARCH_PHRASES.forEach(([pattern, replacement]) => { normalized = normalized.replace(pattern, replacement); });
+    return normalized;
+  }
+
+  function lightStem(token){
+    if(token.length > 4 && token.endsWith("ies")) return token.slice(0, -3) + "y";
+    if(token.length > 4 && token.endsWith("es") && !token.endsWith("ses")) return token.slice(0, -2);
+    if(token.length > 3 && token.endsWith("s") && !token.endsWith("ss") && !token.endsWith("us") && !token.endsWith("is")) return token.slice(0, -1);
+    return token;
+  }
+
+  function canonicalSearchToken(token, allowFuzzyAliases){
+    if(SEARCH_CANONICAL.has(token)) return SEARCH_CANONICAL.get(token);
+    const stemmed = lightStem(token);
+    if(SEARCH_CANONICAL.has(stemmed)) return SEARCH_CANONICAL.get(stemmed);
+    if(allowFuzzyAliases && token.length >= 5){
+      const limit = token.length >= 8 ? 2 : 1;
+      for(const [alias, canonical] of SEARCH_CANONICAL){
+        if(alias.length < 4 || Math.abs(alias.length - token.length) > limit) continue;
+        if(editDistance(token, alias, limit) <= limit) return canonical;
+      }
+    }
+    return stemmed;
+  }
 
   function tokenize(text){
-    return (text.toLowerCase().match(/[a-z0-9']+/g) || []);
+    return (normalizeSearchText(text).match(/[a-z0-9]+/g) || []);
   }
 
-  function searchWords(text){
-    return tokenize(text).filter(w => w.length > 2 && !SEARCH_STOPWORDS.has(w));
+  function searchWords(text, allowFuzzyAliases = false){
+    return tokenize(text)
+      .filter(word => word.length > 1 && !SEARCH_STOPWORDS.has(word))
+      .map(word => canonicalSearchToken(word, allowFuzzyAliases));
   }
 
-  function scoreEntry(queryWords, entry){
-    const haystack = searchWords(`${entry.q} ${entry.topic} ${entry.competency}`);
+  function questionIntent(text){
+    const normalized = normalizeSearchText(text).trim();
+    if(/\bwho\b/.test(normalized)) return "who";
+    if(/^where\b/.test(normalized)) return "where";
+    if(/^when\b/.test(normalized)) return "when";
+    if(/^why\b/.test(normalized)) return "why";
+    if(/^what\b.*\bfor\b/.test(normalized) || /^what\s+is\s+the\s+purpose\b/.test(normalized)) return "purpose";
+    if(/\bhow\s+(long|many|much|large)\b/.test(normalized) || /\b(maximum|minimum|duration|timebox)\b/.test(normalized)) return "quantity";
+    if(/^how\b/.test(normalized)) return "how";
+    if(/^what\b/.test(normalized)) return "what";
+    if(/^(true\s+or\s+false|is|are|can|may|must|should|does|do)\b/.test(normalized)) return "boolean";
+    return "";
+  }
+
+  function tokenSet(tokens){ return new Set(tokens); }
+
+  function bigramSet(tokens){
+    const result = new Set();
+    for(let i = 0; i < tokens.length - 1; i++) result.add(`${tokens[i]} ${tokens[i + 1]}`);
+    return result;
+  }
+
+  const SEARCH_FIELDS = [
+    { key: "q", weight: 5 },
+    { key: "a", weight: 4 },
+    { key: "e", weight: 3 },
+    { key: "topic", weight: 2.5 },
+    { key: "competency", weight: 1 }
+  ];
+
+  const SEARCH_INDEX = SCRUM_KB.map(entry => {
+    const fields = SEARCH_FIELDS.map(field => {
+      const tokens = searchWords(entry[field.key] || "");
+      return { ...field, tokens, tokenSet: tokenSet(tokens), bigrams: bigramSet(tokens) };
+    });
+    return {
+      entry,
+      fields,
+      allTokens: new Set(fields.flatMap(field => field.tokens)),
+      intent: questionIntent(entry.q)
+    };
+  });
+
+  const SEARCH_DOCUMENT_FREQUENCY = new Map();
+  SEARCH_INDEX.forEach(indexed => indexed.allTokens.forEach(token => {
+    SEARCH_DOCUMENT_FREQUENCY.set(token, (SEARCH_DOCUMENT_FREQUENCY.get(token) || 0) + 1);
+  }));
+
+  function inverseDocumentFrequency(token){
+    const count = SEARCH_DOCUMENT_FREQUENCY.get(token) || 0;
+    return 1 + Math.log((SEARCH_INDEX.length + 1) / (count + 1));
+  }
+
+  function tokenMatchQuality(queryToken, fieldTokens){
+    if(fieldTokens.includes(queryToken)) return 1;
+    if(queryToken.length < 5) return 0;
+    const limit = queryToken.length >= 8 ? 2 : 1;
+    let best = 0;
+    for(const candidate of fieldTokens){
+      if(candidate.length < 4 || Math.abs(candidate.length - queryToken.length) > limit) continue;
+      const distance = editDistance(queryToken, candidate, limit);
+      if(distance <= limit) best = Math.max(best, distance === 1 ? 0.72 : 0.58);
+    }
+    return best;
+  }
+
+  function scoreEntry(queryInfo, indexed){
     let score = 0;
-    queryWords.forEach(w => { if(haystack.includes(w)) score += 1; });
-    return score;
+    let matched = 0;
+
+    queryInfo.tokens.forEach(queryToken => {
+      let bestFieldScore = 0;
+      indexed.fields.forEach(field => {
+        const quality = tokenMatchQuality(queryToken, field.tokens);
+        bestFieldScore = Math.max(bestFieldScore, field.weight * quality);
+      });
+      if(bestFieldScore > 0){
+        matched++;
+        score += bestFieldScore * inverseDocumentFrequency(queryToken);
+      }
+    });
+
+    const coverage = queryInfo.tokens.length ? matched / queryInfo.tokens.length : 0;
+    const questionField = indexed.fields[0];
+    const allInQuestion = queryInfo.tokens.length > 0 && queryInfo.tokens.every(token => questionField.tokenSet.has(token));
+    if(allInQuestion) score += 7;
+    if(coverage === 1) score += 5;
+    score += coverage * 3;
+
+    queryInfo.bigrams.forEach(bigram => {
+      if(indexed.fields.some(field => field.bigrams.has(bigram))) score += 2.5;
+    });
+
+    if(queryInfo.intent && queryInfo.intent === indexed.intent){
+      score += queryInfo.intent === "quantity" ? 10 : queryInfo.intent === "who" ? 12 : 2;
+    }
+    else if(queryInfo.intent === "quantity") score *= 0.72;
+    if(queryInfo.intent === "who" && /^(only\s+)?(the\s+)?(scrum master|product owner|developers?|scrum team|stakeholders?)\b/i.test(indexed.entry.a)) score += 8;
+    return { score: score * (0.45 + coverage * 0.55), coverage, matched };
   }
 
   function runSearch(query){
-    const queryWords = searchWords(query);
+    const intent = questionIntent(query);
+    const normalizedQueryWords = searchWords(query, true);
+    if(intent === "purpose") normalizedQueryWords.push("purpose");
+    const queryWords = Array.from(new Set(normalizedQueryWords));
     searchResultsEl.innerHTML = "";
     if(!queryWords.length){
       searchResultsEl.innerHTML = `<div class="search-empty muted">Try asking about a specific Scrum role, event, or artifact.</div>`;
       return;
     }
 
-    const scored = SCRUM_KB
-      .map(entry => ({ entry, score: scoreEntry(queryWords, entry) }))
-      .filter(s => s.score > 0)
-      .sort((a, b) => b.score - a.score)
+    const queryInfo = { tokens: queryWords, bigrams: bigramSet(queryWords), intent };
+    const scored = SEARCH_INDEX
+      .map(indexed => ({ entry: indexed.entry, ...scoreEntry(queryInfo, indexed) }))
+      .filter(result => result.matched > 0 && (queryWords.length === 1 || result.coverage >= 0.34))
+      .sort((a, b) => b.score - a.score || b.coverage - a.coverage)
       .slice(0, 5);
 
     if(!scored.length){
