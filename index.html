@@ -119,6 +119,10 @@
   .capacity-table .member-col,.capacity-table .member-cell{border-right:1px solid var(--border)}
   .capacity-table .week-sep{border-left:1px solid var(--border)}
   .capacity-table .week-end{border-right:1px solid var(--border)}
+  .capacity-note-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .half-day-legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.72rem}
+  .half-day-legend-item{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--border);border-radius:999px;background:#f8fbfd;white-space:nowrap}
+  .half-day-label{display:inline-grid;place-items:center;min-width:25px;height:19px;padding:0 5px;border-radius:6px;color:var(--brand-dark);background:#e7f2fb;font-size:.64rem;font-weight:800;letter-spacing:.04em}
 
   .planning-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .planning-header h2{margin:0;color:var(--brand-dark);font-size:1.3rem;font-weight:800}
@@ -408,10 +412,17 @@
   .air-eyebrow{margin:0 0 5px;color:var(--brand);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
   .air-page-title{margin:0;color:var(--ink);font-size:clamp(28px,3vw,38px);line-height:1.1;letter-spacing:-.045em}
   .air-page-description{max-width:650px;margin:8px 0 0;color:var(--muted);font-size:14px}
+  .air-page-actions{display:flex;align-items:stretch;gap:10px;flex:0 0 auto}
   .air-local-chip{display:flex;align-items:center;gap:10px;flex:0 0 auto;border:1px solid var(--border);border-radius:13px;padding:10px 14px;background:#fff;box-shadow:0 4px 14px rgba(7,59,76,.05)}
   .air-local-chip strong,.air-local-chip span{display:block}
   .air-local-chip strong{font-size:12px}
   .air-local-chip span{color:var(--muted);font-size:10px}
+  .air-support-chip{display:flex;align-items:center;gap:10px;flex:0 0 auto;border:1px solid #f1c9ac;border-radius:13px;padding:9px 13px;color:var(--ink);background:#fff;text-decoration:none;box-shadow:0 4px 14px rgba(7,59,76,.05);transition:border-color .15s,box-shadow .15s,transform .15s}
+  .air-support-chip:hover{border-color:var(--accent);box-shadow:0 7px 18px rgba(255,138,61,.16);transform:translateY(-1px)}
+  .air-support-chip svg{flex:0 0 auto}
+  .air-support-chip strong,.air-support-chip span{display:block}
+  .air-support-chip strong{font-size:12px}
+  .air-support-chip span{color:var(--muted);font-size:10px}
 
   /* Real application content, restyled with the Air tokens. */
   .air-rebrand main{max-width:none;margin:0;padding:0 46px 48px}
@@ -514,7 +525,9 @@
     .air-rebrand nav.tabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
     .air-page-intro{align-items:flex-start;flex-direction:column;padding:24px 16px 18px}
     .air-page-title{font-size:30px}
+    .air-page-actions{width:100%}
     .air-local-chip{display:none}
+    .air-support-chip{padding:8px 12px}
     .air-rebrand main{padding:0 12px 34px}
     .air-rebrand .card{padding:22px 20px;border-radius:18px}
     .air-rebrand .daily-controls-row{gap:14px}
@@ -618,9 +631,19 @@
     <h1 class="air-page-title" id="airPageTitle">Daily Scrum</h1>
     <p class="air-page-description" id="airPageDescription">Keep the team aligned, focused on the Sprint Goal, and within the 15-minute timebox.</p>
   </div>
-  <div class="air-local-chip">
-    <span class="air-status-dot" aria-hidden="true"></span>
-    <div><strong>Local workspace</strong><span>Offline ready</span></div>
+  <div class="air-page-actions">
+    <a class="air-support-chip" href="https://www.buymeacoffee.com/progdeelite" target="_blank" rel="noopener noreferrer" aria-label="Support ScrumPulse on Buy Me a Coffee">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <rect width="30" height="30" rx="9" fill="#fff1e7"/>
+        <path d="M8 11h11v7a4 4 0 0 1-4 4h-3a4 4 0 0 1-4-4v-7z" fill="#ff8a3d"/>
+        <path d="M19 13h1.5a2.5 2.5 0 0 1 0 5H19M11 9c0-1.5 1-1.5 1-3M15 9c0-1.5 1-1.5 1-3" fill="none" stroke="#073b4c" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <div><strong>Buy me a coffee</strong><span>Support ScrumPulse</span></div>
+    </a>
+    <div class="air-local-chip">
+      <span class="air-status-dot" aria-hidden="true"></span>
+      <div><strong>Local workspace</strong><span>Offline ready</span></div>
+    </div>
   </div>
 </section>
 
@@ -711,7 +734,13 @@
         <div class="capacity-range muted" id="capacityRange"></div>
         <button class="btn-ghost btn-sm" id="btnNewSprint">🔄 Start New Sprint</button>
       </div>
-      <div class="section-note muted">Uncheck the days each person is unavailable.</div>
+      <div class="capacity-note-row">
+        <div class="section-note muted">Uncheck the periods each person is unavailable.</div>
+        <div class="half-day-legend" role="note" aria-label="Half-day checkbox order">
+          <span class="half-day-legend-item"><span class="half-day-label">AM</span>Top checkbox · Morning</span>
+          <span class="half-day-legend-item"><span class="half-day-label">PM</span>Bottom checkbox · Afternoon</span>
+        </div>
+      </div>
       <div class="capacity-table-wrap">
         <table class="capacity-table" id="capacityTable"></table>
       </div>
@@ -1858,9 +1887,12 @@
         days.forEach((day, di) => {
           const dateStr = toISODate(day);
           const halves = getHalves(m.id, dateStr);
+          const dateLabel = day.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+          const morningLabel = escapeHtml(`${m.name} morning availability on ${dateLabel}`);
+          const afternoonLabel = escapeHtml(`${m.name} afternoon availability on ${dateLabel}`);
           row += `<td class="day-col${dayColClass(wi, di, weeks.length, days.length)}"><div class="day-halves">` +
-            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="0"${halves[0] ? " checked" : ""}>` +
-            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="1"${halves[1] ? " checked" : ""}>` +
+            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="0" aria-label="${morningLabel}" title="Morning (AM)"${halves[0] ? " checked" : ""}>` +
+            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="1" aria-label="${afternoonLabel}" title="Afternoon (PM)"${halves[1] ? " checked" : ""}>` +
             `</div></td>`;
         });
       });
