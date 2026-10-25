@@ -171,18 +171,93 @@
   .ticket-corner-btn.ticket-minus{left:-7px}
   .ticket-corner-btn.ticket-plus{right:-7px}
   .ticket-corner-btn:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .planning-board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;margin-top:20px;align-items:start}
+  .backlog-column{min-width:0;padding:0 20px 0 0;transition:background .15s}
+  #sprintBacklogColumn{padding:0 0 0 20px;border-left:1px solid var(--border)}
+  .backlog-column.drag-over .backlog-list{outline:2px dashed var(--brand);outline-offset:6px;background:#f2faf9}
+  .backlog-column-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0 2px 12px}
+  .backlog-column-header h3{margin:0;color:var(--brand-dark);font-size:1.04rem;letter-spacing:-.01em}
+  .backlog-column-header p{margin:4px 0 0;font-size:.72rem;line-height:1.35;color:var(--muted)}
+  .backlog-column-header>div{min-width:0;flex:1}
+  .sprint-goal-editor{display:flex;align-items:flex-start;gap:7px;margin-top:5px;color:var(--muted);font-size:.7rem;line-height:1.4}
+  .sprint-goal-label{flex:0 0 auto;padding:3px 7px;border-radius:999px;background:#e8f5f4;color:var(--brand-dark);font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .backlog-counter{flex-shrink:0;padding:4px 9px;border-radius:999px;background:#e8f5f4;color:var(--brand-dark);font-size:.66rem;font-weight:800}
+  .backlog-list{display:flex;flex-direction:column;gap:8px;min-height:112px;padding:0;border:0;border-radius:0;background:transparent}
+  .backlog-empty{display:grid;place-items:center;min-height:90px;padding:14px;color:var(--muted);font-size:.76rem;line-height:1.45;text-align:center}
+  .backlog-item{position:relative;border:1px solid #d9e5e7;border-radius:10px;background:#fffaf0;padding:11px 12px;box-shadow:none;transition:border-color .15s,background .15s,opacity .15s}
+  .backlog-item.ready{border-color:#c9e2dc;background:#fbfefd}
+  .backlog-item.done,.backlog-item.completion-ready{border-color:#9ed8b5;background:#e9f8ef}
+  .backlog-item.done{opacity:.92}
+  .backlog-item.dragging{opacity:.45}
+  .backlog-item-head{display:flex;align-items:flex-start;gap:9px}
+  .backlog-toggle{flex:0 0 24px;width:24px;height:24px;border:0;border-radius:6px;background:transparent;color:#66818b;cursor:pointer;display:grid;place-items:center}
+  .backlog-toggle:hover{background:#e8f5f4;color:var(--brand)}
+  .backlog-title-wrap{min-width:0;flex:1}
+  .backlog-title-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .backlog-title{font-size:.84rem;line-height:1.3;font-weight:500;color:var(--ink);overflow-wrap:anywhere}
+  .backlog-type{padding:3px 7px;border-radius:999px;background:#0f7180;color:#fff;font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+  .backlog-type.epic{background:#6746a5;color:#fff}.backlog-type.feature{background:#a76c00;color:#fff}
+  .backlog-status{display:inline-flex;align-items:center;padding:2px 6px;border-radius:999px;background:#fff0c7;color:#805600;font-size:.61rem;font-weight:800}.backlog-item.ready .backlog-status{background:#e1f4e8;color:#14723a}
+  .backlog-item.done .backlog-status,.backlog-item.completion-ready .backlog-status{background:#ccefd9;color:#116b35}
+  .backlog-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:5px;color:var(--muted);font-size:.67rem;line-height:1.35}
+  .backlog-actions{display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
+  .backlog-icon-btn{height:28px;min-width:28px;padding:0 6px;border:0;border-radius:7px;background:transparent;color:#476774;font:inherit;font-size:.69rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+  .backlog-icon-btn svg,.backlog-toggle svg,.work-action svg{width:15px;height:15px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .backlog-icon-btn:hover:not(:disabled){background:#e5f2f2;color:var(--brand-dark)}.backlog-icon-btn:disabled{opacity:.28;cursor:default}
+  .backlog-icon-btn.text-action{padding:0 8px;color:var(--brand-dark);font-weight:700}.backlog-icon-btn.danger:hover{background:#fff0f0;color:var(--bad)}
+  .backlog-details{margin:10px 0 0 33px;padding-top:2px;font-size:.72rem;line-height:1.45;color:var(--muted)}
+  .backlog-details p{margin:4px 0;overflow-wrap:anywhere}.backlog-details strong{color:var(--ink)}.backlog-details a{color:var(--brand);font-weight:700}
+  .backlog-details ul{margin:3px 0 6px 17px;padding:0}.backlog-details li{margin:1px 0;padding-left:1px}
+  .backlog-children{margin:10px 0 0 24px;display:flex;flex-direction:column;gap:8px}
+  .sprint-story{background:#fff}.sprint-story.ready-to-close{border-color:#72c996;background:#e9f8ef}
+  .story-forecast{font-weight:800;color:var(--brand-dark)}.story-forecast.warning{color:#9a6700}
+  .subtask-list{margin:12px 0 0 33px;display:flex;flex-direction:column;gap:0}
+  .subtask-list::before{content:"Sub-tasks";color:#627b84;font-size:.61rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .subtask-list .backlog-item{padding:10px 0;border:0;border-top:1px solid rgba(94,137,143,.24);border-radius:0;background:transparent}.subtask-list .backlog-item.done{background:transparent}
+  .work-estimate{flex:0 0 auto;display:flex;align-items:center;gap:5px;margin-left:5px}
+  .work-stepper{height:30px;display:inline-grid;grid-template-columns:27px minmax(38px,auto) 27px;align-items:center;border:1px solid #b9d2d6;border-radius:8px;background:#fff;overflow:hidden;color:var(--brand-dark)}
+  .work-stepper-value{min-width:38px;text-align:center;font-size:.74rem;font-weight:800;font-variant-numeric:tabular-nums}
+  .work-action{width:27px;height:30px;padding:0;border:0;background:transparent;color:#3b6772;display:grid;place-items:center;cursor:pointer}
+  .work-action:hover{background:#e8f5f4;color:var(--brand-dark)}.work-action+.work-stepper-value,.work-stepper-value+.work-action{border-left:1px solid #d8e5e7}
+  .work-done{width:auto;height:30px;padding:0 8px;border:1px solid #b9d2d6;border-radius:8px;background:#fff;color:#56808a;display:inline-flex;align-items:center;justify-content:center;gap:4px;font:inherit;font-size:.62rem;font-weight:800;cursor:pointer}
+  .work-done:hover{border-color:var(--good);background:#e9f8ef;color:#148243}
+  .work-estimate.is-done .work-stepper{grid-template-columns:auto;border-color:#83cda0;background:#dff5e7;color:#126e38}.work-estimate.is-done .work-stepper-value{padding:0 10px;text-decoration:line-through}.work-estimate.is-done .work-done{border-color:#38a965;background:#38a965;color:#fff}
+  .sprint-story>.backlog-item-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:start}
+  .sprint-story-identity{grid-column:1;grid-row:1;display:flex;align-items:center;gap:6px;min-height:30px}
+  .sprint-story-identity .backlog-toggle{flex-basis:24px}
+  .sprint-story>.backlog-item-head>.backlog-actions{grid-column:2;grid-row:1;margin:0;justify-content:flex-end}
+  .sprint-story>.backlog-item-head>.work-estimate{grid-column:3;grid-row:1}
+  .sprint-story>.backlog-item-head>.backlog-title-wrap{grid-column:1/4;grid-row:2;margin-top:8px}
+  .done-story-summary{display:flex;align-items:center;gap:6px;min-height:30px}
+  .backlog-item[data-task-id]>.backlog-item-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:start}
+  .subtask-identity{grid-column:1;grid-row:1;display:flex;align-items:center;min-height:30px}
+  .backlog-item[data-task-id]>.backlog-item-head>.backlog-actions{grid-column:2;grid-row:1;margin:0;justify-content:flex-end}
+  .backlog-item[data-task-id]>.backlog-item-head>.work-estimate{grid-column:3;grid-row:1}
+  .backlog-item[data-task-id]>.backlog-item-head>.backlog-title-wrap{grid-column:1/4;grid-row:2;margin-top:7px}
+  .planning-commitment{display:flex;align-items:flex-start;gap:7px;margin:0 2px 10px;color:var(--muted);font-size:.69rem;line-height:1.4}.planning-commitment strong{color:var(--ink)}
+  .commitment-state{flex:0 0 auto;display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#fff0c7;color:#805600;font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.commitment-state.committed{background:#dff5e7;color:#126e38}
+  .backlog-modal-card{max-width:720px;max-height:90vh;overflow:auto}
+  .backlog-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.backlog-form-grid .field-row{margin:0}.backlog-form-grid .span-2{grid-column:1/-1}
+  .backlog-form-grid textarea,.backlog-form-grid select{font:inherit;padding:8px 10px;border:1px solid var(--border);border-radius:8px;color:var(--ink);background:#fff;resize:vertical}
+  .backlog-form-grid input[type=checkbox],.backlog-type-choice input{accent-color:var(--brand)}
+  .backlog-type-choice{display:flex;gap:12px;flex-wrap:wrap;padding:8px 0}
+  .backlog-type-choice label,.inline-check{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:6px;color:var(--ink)!important;font-weight:600!important}
+  .field-help{font-size:.68rem;color:var(--muted);font-weight:400}.form-error{min-height:18px;margin-top:8px;color:var(--bad);font-size:.75rem;font-weight:700}
   .poker-reference{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px}
   .poker-ref-card{width:52px;height:74px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;padding:5px 0;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 1px 3px rgba(20,40,60,.12);color:var(--ink)}
   .poker-ref-corner{font-size:.68rem;font-weight:800;line-height:1;padding:0 6px}
   .poker-ref-corner.bottom{text-align:right;transform:rotate(180deg)}
   .poker-ref-value{flex:1;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800}
-  .sprint-goals{display:flex;flex-direction:column;gap:8px;margin:4px 0 22px}
-  .sprint-goal-row{display:flex;align-items:center;gap:8px}
-  .sprint-goal-input{flex:1;font:inherit;font-size:.9rem;padding:8px 10px;border:1px solid var(--border);border-radius:8px;color:var(--ink);background:#fff}
+  .sprint-goals{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px;margin:0}
+  .sprint-goal-row{display:flex;align-items:center;gap:4px;min-width:0}
+  .sprint-goal-bullet{flex:0 0 auto;color:var(--muted);font-weight:800}
+  .sprint-goal-input{flex:1;min-width:80px;font:inherit;font-size:.72rem;padding:2px 4px;border:1px solid transparent;border-radius:5px;color:var(--muted);background:transparent}
   .sprint-goal-input:focus{border-color:var(--brand);outline:none}
-  .sprint-goal-trash{flex-shrink:0;background:none;border:0;font-size:1.05rem;cursor:pointer;opacity:.6;transition:opacity .15s}
+  .sprint-goal-trash{flex-shrink:0;width:22px;height:22px;padding:3px;border:0;border-radius:5px;background:none;color:#78909a;cursor:pointer;opacity:.65;transition:opacity .15s,color .15s,background .15s}
+  .sprint-goal-trash svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .sprint-goal-trash:hover{opacity:1}
-  .sprint-goal-add{flex-shrink:0;width:34px;height:34px;border-radius:8px;border:1px solid var(--brand);background:#fff;color:var(--brand);font-size:1.1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+  .sprint-goal-trash:hover{background:#fff0f0;color:var(--bad)}
+  .sprint-goal-add{flex-shrink:0;width:22px;height:22px;border-radius:5px;border:1px solid var(--brand);background:#fff;color:var(--brand);font-size:.9rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
   .sprint-goal-add:hover{background:var(--brand);color:#fff}
   .burndown-chart-wrap{margin:16px auto 0;max-width:640px;background:#f9fbfd;border:1px solid var(--border);border-radius:12px;padding:16px}
   .burndown-chart{width:100%;height:280px;display:block}
@@ -541,7 +616,9 @@
   .air-rebrand .ticket-badge{color:var(--brand-dark);background:#edf7f6;border-color:var(--brand)}
   .air-rebrand .ticket-badge:hover{color:#fff;background:var(--brand)}
   .air-rebrand .ticket-done-btn,.air-rebrand .ticket-corner-btn{border-color:var(--brand)}
-  .air-rebrand .sprint-goal-input,.air-rebrand .search-form input{border-color:var(--border);border-radius:10px;background:#fff}
+  .air-rebrand .search-form input{border-color:var(--border);border-radius:10px;background:#fff}
+  .air-rebrand .sprint-goal-editor .sprint-goal-input{border-color:transparent;border-radius:5px;background:transparent}
+  .air-rebrand .sprint-goal-editor .sprint-goal-input:focus{border-color:var(--brand);background:#fff}
   .air-rebrand .poker-ref-card{border-color:var(--border);border-radius:10px;box-shadow:0 4px 12px rgba(7,59,76,.07)}
 
   .air-rebrand .burndown-chart-wrap,.air-rebrand .stats-info,.air-rebrand .stat-tile{border-color:var(--border);background:#f6fbfb}
@@ -585,6 +662,12 @@
     .definition-guidance-grid{grid-template-columns:1fr}
   }
 
+  @media (max-width:1180px){
+    .planning-board{grid-template-columns:1fr;gap:22px}
+    .backlog-column{padding:0}
+    #sprintBacklogColumn{padding:22px 0 0;border-left:0;border-top:1px solid var(--border)}
+  }
+
   @media (max-width:760px){
     body.air-rebrand{--air-sidebar:0px}
     .air-sidebar{display:none}
@@ -620,6 +703,16 @@
     .air-page-description{font-size:13px}
     .air-rebrand .card{padding:20px 16px}
     .air-rebrand .planning-actions{flex-wrap:wrap}
+    .backlog-form-grid{grid-template-columns:1fr}.backlog-form-grid .span-2{grid-column:auto}
+    .backlog-item-head{flex-wrap:wrap}.backlog-actions{width:100%;justify-content:flex-start;margin-left:32px}
+    .sprint-story>.backlog-item-head{grid-template-columns:minmax(0,1fr) auto}
+    .sprint-story>.backlog-item-head>.backlog-actions{grid-column:1/3;grid-row:2;margin-top:6px;justify-content:flex-start}
+    .sprint-story>.backlog-item-head>.work-estimate{grid-column:2;grid-row:1}
+    .sprint-story>.backlog-item-head>.backlog-title-wrap{grid-column:1/3;grid-row:3}
+    .backlog-item[data-task-id]>.backlog-item-head{grid-template-columns:minmax(0,1fr) auto}
+    .backlog-item[data-task-id]>.backlog-item-head>.backlog-actions{grid-column:1/3;grid-row:2;margin-top:6px;justify-content:flex-start}
+    .backlog-item[data-task-id]>.backlog-item-head>.work-estimate{grid-column:2;grid-row:1}
+    .backlog-item[data-task-id]>.backlog-item-head>.backlog-title-wrap{grid-column:1/3;grid-row:3}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -759,7 +852,8 @@
       </div>
       <div class="burndown-legend">
         <span class="legend-item"><span class="legend-swatch ideal"></span>Ideal</span>
-        <span class="legend-item"><span class="legend-swatch actual"></span>Actual</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#ff8a3d"></span>Scope</span>
+        <span class="legend-item"><span class="legend-swatch actual"></span>Remaining</span>
       </div>
     </div>
   </section>
@@ -840,11 +934,11 @@
         <span class="planning-hours" id="planningHours"></span>
         <div class="planning-actions">
           <button class="btn-ghost btn-sm" id="btnPlanningPoker">🃏 Planning Poker</button>
-          <button class="btn-ghost btn-sm btn-danger" id="btnRemoveAllTickets">Remove All</button>
+          <button class="btn-ghost btn-sm btn-danger" id="btnRemoveAllTickets">Clear Sprint</button>
           <button class="btn-primary btn-sm" id="btnAddTicket">+ Ticket</button>
         </div>
       </div>
-      <div class="section-note muted">Tap the ticket card to remove it.</div>
+      <div class="section-note muted">Order the Product Backlog, then move ready Stories into the Sprint Backlog.</div>
       <div class="daily-controls-row">
         <div class="control-panel">
           <button id="btnPlanningStart" class="primary">▶ Start</button>
@@ -859,8 +953,17 @@
         </div>
       </div>
       <div class="poker-reference hidden" id="pokerReference"></div>
-      <div class="sprint-goals" id="sprintGoalsList"></div>
-      <div class="ticket-grid" id="ticketGrid"></div>
+      <div class="planning-board">
+        <section class="backlog-column" id="productBacklogColumn" data-dropzone="product">
+          <div class="backlog-column-header"><div><h3>Product Backlog</h3><p>Ordered by the Product Owner.</p></div><span class="backlog-counter" id="productBacklogCount"></span></div>
+          <div class="backlog-list" id="productBacklogList"></div>
+        </section>
+        <section class="backlog-column" id="sprintBacklogColumn" data-dropzone="sprint">
+          <div class="backlog-column-header"><div><h3>Sprint Backlog</h3><div class="sprint-goal-editor"><span class="sprint-goal-label">Sprint Goal</span><div class="sprint-goals" id="sprintGoalsList"></div></div></div><span class="backlog-counter" id="sprintBacklogCount"></span></div>
+          <div class="planning-commitment" id="planningCommitment"></div>
+          <div class="backlog-list" id="sprintBacklogList"></div>
+        </section>
+      </div>
     </div>
   </section>
   <section class="panel" id="panel-review">
@@ -1240,10 +1343,48 @@
   </div>
 </div>
 
+<div class="summary-overlay hidden" id="pbiOverlay">
+  <div class="summary-card backlog-modal-card">
+    <h2 id="pbiModalTitle">Create a Product Backlog Item</h2>
+    <div class="backlog-form-grid">
+      <div class="field-row span-2"><label>Item type <span class="backlog-type-choice">
+        <label><input type="radio" name="pbiType" value="epic"> Epic</label>
+        <label><input type="radio" name="pbiType" value="feature"> Feature</label>
+        <label><input type="radio" name="pbiType" value="story" checked> Story</label>
+      </span></label></div>
+      <div class="field-row span-2 hidden" id="pbiParentRow"><label>Parent<select id="pbiParent"></select></label></div>
+      <div class="field-row span-2"><label>Title *<input type="text" id="pbiTitle" placeholder="What needs to be delivered?"></label></div>
+      <div class="field-row span-2"><label>Context and value<textarea id="pbiContext" rows="3" placeholder="Why is this needed and what value does it create?"></textarea></label></div>
+      <div class="field-row span-2"><label>Acceptance Criteria *<textarea id="pbiAcceptance" rows="4" placeholder="One acceptance criterion per line"></textarea><span class="field-help">At least one is required to create the item; two are required for Ready.</span></label></div>
+      <div class="field-row"><label>Out of Scope<textarea id="pbiOutOfScope" rows="3" placeholder="What is explicitly excluded?"></textarea><span class="inline-check"><input type="checkbox" id="pbiOutOfScopeNA"> Not applicable</span></label></div>
+      <div class="field-row"><label>Refinement Notes<textarea id="pbiRefinement" rows="3" placeholder="Technical constraints, risks, and decisions"></textarea><span class="inline-check"><input type="checkbox" id="pbiRefinementNA"> Not applicable</span></label></div>
+      <div class="field-row"><label>Estimated hours<input type="number" id="pbiHours" min="0" step="0.5" value="0"></label></div>
+      <div class="field-row"><label>External ticket link<input type="url" id="pbiUrl" placeholder="https://..."></label></div>
+      <div class="field-row span-2"><label class="inline-check"><input type="checkbox" id="pbiTechReviewed"> Reviewed by Tech Lead</label></div>
+    </div>
+    <div class="form-error" id="pbiError"></div>
+    <div class="retro-modal-actions"><button class="btn-ghost" id="pbiCancel">Cancel</button><button class="btn-primary" id="pbiSave">Create Item</button></div>
+  </div>
+</div>
+
+<div class="summary-overlay hidden" id="subtaskOverlay">
+  <div class="summary-card backlog-modal-card">
+    <h2 id="subtaskModalTitle">Create a Sub-task</h2>
+    <div class="backlog-form-grid">
+      <div class="field-row span-2"><label>Title *<input type="text" id="subtaskTitle" placeholder="Actionable implementation step"></label></div>
+      <div class="field-row span-2"><label>Description / Developer Hints<textarea id="subtaskDescription" rows="4" placeholder="Technical notes or implementation guidance"></textarea></label></div>
+      <div class="field-row"><label>Estimated hours<input type="number" id="subtaskHours" min="0" step="0.5" value="0"></label></div>
+      <div class="field-row"><label>External ticket link<input type="url" id="subtaskUrl" placeholder="https://..."></label></div>
+    </div>
+    <div class="form-error" id="subtaskError"></div>
+    <div class="retro-modal-actions"><button class="btn-ghost" id="subtaskCancel">Cancel</button><button class="btn-primary" id="subtaskSave">Create Sub-task</button></div>
+  </div>
+</div>
+
 <div class="summary-overlay hidden" id="newSprintOverlay">
   <div class="summary-card">
     <h2>🔄 Start New Sprint</h2>
-    <p class="muted">This clears all current availability marks and resets ticket planning.</p>
+    <p class="muted">Completed Stories are archived for velocity. Unfinished Stories return to the Product Backlog with their Sub-tasks, while availability and the current Sprint commitment are reset.</p>
     <div class="field-row">
       <label>Sprint Start Date<input type="date" id="newSprintDate"></label>
     </div>
@@ -1267,7 +1408,8 @@
     "stats.dailyScrumHistory", "planningTimer.session", "stats.planningTimerHistory",
     "reviewTimer.session", "stats.reviewTimerHistory", "retroTimer.session",
     "stats.retroTimerHistory", "capacity", "planning", "sprintHistory",
-    "retro", "retro.wentWell", "retro.wentNotWell"];
+    "retro", "retro.wentWell", "retro.wentNotWell", "decisionLog", "knowledgeBase",
+    "definitions", "ui.definitionTab"];
 
   function rawGet(fullKey){
     try{ const raw = localStorage.getItem(fullKey); return raw === null ? undefined : JSON.parse(raw); }
@@ -1769,7 +1911,14 @@
 
   // --- Export / Import ---
   document.getElementById("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({ settings }, null, 2)], { type: "application/json" });
+    const prefix = Store.key("");
+    const data = {};
+    Object.keys(localStorage).filter(key => key.startsWith(prefix)).forEach(key => {
+      const value = rawGet(key);
+      if(value !== undefined) data[key.slice(prefix.length)] = value;
+    });
+    const projectName = projects.find(project => project.id === activeProjectId)?.name || "My Project";
+    const blob = new Blob([JSON.stringify({ version: 2, projectName, exportedAt: new Date().toISOString(), data }, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -1787,6 +1936,14 @@
     reader.onload = () => {
       try{
         const parsed = JSON.parse(reader.result);
+        if(parsed.version === 2 && parsed.data && typeof parsed.data === "object" && !Array.isArray(parsed.data)){
+          if(!parsed.data.settings || !Array.isArray(parsed.data.settings.team)) throw new Error("Invalid project backup file.");
+          const prefix = Store.key("");
+          Object.keys(localStorage).filter(key => key.startsWith(prefix)).forEach(key => localStorage.removeItem(key));
+          Object.entries(parsed.data).forEach(([key, value]) => rawSet(`${prefix}${key}`, value));
+          location.reload();
+          return;
+        }
         if(!parsed.settings || !Array.isArray(parsed.settings.team)) throw new Error("Invalid backup file.");
         const importedDefaults = defaultSettings();
         settings = Object.assign(importedDefaults, parsed.settings);
@@ -2560,9 +2717,43 @@
       alert("Sprint Start Date cannot be in the past.");
       return;
     }
+    const previousSprintStart = settings.sprintStartDate;
+    const stories = sprintStories();
+    if(stories.length){
+      const completedStories = stories.filter(story => story.done);
+      const wasCommitted = !!planningData.commitment;
+      const committedHours = planningData.commitment?.storyHours || {};
+      const plannedHours = planningData.commitment?.totalHours ?? 0;
+      const completedHours = wasCommitted
+        ? roundHours(completedStories.reduce((sum, story) => sum + (committedHours[story.id] ?? 0), 0))
+        : 0;
+      const actualHours = roundHours(completedStories.reduce((sum, story) => sum + storyActualHours(story), 0));
+      sprintHistory.push({
+        sprintStartDate: previousSprintStart,
+        committed: wasCommitted,
+        plannedHours,
+        completedHours,
+        actualHours,
+        finalForecastHours: totalPlannedHours(),
+        forecastVarianceHours: roundHours(totalPlannedHours() - plannedHours),
+        commitmentReliabilityPct: plannedHours ? Math.round((completedHours / plannedHours) * 1000) / 10 : null,
+        plannedTicketsCount: stories.length,
+        completedTicketsCount: completedStories.length
+      });
+      saveSprintHistory();
+
+      const archivedIds = new Set(completedStories.map(story => story.id));
+      planningData.productItems = planningData.productItems.filter(item => !archivedIds.has(item.id));
+      archivedIds.forEach(id => delete planningData.subtasksByStory[id]);
+    }
+    planningData.sprintStoryIds = [];
+    planningData.commitment = null;
+    planningData.scopeTimeline = [];
+    planningData.goals = [""];
+    savePlanning();
+
     if(value) settings.sprintStartDate = value;
     saveSettings();
-
     capacityData = { halves: {}, holidays: {}, ceremonies: null };
     saveCapacity();
     planningTimer.discard();
@@ -2570,21 +2761,9 @@
     retroTimer.discard();
     retroData.items.forEach(it => { if(it.status === "current") it.status = "previous"; });
     saveRetro();
-    if(planningData.tickets.length){
-      const completedTickets = planningData.tickets.filter(t => t.done);
-      sprintHistory.push({
-        sprintStartDate: settings.sprintStartDate,
-        plannedHours: totalPlannedHours(),
-        completedHours: completedTickets.reduce((s, t) => s + (t.actualHours || 0), 0),
-        plannedTicketsCount: planningData.tickets.length,
-        completedTicketsCount: completedTickets.length
-      });
-      saveSprintHistory();
-    }
-    planningData.tickets = [];
-    savePlanning();
     renderTimeboxes();
     renderCapacity();
+    renderPlanning();
     renderRetro();
     renderStats();
     newSprintOverlay.classList.add("hidden");
@@ -2592,6 +2771,8 @@
 
   document.getElementById("openSettingsFromCapacity").addEventListener("click", e => { e.preventDefault(); openSettings(); });
 
+  // Legacy hour-only Planning implementation retained as a migration reference.
+  if(false){
   // --- Sprint planning (ticket badges) ---
   const planningEmptyState = document.getElementById("planningEmptyState");
   const planningCard = document.getElementById("planningCard");
@@ -2822,6 +3003,537 @@
     ticketDoneOverlay.classList.add("hidden");
   });
 
+  }
+
+  // --- Sprint Planning: Product Backlog, Sprint Backlog, and technical breakdown ---
+  const planningEmptyState = document.getElementById("planningEmptyState");
+  const planningCard = document.getElementById("planningCard");
+  const planningCountEl = document.getElementById("planningCount");
+  const planningHoursEl = document.getElementById("planningHours");
+  const productBacklogListEl = document.getElementById("productBacklogList");
+  const sprintBacklogListEl = document.getElementById("sprintBacklogList");
+  const productBacklogColumnEl = document.getElementById("productBacklogColumn");
+  const sprintBacklogColumnEl = document.getElementById("sprintBacklogColumn");
+  const productBacklogCountEl = document.getElementById("productBacklogCount");
+  const sprintBacklogCountEl = document.getElementById("sprintBacklogCount");
+  const planningCommitmentEl = document.getElementById("planningCommitment");
+  const btnAddTicket = document.getElementById("btnAddTicket");
+  const btnRemoveAllTickets = document.getElementById("btnRemoveAllTickets");
+  const btnPlanningStart = document.getElementById("btnPlanningStart");
+  const btnPlanningFinish = document.getElementById("btnPlanningFinish");
+
+  const POKER_VALUES = ["0.5", "1", "2", "3", "5", "8", "?", "☕"];
+  const btnPlanningPoker = document.getElementById("btnPlanningPoker");
+  const pokerReferenceEl = document.getElementById("pokerReference");
+  pokerReferenceEl.innerHTML = POKER_VALUES.map(v =>
+    `<div class="poker-ref-card"><span class="poker-ref-corner top">${v}</span><span class="poker-ref-value">${v}</span><span class="poker-ref-corner bottom">${v}</span></div>`
+  ).join("");
+  btnPlanningPoker.addEventListener("click", () => {
+    const isHidden = pokerReferenceEl.classList.toggle("hidden");
+    btnPlanningPoker.classList.toggle("active", !isHidden);
+  });
+
+  const planningTimer = createCeremonyTimer(
+    "planningTimer.session", "stats.planningTimerHistory",
+    () => (settings.timeboxes.sprintPlanningMinutes || 0) * 60000,
+    { btnStart: btnPlanningStart, btnPause: document.getElementById("btnPlanningPause"), btnFinish: btnPlanningFinish,
+      fill: document.getElementById("planningTimerFill"), text: document.getElementById("planningTimerText") }
+  );
+
+  function emptyPlanningData(){
+    return { productItems: [], sprintStoryIds: [], subtasksByStory: {}, goals: [""], commitment: null, scopeTimeline: [] };
+  }
+  function normalizePbi(item){
+    return Object.assign({
+      id: uuid(), type: "story", parentId: null, title: "", context: "", acceptanceCriteria: [],
+      outOfScope: "", outOfScopeNA: false, refinementNotes: "", refinementNotesNA: false,
+      estimateHours: 0, externalUrl: "", reviewedByTechLead: false, collapsed: true,
+      done: false, actualHours: null, completedDate: null
+    }, item, { estimateHours: Math.max(0, Number(item.estimateHours ?? item.hours) || 0) });
+  }
+  function normalizeSubtask(item){
+    return Object.assign({ id: uuid(), title: "", description: "", externalUrl: "", hours: 0, done: false, actualHours: null, completedDate: null }, item,
+      { hours: Math.max(0, Number(item.hours) || 0) });
+  }
+
+  let planningData = Store.get("planning", null);
+  if(planningData && Array.isArray(planningData.tickets)){
+    const migrated = planningData.tickets.map((ticket, index) => normalizePbi({
+      id: ticket.id || uuid(), type: "story", title: `Legacy Story ${index + 1}`,
+      acceptanceCriteria: ["Review this migrated Story before committing it again."], estimateHours: ticket.hours,
+      done: !!ticket.done, actualHours: ticket.actualHours ?? null, completedDate: ticket.completedDate || null
+    }));
+    planningData = Object.assign(emptyPlanningData(), {
+      productItems: migrated, sprintStoryIds: migrated.map(item => item.id),
+      goals: Array.isArray(planningData.goals) && planningData.goals.length ? planningData.goals : [""]
+    });
+  }else{
+    planningData = Object.assign(emptyPlanningData(), planningData || {});
+    planningData.productItems = Array.isArray(planningData.productItems) ? planningData.productItems.map(normalizePbi) : [];
+    planningData.sprintStoryIds = Array.isArray(planningData.sprintStoryIds) ? planningData.sprintStoryIds : [];
+    planningData.subtasksByStory = planningData.subtasksByStory || {};
+    Object.keys(planningData.subtasksByStory).forEach(id => {
+      planningData.subtasksByStory[id] = Array.isArray(planningData.subtasksByStory[id]) ? planningData.subtasksByStory[id].map(normalizeSubtask) : [];
+    });
+    planningData.goals = Array.isArray(planningData.goals) && planningData.goals.length ? planningData.goals : [""];
+    planningData.scopeTimeline = Array.isArray(planningData.scopeTimeline) ? planningData.scopeTimeline : [];
+  }
+  if(planningData.compactDefaultsVersion !== 1){
+    planningData.productItems.forEach(item => { item.collapsed = true; });
+    planningData.compactDefaultsVersion = 1;
+  }
+  function savePlanning(){ Store.set("planning", planningData); }
+  savePlanning();
+
+  function planningReady(){ return !!(settings.sprintStartDate && capacityMembers().length && sprintWeeks().length); }
+  function productItem(id){ return planningData.productItems.find(item => item.id === id); }
+  function storySubtasks(storyId){
+    if(!planningData.subtasksByStory[storyId]) planningData.subtasksByStory[storyId] = [];
+    return planningData.subtasksByStory[storyId];
+  }
+  function acceptanceLines(value){
+    if(Array.isArray(value)) return value.map(line => String(line).trim()).filter(Boolean);
+    return String(value || "").split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  }
+  function renderDetailLines(label, value, alwaysBullets){
+    const lines = acceptanceLines(value);
+    if(!lines.length) return "";
+    const cleanLines = lines.map(line => line.replace(/^(?:[-*•]\s+|\d+[.)]\s+)/, ""));
+    if(!alwaysBullets && cleanLines.length === 1) return `<p><strong>${label}:</strong> ${escapeHtml(cleanLines[0])}</p>`;
+    return `<div class="backlog-detail-group"><strong>${label}:</strong><ul>${cleanLines.map(line => `<li>${escapeHtml(line)}</li>`).join("")}</ul></div>`;
+  }
+  function isPbiReady(item){
+    return !!(item.title.trim() && item.context.trim() && acceptanceLines(item.acceptanceCriteria).length >= 2 && item.estimateHours > 0 &&
+      (item.outOfScope.trim() || item.outOfScopeNA) && (item.refinementNotes.trim() || item.refinementNotesNA) && item.reviewedByTechLead);
+  }
+  function isSubtaskReady(task){ return !!(task.title.trim() && task.description.trim() && task.hours > 0); }
+  function breakdownComplete(storyId){
+    const tasks = storySubtasks(storyId);
+    return tasks.length > 0 && tasks.every(isSubtaskReady);
+  }
+  function subtaskHours(storyId){ return roundHours(storySubtasks(storyId).reduce((sum, task) => sum + task.hours, 0)); }
+  function storyForecastHours(story){ return breakdownComplete(story.id) ? subtaskHours(story.id) : story.estimateHours; }
+  function storyRemainingHours(story){
+    if(story.done) return 0;
+    const tasks = storySubtasks(story.id);
+    if(breakdownComplete(story.id)) return roundHours(tasks.filter(task => !task.done).reduce((sum, task) => sum + task.hours, 0));
+    return story.estimateHours;
+  }
+  function sprintStories(){ return planningData.sprintStoryIds.map(productItem).filter(item => item && item.type === "story"); }
+  function totalPlannedHours(){ return roundHours(sprintStories().reduce((sum, story) => sum + storyForecastHours(story), 0)); }
+  function totalRemainingHours(){ return roundHours(sprintStories().reduce((sum, story) => sum + storyRemainingHours(story), 0)); }
+  function storyActualHours(story){
+    const tasks = storySubtasks(story.id);
+    if(tasks.length) return roundHours(tasks.reduce((sum, task) => sum + (task.actualHours ?? (task.done ? task.hours : 0)), 0));
+    return roundHours(story.actualHours ?? (story.done ? storyForecastHours(story) : 0));
+  }
+  function recordPlanningSnapshot(dateStr, reason){
+    if(!planningData.commitment) return;
+    const snapshot = { date: dateStr || toISODate(new Date()), scopeHours: totalPlannedHours(), remainingHours: totalRemainingHours(), reason: reason || "Updated" };
+    const existing = planningData.scopeTimeline.findIndex(entry => entry.date === snapshot.date);
+    if(existing === -1) planningData.scopeTimeline.push(snapshot); else planningData.scopeTimeline[existing] = snapshot;
+    planningData.scopeTimeline.sort((a, b) => a.date.localeCompare(b.date));
+  }
+  function capturePlanningCommitment(){
+    if(planningData.commitment){ recordPlanningSnapshot(toISODate(new Date()), "Planning revisited"); return; }
+    const storyHours = {};
+    sprintStories().forEach(story => { storyHours[story.id] = storyForecastHours(story); });
+    planningData.commitment = { date: toISODate(new Date()), totalHours: totalPlannedHours(), storyHours };
+    planningData.scopeTimeline = [];
+    recordPlanningSnapshot(planningData.commitment.date, "Sprint commitment");
+  }
+  function safeExternalUrl(value){
+    const raw = String(value || "").trim(); if(!raw) return "";
+    try{ const parsed = new URL(raw); return parsed.protocol === "http:" || parsed.protocol === "https:" ? parsed.href : ""; }catch(e){ return ""; }
+  }
+  function itemChildren(parentId){ return planningData.productItems.filter(item => item.parentId === parentId); }
+  function itemDescendants(id){ const direct = itemChildren(id); return direct.concat(direct.flatMap(child => itemDescendants(child.id))); }
+  function siblingItems(item){ return planningData.productItems.filter(candidate => candidate.parentId === item.parentId); }
+  function moveBacklogItem(id, direction){
+    const item = productItem(id); if(!item) return;
+    const siblings = siblingItems(item).filter(candidate => !(candidate.type === "story" && planningData.sprintStoryIds.includes(candidate.id)));
+    const index = siblings.findIndex(candidate => candidate.id === id); const target = siblings[index + direction]; if(!target) return;
+    const fromIndex = planningData.productItems.findIndex(candidate => candidate.id === id);
+    const toIndex = planningData.productItems.findIndex(candidate => candidate.id === target.id);
+    [planningData.productItems[fromIndex], planningData.productItems[toIndex]] = [planningData.productItems[toIndex], planningData.productItems[fromIndex]];
+  }
+  function rollupEstimate(item){
+    if(item.type === "story") return item.estimateHours;
+    return roundHours(itemDescendants(item.id).filter(child => child.type === "story").reduce((sum, story) => sum + story.estimateHours, 0));
+  }
+  function renderExternalLink(url){
+    const safe = safeExternalUrl(url);
+    return safe ? `<a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer">External ticket ↗</a>` : "";
+  }
+  function planningIcon(name){
+    const paths = {
+      chevronDown: '<path d="m8 10 4 4 4-4"/>', chevronRight: '<path d="m10 8 4 4-4 4"/>',
+      up: '<path d="M12 19V5M7 10l5-5 5 5"/>', down: '<path d="M12 5v14m-5-5 5 5 5-5"/>',
+      edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/>',
+      trash: '<path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5"/>',
+      plus: '<path d="M12 5v14M5 12h14"/>', minus: '<path d="M5 12h14"/>', check: '<path d="m5 12 4 4L19 6"/>',
+      arrowRight: '<path d="M5 12h14m-5-5 5 5-5 5"/>', arrowLeft: '<path d="M19 12H5m5-5-5 5 5 5"/>'
+    };
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name] || ""}</svg>`;
+  }
+
+  function renderPbiDetails(item){
+    const link = renderExternalLink(item.externalUrl);
+    return `<div class="backlog-details">` +
+      renderDetailLines("Context", item.context, false) +
+      renderDetailLines("Acceptance Criteria", item.acceptanceCriteria, true) +
+      ((item.outOfScope || item.outOfScopeNA) ? (item.outOfScopeNA ? `<p><strong>Out of Scope:</strong> Not applicable</p>` : renderDetailLines("Out of Scope", item.outOfScope, false)) : "") +
+      ((item.refinementNotes || item.refinementNotesNA) ? (item.refinementNotesNA ? `<p><strong>Refinement:</strong> Not applicable</p>` : renderDetailLines("Refinement", item.refinementNotes, false)) : "") +
+      (link ? `<p>${link}</p>` : "") + `</div>`;
+  }
+  function renderProductItem(item){
+    if(item.type === "story" && planningData.sprintStoryIds.includes(item.id)) return "";
+    const children = itemChildren(item.id).filter(child => !(child.type === "story" && planningData.sprintStoryIds.includes(child.id)));
+    const siblings = siblingItems(item).filter(candidate => !(candidate.type === "story" && planningData.sprintStoryIds.includes(candidate.id)));
+    const siblingIndex = siblings.findIndex(candidate => candidate.id === item.id);
+    const ready = isPbiReady(item); const expanded = !item.collapsed;
+    return `<article class="backlog-item product-pbi${ready ? " ready" : ""}" data-pbi-id="${item.id}" data-type="${item.type}"${item.type === "story" ? ` draggable="true"` : ""}>` +
+      `<div class="backlog-item-head"><button class="backlog-toggle" data-action="toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
+      `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-type ${item.type}">${item.type}</span><span class="backlog-title">${escapeHtml(item.title)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}</div>` +
+      `<div class="backlog-meta"><span>${item.type === "story" ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div>` +
+      `<div class="backlog-actions">${siblings.length > 1 ? `<button class="backlog-icon-btn" data-action="moveup" title="Move up" aria-label="Move up"${siblingIndex <= 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="movedown" title="Move down" aria-label="Move down"${siblingIndex === siblings.length - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}` +
+      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${item.type === "story" ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div></div>` +
+      (expanded ? renderPbiDetails(item) + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
+  }
+  function renderHourBox(kind, storyId, task){
+    const item = task || productItem(storyId); const hours = task ? task.hours : item.estimateHours;
+    const data = `data-kind="${kind}" data-story-id="${storyId}"${task ? ` data-task-id="${task.id}"` : ""}`;
+    return `<div class="work-estimate${item.done ? " is-done" : ""}">` +
+      `<button class="work-done" data-hour-action="done" ${data} title="${item.done ? "View completion or reopen" : "Mark Done"}" aria-label="${item.done ? "View completion or reopen" : "Mark Done"}">${planningIcon("check")}<span>Done</span></button>` +
+      `<div class="work-stepper">` +
+      (!item.done ? `<button class="work-action" data-hour-action="minus" ${data} title="Decrease estimate" aria-label="Decrease estimate">${planningIcon("minus")}</button>` : "") +
+      `<span class="work-stepper-value">${formatHours(hours)}h</span>` +
+      (!item.done ? `<button class="work-action" data-hour-action="plus" ${data} title="Increase estimate" aria-label="Increase estimate">${planningIcon("plus")}</button>` : "") +
+      `</div></div>`;
+  }
+  function renderSubtask(task, storyId, index, total){
+    const ready = isSubtaskReady(task); const link = renderExternalLink(task.externalUrl);
+    return `<article class="backlog-item${ready ? " ready" : ""}${task.done ? " done" : ""}" data-task-id="${task.id}"><div class="backlog-item-head">` +
+      `<div class="subtask-identity"><span class="backlog-type">Sub-task</span></div>` +
+      `<div class="backlog-actions">${total > 1 ? `<button class="backlog-icon-btn" data-action="task-up" title="Move up" aria-label="Move up"${index === 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="task-down" title="Move down" aria-label="Move down"${index === total - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}<button class="backlog-icon-btn text-action" data-action="task-edit">${planningIcon("edit")}<span>Edit</span></button><button class="backlog-icon-btn danger" data-action="task-delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div>` +
+      renderHourBox("subtask", storyId, task) + `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-title">${escapeHtml(task.title)}</span></div>` +
+      `<div class="backlog-meta"><span class="backlog-status">${task.done ? "Done" : ready ? "Ready" : "Needs details and estimate"}</span>${link ? `<span>· ${link}</span>` : ""}</div></div></div>` +
+      (task.description ? `<div class="backlog-details subtask-details">${renderDetailLines("Description", task.description, false)}</div>` : "") + `</article>`;
+  }
+  function renderSprintStory(story, index, total){
+    const tasks = storySubtasks(story.id); const ready = isPbiReady(story);
+    const allTasksDone = tasks.length > 0 && tasks.every(task => task.done); const canToggle = tasks.length > 0 || story.done;
+    const expanded = canToggle ? !story.collapsed : true;
+    const articleStart = `<article class="backlog-item sprint-story${ready ? " ready" : ""}${story.done ? " done" : ""}${allTasksDone && !story.done ? " completion-ready ready-to-close" : ""}" data-story-id="${story.id}" draggable="true">`;
+    if(story.done && !tasks.length && !expanded){
+      return articleStart + `<div class="done-story-summary"><button class="backlog-toggle" data-action="sprint-toggle" title="Expand" aria-label="Expand">${planningIcon("chevronRight")}</button><span class="backlog-title">${escapeHtml(story.title)}</span></div></article>`;
+    }
+    return articleStart +
+      `<div class="backlog-item-head"><div class="sprint-story-identity">${canToggle ? `<button class="backlog-toggle" data-action="sprint-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` : ""}<span class="backlog-type">Story</span>${!expanded && tasks.length ? `<span class="backlog-counter">${tasks.length} Sub-task${tasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
+      `<div class="backlog-actions">${total > 1 ? `<button class="backlog-icon-btn" data-action="sprint-up" title="Move up" aria-label="Move up"${index === 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="sprint-down" title="Move down" aria-label="Move down"${index === total - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}<button class="backlog-icon-btn text-action" data-action="edit-story">${planningIcon("edit")}<span>Edit</span></button><button class="backlog-icon-btn text-action" data-action="return-product">${planningIcon("arrowLeft")}<span>Product</span></button><button class="backlog-icon-btn text-action" data-action="add-subtask">${planningIcon("plus")}<span>Sub-task</span></button></div>` +
+      renderHourBox("story", story.id) + `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-title">${escapeHtml(story.title)}</span></div></div></div>` +
+      (expanded ? renderPbiDetails(story) + (tasks.length ? `<div class="subtask-list">${tasks.map((task, taskIndex) => renderSubtask(task, story.id, taskIndex, tasks.length)).join("")}</div>` : "") : "") + `</article>`;
+  }
+
+  const planningGoalsListEl = document.getElementById("sprintGoalsList");
+  function renderSprintGoals(){
+    planningGoalsListEl.innerHTML = planningData.goals.map((goal, index) => `<div class="sprint-goal-row" data-index="${index}"><span class="sprint-goal-bullet">•</span><input type="text" class="sprint-goal-input" placeholder="Specify the Sprint Goal..." value="${escapeHtml(goal)}">${String(goal || "").trim() || planningData.goals.length > 1 ? `<button class="sprint-goal-trash" title="Delete Sprint Goal" aria-label="Delete Sprint Goal">${planningIcon("trash")}</button>` : ""}${index === planningData.goals.length - 1 ? `<button class="sprint-goal-add" title="Add Sprint Goal" aria-label="Add Sprint Goal">+</button>` : ""}</div>`).join("");
+  }
+  planningGoalsListEl.addEventListener("click", e => {
+    if(e.target.closest(".sprint-goal-add")){ planningData.goals.push(""); savePlanning(); renderSprintGoals(); return; }
+    const trash = e.target.closest(".sprint-goal-trash");
+    if(trash){
+      planningData.goals.splice(Number(trash.closest(".sprint-goal-row").dataset.index), 1);
+      if(!planningData.goals.length) planningData.goals.push("");
+      savePlanning(); renderSprintGoals();
+    }
+  });
+  planningGoalsListEl.addEventListener("change", e => {
+    if(!e.target.classList.contains("sprint-goal-input")) return;
+    planningData.goals[Number(e.target.closest(".sprint-goal-row").dataset.index)] = e.target.value; savePlanning(); renderSprintGoals();
+  });
+
+  function renderPlanning(){
+    const ready = planningReady(); planningEmptyState.classList.add("hidden"); planningCard.classList.remove("hidden"); btnPlanningStart.disabled = !ready;
+    const stories = sprintStories(); const count = stories.length;
+    planningCountEl.textContent = `${count} Sprint Stor${count === 1 ? "y" : "ies"}`;
+    if(ready){
+      const remaining = roundHours(effectiveCapacityHours(capacityMembers(), sprintWeeks()) - totalPlannedHours());
+      planningHoursEl.textContent = `Available Capacity: ${remaining < 0 ? "-" : ""}${formatHours(Math.abs(remaining))}h`;
+      planningHoursEl.classList.toggle("over", remaining < 0); planningCountEl.classList.toggle("over", remaining < 0);
+    }else{
+      planningHoursEl.textContent = "Available Capacity: configure Sprint"; planningHoursEl.classList.remove("over"); planningCountEl.classList.remove("over");
+    }
+    const roots = planningData.productItems.filter(item => !item.parentId);
+    const productVisibleCount = planningData.productItems.filter(item => !(item.type === "story" && planningData.sprintStoryIds.includes(item.id))).length;
+    productBacklogCountEl.textContent = `${productVisibleCount} item${productVisibleCount === 1 ? "" : "s"}`;
+    sprintBacklogCountEl.textContent = `${count} Stor${count === 1 ? "y" : "ies"}`;
+    productBacklogListEl.innerHTML = roots.map(renderProductItem).join("") || `<div class="backlog-empty">No Product Backlog items yet. Use + Ticket to create one.</div>`;
+    sprintBacklogListEl.innerHTML = stories.map((story, index) => renderSprintStory(story, index, stories.length)).join("") || `<div class="backlog-empty">Drag a ready Story here or use its “→ Sprint” button.</div>`;
+    if(planningData.commitment){
+      planningCommitmentEl.innerHTML = `<span class="commitment-state committed">Ready</span><span>Sprint planning complete.</span>`;
+    }else{
+      planningCommitmentEl.innerHTML = `<span class="commitment-state">Forecast open</span><span>Finish Planning to lock sprint commitment.</span>`;
+    }
+    renderSprintGoals(); renderBurndown();
+  }
+
+  // Product Backlog Item dialog.
+  const pbiOverlay = document.getElementById("pbiOverlay");
+  const pbiTypeInputs = [...document.querySelectorAll('input[name="pbiType"]')];
+  const pbiParentRow = document.getElementById("pbiParentRow");
+  const pbiParentEl = document.getElementById("pbiParent");
+  const pbiTitleEl = document.getElementById("pbiTitle");
+  const pbiContextEl = document.getElementById("pbiContext");
+  const pbiAcceptanceEl = document.getElementById("pbiAcceptance");
+  const pbiOutOfScopeEl = document.getElementById("pbiOutOfScope");
+  const pbiOutOfScopeNAEl = document.getElementById("pbiOutOfScopeNA");
+  const pbiRefinementEl = document.getElementById("pbiRefinement");
+  const pbiRefinementNAEl = document.getElementById("pbiRefinementNA");
+  const pbiHoursEl = document.getElementById("pbiHours");
+  const pbiUrlEl = document.getElementById("pbiUrl");
+  const pbiTechReviewedEl = document.getElementById("pbiTechReviewed");
+  const pbiErrorEl = document.getElementById("pbiError");
+  let editingPbiId = null;
+
+  function selectedPbiType(){ return pbiTypeInputs.find(input => input.checked)?.value || "story"; }
+  function updateParentOptions(selectedId){
+    const type = selectedPbiType(); const parentType = type === "feature" ? "epic" : type === "story" ? "feature" : null;
+    const options = parentType ? planningData.productItems.filter(item => item.type === parentType && item.id !== editingPbiId) : [];
+    pbiParentRow.classList.toggle("hidden", !options.length);
+    pbiParentEl.innerHTML = `<option value="">No parent</option>` + options.map(item => `<option value="${item.id}">${escapeHtml(item.title)}</option>`).join("");
+    pbiParentEl.value = options.some(item => item.id === selectedId) ? selectedId : "";
+  }
+  function syncNotApplicableFields(){
+    pbiOutOfScopeEl.disabled = pbiOutOfScopeNAEl.checked; pbiRefinementEl.disabled = pbiRefinementNAEl.checked;
+  }
+  function openPbiModal(id){
+    editingPbiId = id || null; const item = id ? productItem(id) : null;
+    document.getElementById("pbiModalTitle").textContent = item ? "Edit Product Backlog Item" : "Create a Product Backlog Item";
+    document.getElementById("pbiSave").textContent = item ? "Save Changes" : "Create Item";
+    pbiTypeInputs.forEach(input => { input.checked = input.value === (item?.type || "story"); input.disabled = !!item; });
+    pbiTitleEl.value = item?.title || ""; pbiContextEl.value = item?.context || ""; pbiAcceptanceEl.value = acceptanceLines(item?.acceptanceCriteria).join("\n");
+    pbiOutOfScopeEl.value = item?.outOfScope || ""; pbiOutOfScopeNAEl.checked = !!item?.outOfScopeNA;
+    pbiRefinementEl.value = item?.refinementNotes || ""; pbiRefinementNAEl.checked = !!item?.refinementNotesNA;
+    pbiHoursEl.value = item?.estimateHours ?? 0; pbiUrlEl.value = item?.externalUrl || ""; pbiTechReviewedEl.checked = !!item?.reviewedByTechLead;
+    pbiErrorEl.textContent = ""; updateParentOptions(item?.parentId || ""); syncNotApplicableFields(); pbiOverlay.classList.remove("hidden"); pbiTitleEl.focus();
+  }
+  pbiTypeInputs.forEach(input => input.addEventListener("change", () => updateParentOptions("")));
+  pbiOutOfScopeNAEl.addEventListener("change", syncNotApplicableFields); pbiRefinementNAEl.addEventListener("change", syncNotApplicableFields);
+  document.getElementById("pbiCancel").addEventListener("click", () => pbiOverlay.classList.add("hidden"));
+  document.getElementById("pbiSave").addEventListener("click", () => {
+    const title = pbiTitleEl.value.trim(); const criteria = acceptanceLines(pbiAcceptanceEl.value); const rawUrl = pbiUrlEl.value.trim();
+    if(!title || !criteria.length){ pbiErrorEl.textContent = "Title and at least one Acceptance Criterion are required."; return; }
+    if(rawUrl && !safeExternalUrl(rawUrl)){ pbiErrorEl.textContent = "Use a valid http:// or https:// external ticket link."; return; }
+    const values = { type: selectedPbiType(), parentId: pbiParentRow.classList.contains("hidden") ? null : (pbiParentEl.value || null), title,
+      context: pbiContextEl.value.trim(), acceptanceCriteria: criteria, outOfScope: pbiOutOfScopeEl.value.trim(), outOfScopeNA: pbiOutOfScopeNAEl.checked,
+      refinementNotes: pbiRefinementEl.value.trim(), refinementNotesNA: pbiRefinementNAEl.checked, estimateHours: Math.max(0, Number(pbiHoursEl.value) || 0),
+      externalUrl: safeExternalUrl(rawUrl), reviewedByTechLead: pbiTechReviewedEl.checked };
+    if(editingPbiId) Object.assign(productItem(editingPbiId), values); else planningData.productItems.push(normalizePbi(Object.assign({ id: uuid() }, values)));
+    recordPlanningSnapshot(toISODate(new Date()), "Backlog item updated"); savePlanning(); pbiOverlay.classList.add("hidden"); renderPlanning();
+  });
+  btnAddTicket.addEventListener("click", () => openPbiModal());
+
+  // Sub-task dialog.
+  const subtaskOverlay = document.getElementById("subtaskOverlay");
+  const subtaskTitleEl = document.getElementById("subtaskTitle");
+  const subtaskDescriptionEl = document.getElementById("subtaskDescription");
+  const subtaskHoursEl = document.getElementById("subtaskHours");
+  const subtaskUrlEl = document.getElementById("subtaskUrl");
+  const subtaskErrorEl = document.getElementById("subtaskError");
+  let editingSubtask = null;
+  function openSubtaskModal(storyId, taskId){
+    const task = taskId ? storySubtasks(storyId).find(item => item.id === taskId) : null;
+    editingSubtask = { storyId, taskId: taskId || null };
+    document.getElementById("subtaskModalTitle").textContent = task ? "Edit Sub-task" : "Create a Sub-task";
+    document.getElementById("subtaskSave").textContent = task ? "Save Changes" : "Create Sub-task";
+    subtaskTitleEl.value = task?.title || ""; subtaskDescriptionEl.value = task?.description || ""; subtaskHoursEl.value = task?.hours ?? 0;
+    subtaskUrlEl.value = task?.externalUrl || ""; subtaskErrorEl.textContent = ""; subtaskOverlay.classList.remove("hidden"); subtaskTitleEl.focus();
+  }
+  document.getElementById("subtaskCancel").addEventListener("click", () => subtaskOverlay.classList.add("hidden"));
+  document.getElementById("subtaskSave").addEventListener("click", () => {
+    const title = subtaskTitleEl.value.trim(); const rawUrl = subtaskUrlEl.value.trim();
+    if(!title){ subtaskErrorEl.textContent = "Title is required."; return; }
+    if(rawUrl && !safeExternalUrl(rawUrl)){ subtaskErrorEl.textContent = "Use a valid http:// or https:// external ticket link."; return; }
+    const values = { title, description: subtaskDescriptionEl.value.trim(), hours: Math.max(0, Number(subtaskHoursEl.value) || 0), externalUrl: safeExternalUrl(rawUrl) };
+    const tasks = storySubtasks(editingSubtask.storyId); const task = editingSubtask.taskId ? tasks.find(item => item.id === editingSubtask.taskId) : null;
+    if(task) Object.assign(task, values); else tasks.push(normalizeSubtask(Object.assign({ id: uuid() }, values)));
+    recordPlanningSnapshot(toISODate(new Date()), "Technical breakdown updated"); savePlanning(); subtaskOverlay.classList.add("hidden"); renderPlanning();
+  });
+
+  async function addStoryToSprint(id){
+    const story = productItem(id); if(!story || story.type !== "story" || planningData.sprintStoryIds.includes(id)) return;
+    if(!planningReady()){ alert("Configure an active Sprint and team capacity before selecting Sprint work."); return; }
+    if(!isPbiReady(story) && !(await showConfirm("This Story does not yet meet its Definition of Ready. Add it to the Sprint anyway?", "Add Anyway"))) return;
+    planningData.sprintStoryIds.push(id);
+    if(planningData.commitment) planningData.commitment.storyHours[id] = storyForecastHours(story);
+    recordPlanningSnapshot(toISODate(new Date()), "Story added to Sprint"); savePlanning(); renderPlanning();
+  }
+  async function returnStoryToProduct(id){
+    const story = productItem(id); if(!story) return;
+    if(story.done){
+      if(!(await showConfirm("Returning this completed Story will reopen it and remove its completion from this Sprint. Continue?", "Return & Reopen"))) return;
+      story.done = false; story.actualHours = null; story.completedDate = null;
+    }
+    planningData.sprintStoryIds = planningData.sprintStoryIds.filter(storyId => storyId !== id);
+    recordPlanningSnapshot(toISODate(new Date()), "Story returned to Product Backlog"); savePlanning(); renderPlanning();
+  }
+
+  productBacklogListEl.addEventListener("click", async e => {
+    const itemEl = e.target.closest("[data-pbi-id]");
+    const action = e.target.closest("button[data-action]")?.dataset.action;
+    if(!itemEl || !action) return;
+    const id = itemEl.dataset.pbiId;
+    const item = productItem(id);
+    if(!item) return;
+    if(action === "toggle") item.collapsed = !item.collapsed;
+    else if(action === "moveup") moveBacklogItem(id, -1);
+    else if(action === "movedown") moveBacklogItem(id, 1);
+    else if(action === "edit") return openPbiModal(id);
+    else if(action === "add-sprint") return addStoryToSprint(id);
+    else if(action === "delete"){
+      const descendants = itemDescendants(id);
+      const sprintDescendant = [item, ...descendants].some(candidate => planningData.sprintStoryIds.includes(candidate.id));
+      if(sprintDescendant){
+        alert("Return every affected Story from the Sprint Backlog before deleting this item.");
+        return;
+      }
+      const nestedTaskCount = [item, ...descendants]
+        .filter(candidate => candidate.type === "story")
+        .reduce((sum, story) => sum + storySubtasks(story.id).length, 0);
+      const nestedCount = descendants.length + nestedTaskCount;
+      const childCopy = nestedCount ? ` This will also delete ${nestedCount} nested item${nestedCount === 1 ? "" : "s"}.` : "";
+      if(!(await showConfirm(`Delete \"${item.title}\"?${childCopy}`, "Delete"))) return;
+      const deleteIds = new Set([id, ...descendants.map(child => child.id)]);
+      planningData.productItems = planningData.productItems.filter(candidate => !deleteIds.has(candidate.id));
+      deleteIds.forEach(deleteId => delete planningData.subtasksByStory[deleteId]);
+    }else return;
+    savePlanning(); renderPlanning();
+  });
+
+  let workDoneTarget = null;
+  const workDoneOverlay = document.getElementById("ticketDoneOverlay");
+  const workDoneHoursEl = document.getElementById("ticketDoneHours");
+  const workDoneDateEl = document.getElementById("ticketDoneDate");
+  const workDoneReopenBtn = document.getElementById("ticketDoneReopen");
+  const workDoneCancelBtn = document.getElementById("ticketDoneCancel");
+  const workDoneConfirmBtn = document.getElementById("ticketDoneConfirm");
+  function selectedWorkItem(){
+    if(!workDoneTarget) return null;
+    if(workDoneTarget.kind === "story") return productItem(workDoneTarget.storyId);
+    return storySubtasks(workDoneTarget.storyId).find(task => task.id === workDoneTarget.taskId);
+  }
+  async function openWorkDoneModal(kind, storyId, taskId){
+    const item = kind === "story" ? productItem(storyId) : storySubtasks(storyId).find(task => task.id === taskId);
+    if(!item) return;
+    if(kind === "story" && !item.done){
+      const openTasks = storySubtasks(storyId).filter(task => !task.done);
+      if(openTasks.length && !(await showConfirm(`This Story still has ${openTasks.length} open Sub-task${openTasks.length === 1 ? "" : "s"}. Close it anyway?`, "Continue"))) return;
+    }
+    workDoneTarget = { kind, storyId, taskId: taskId || null };
+    const suggested = kind === "story"
+      ? (storySubtasks(storyId).length ? storySubtasks(storyId).reduce((sum, task) => sum + (task.actualHours ?? task.hours), 0) : storyForecastHours(item))
+      : item.hours;
+    workDoneHoursEl.value = item.actualHours != null ? item.actualHours : roundHours(suggested);
+    workDoneDateEl.value = item.completedDate || toISODate(new Date());
+    workDoneReopenBtn.classList.toggle("hidden", !item.done);
+    workDoneConfirmBtn.textContent = item.done ? "Save" : "Mark Done";
+    workDoneOverlay.classList.remove("hidden");
+  }
+  workDoneCancelBtn.addEventListener("click", () => workDoneOverlay.classList.add("hidden"));
+  workDoneConfirmBtn.addEventListener("click", () => {
+    const item = selectedWorkItem();
+    if(item){
+      item.done = true;
+      if(workDoneTarget.kind === "story" && !storySubtasks(workDoneTarget.storyId).length) item.collapsed = true;
+      item.actualHours = Math.max(0, Number(workDoneHoursEl.value) || 0);
+      item.completedDate = workDoneDateEl.value || toISODate(new Date());
+      recordPlanningSnapshot(item.completedDate, `${workDoneTarget.kind === "story" ? "Story" : "Sub-task"} completed`);
+      savePlanning(); renderPlanning();
+    }
+    workDoneOverlay.classList.add("hidden");
+  });
+  workDoneReopenBtn.addEventListener("click", () => {
+    const item = selectedWorkItem();
+    if(item){
+      item.done = false; item.actualHours = null; item.completedDate = null;
+      recordPlanningSnapshot(toISODate(new Date()), `${workDoneTarget.kind === "story" ? "Story" : "Sub-task"} reopened`);
+      savePlanning(); renderPlanning();
+    }
+    workDoneOverlay.classList.add("hidden");
+  });
+
+  sprintBacklogListEl.addEventListener("click", async e => {
+    const storyEl = e.target.closest("[data-story-id]");
+    if(!storyEl) return;
+    const storyId = storyEl.dataset.storyId;
+    const story = productItem(storyId);
+    const taskEl = e.target.closest("[data-task-id]");
+    const taskId = taskEl?.dataset.taskId;
+    const hourActionEl = e.target.closest("button[data-hour-action]");
+    if(hourActionEl){
+      const kind = hourActionEl.dataset.kind;
+      const item = kind === "story" ? story : storySubtasks(storyId).find(task => task.id === taskId);
+      if(!item) return;
+      if(hourActionEl.dataset.hourAction === "done") return openWorkDoneModal(kind, storyId, taskId);
+      const key = kind === "story" ? "estimateHours" : "hours";
+      const increment = Math.max(0.5, Number(settings.ticketIncrementHours) || 1);
+      item[key] = roundHours(hourActionEl.dataset.hourAction === "plus" ? item[key] + increment : Math.max(0, item[key] - increment));
+      recordPlanningSnapshot(toISODate(new Date()), "Estimate updated"); savePlanning(); renderPlanning(); return;
+    }
+    const action = e.target.closest("button[data-action]")?.dataset.action;
+    if(!action || !story) return;
+    const storyIndex = planningData.sprintStoryIds.indexOf(storyId);
+    if(action === "sprint-toggle") story.collapsed = !story.collapsed;
+    else if(action === "sprint-up" && storyIndex > 0) [planningData.sprintStoryIds[storyIndex - 1], planningData.sprintStoryIds[storyIndex]] = [storyId, planningData.sprintStoryIds[storyIndex - 1]];
+    else if(action === "sprint-down" && storyIndex < planningData.sprintStoryIds.length - 1) [planningData.sprintStoryIds[storyIndex + 1], planningData.sprintStoryIds[storyIndex]] = [storyId, planningData.sprintStoryIds[storyIndex + 1]];
+    else if(action === "edit-story") return openPbiModal(storyId);
+    else if(action === "return-product") return returnStoryToProduct(storyId);
+    else if(action === "add-subtask") return openSubtaskModal(storyId);
+    else if(action === "task-edit") return openSubtaskModal(storyId, taskId);
+    else if(action === "task-delete"){
+      const task = storySubtasks(storyId).find(candidate => candidate.id === taskId);
+      if(!task || !(await showConfirm(`Delete Sub-task \"${task.title}\"?`, "Delete"))) return;
+      planningData.subtasksByStory[storyId] = storySubtasks(storyId).filter(candidate => candidate.id !== taskId);
+      recordPlanningSnapshot(toISODate(new Date()), "Sub-task deleted");
+    }else if(action === "task-up" || action === "task-down"){
+      const tasks = storySubtasks(storyId); const index = tasks.findIndex(task => task.id === taskId); const next = index + (action === "task-up" ? -1 : 1);
+      if(index >= 0 && next >= 0 && next < tasks.length) [tasks[index], tasks[next]] = [tasks[next], tasks[index]];
+    }else return;
+    savePlanning(); renderPlanning();
+  });
+
+  productBacklogListEl.addEventListener("dragstart", e => {
+    const story = e.target.closest('[data-pbi-id][data-type="story"]');
+    if(!story) return;
+    e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", story.dataset.pbiId);
+  });
+  sprintBacklogListEl.addEventListener("dragstart", e => {
+    const story = e.target.closest("[data-story-id]");
+    if(!story) return;
+    e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", story.dataset.storyId);
+  });
+  [productBacklogColumnEl, sprintBacklogColumnEl].forEach(column => {
+    column.addEventListener("dragover", e => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; column.classList.add("drag-over"); });
+    column.addEventListener("dragleave", e => { if(!column.contains(e.relatedTarget)) column.classList.remove("drag-over"); });
+    column.addEventListener("drop", () => column.classList.remove("drag-over"));
+  });
+  sprintBacklogColumnEl.addEventListener("drop", e => { e.preventDefault(); addStoryToSprint(e.dataTransfer.getData("text/plain")); });
+  productBacklogColumnEl.addEventListener("drop", e => { e.preventDefault(); returnStoryToProduct(e.dataTransfer.getData("text/plain")); });
+
+  btnRemoveAllTickets.addEventListener("click", async () => {
+    if(!planningData.sprintStoryIds.length) return;
+    if(!(await showConfirm("Return every Story to the Product Backlog and clear the Sprint commitment?", "Clear Sprint"))) return;
+    sprintStories().forEach(story => { story.done = false; story.actualHours = null; story.completedDate = null; });
+    planningData.sprintStoryIds = []; planningData.commitment = null; planningData.scopeTimeline = [];
+    savePlanning(); renderPlanning();
+  });
+  btnPlanningFinish.addEventListener("click", () => {
+    if(!sprintStories().length) return;
+    capturePlanningCommitment(); savePlanning(); renderPlanning();
+  });
+  document.getElementById("openCapacityFromPlanning").addEventListener("click", e => { e.preventDefault(); activateTab("capacity"); });
+
   // --- Burndown ---
   const burndownEmptyState = document.getElementById("burndownEmptyState");
   const burndownCard = document.getElementById("burndownCard");
@@ -2851,7 +3563,7 @@
   }
 
   function avgVelocityHours(){
-    const recent = recentSprintHistory();
+    const recent = recentSprintHistory().filter(history => history.committed !== false);
     if(!recent.length) return null;
     return Math.round((recent.reduce((s, h) => s + h.completedHours, 0) / recent.length) * 10) / 10;
   }
@@ -2862,13 +3574,13 @@
     return Math.round((recent.reduce((s, h) => s + h.completedTicketsCount, 0) / recent.length) * 10) / 10;
   }
 
-  function drawBurndownChart(svg, days, totalHours, actualPoints){
+  function drawBurndownChart(svg, days, baselineHours, scopePoints, remainingPoints){
     const width = Math.max(320, svg.parentElement.clientWidth || 600);
     const height = 280;
     const padL = 46, padR = 16, padT = 16, padB = 28;
     const plotW = width - padL - padR;
     const plotH = height - padT - padB;
-    const maxY = totalHours || 1;
+    const maxY = Math.max(1, baselineHours, ...scopePoints.map(point => point.y), ...remainingPoints.map(point => point.y));
     const n = Math.max(days.length - 1, 1);
     const xAt = i => padL + (days.length > 1 ? (i / n) * plotW : plotW / 2);
     const yAt = v => padT + (1 - v / maxY) * plotH;
@@ -2891,14 +3603,17 @@
       dayLabels += `<text x="${xAt(i)}" y="${height - 8}" font-size="10" text-anchor="middle" fill="#5b6b7b">${day.getDate()}/${day.getMonth() + 1}</text>`;
     });
 
-    const idealPoints = days.map((day, i) => ({ x: i, y: days.length > 1 ? totalHours * (1 - i / n) : totalHours }));
+    const idealPoints = days.map((day, i) => ({ x: i, y: days.length > 1 ? baselineHours * (1 - i / n) : baselineHours }));
     const idealPath = idealPoints.map((p, i) => `${i === 0 ? "M" : "L"} ${xAt(p.x)} ${yAt(p.y)}`).join(" ");
-    const actualPath = actualPoints.map((p, i) => `${i === 0 ? "M" : "L"} ${xAt(p.x)} ${yAt(p.y)}`).join(" ");
+    const scopePath = scopePoints.map((p, i) => `${i === 0 ? "M" : "L"} ${xAt(p.x)} ${yAt(p.y)}`).join(" ");
+    const remainingPath = remainingPoints.map((p, i) => `${i === 0 ? "M" : "L"} ${xAt(p.x)} ${yAt(p.y)}`).join(" ");
 
     svg.innerHTML = gridLines + dayLabels +
       `<path d="${idealPath}" fill="none" stroke="#c7d3de" stroke-width="2" stroke-dasharray="5,4"/>` +
-      (actualPath ? `<path d="${actualPath}" fill="none" stroke="#145da0" stroke-width="2.5"/>` : "") +
-      actualPoints.map(p => `<circle cx="${xAt(p.x)}" cy="${yAt(p.y)}" r="3.5" fill="#145da0"/>`).join("");
+      (scopePath ? `<path d="${scopePath}" fill="none" stroke="#ff7f32" stroke-width="2.25"/>` : "") +
+      (remainingPath ? `<path d="${remainingPath}" fill="none" stroke="#0f8390" stroke-width="2.75"/>` : "") +
+      scopePoints.map(p => `<circle cx="${xAt(p.x)}" cy="${yAt(p.y)}" r="3" fill="#ff7f32"/>`).join("") +
+      remainingPoints.map(p => `<circle cx="${xAt(p.x)}" cy="${yAt(p.y)}" r="3.5" fill="#0f8390"/>`).join("");
   }
 
   function renderBurndown(){
@@ -2912,35 +3627,38 @@
     burndownVelocityHoursEl.textContent = avgH === null ? "Avg Velocity: \u2013 h/sprint" : `Avg Velocity: ${avgH}h/sprint`;
     burndownVelocityTicketsEl.textContent = avgT === null ? "Avg Velocity: \u2013 tickets/sprint" : `Avg Velocity: ${avgT} tickets/sprint`;
     document.getElementById("burndownNote").innerHTML =
-      `Remaining planned hours across the sprint's business days. Mark tickets Done in Sprint Planning to update the actual line.<br>Velocity above is averaged over ${statsWindowLabel()}.`;
+      `Ideal progress, current scope, and remaining forecast across working days. Public holidays are excluded.<br>Velocity uses the committed estimates of completed Stories and is averaged over ${statsWindowLabel()}.`;
 
-    const days = sprintWeeks().flat();
-    const totalHours = totalPlannedHours();
+    const days = sprintWeeks().flat().filter(day => !capacityData.holidays?.[toISODate(day)]);
+    const baselineHours = planningData.commitment?.totalHours ?? totalPlannedHours();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    const actualPoints = [];
-    if(days.length){
-      // Plot up to today, or up to the latest recorded ticket completion date if that is further
-      // out (e.g. tickets were closed with a date beyond "today", or the sprint hasn't started
-      // yet by the system clock) - otherwise the line was being cut off right after day 0.
-      const maxDoneDateStr = planningData.tickets.reduce(
-        (max, t) => (t.done && t.completedDate && t.completedDate > max) ? t.completedDate : max, "");
-
-      // Day 0 is always plotted (even before the sprint officially starts) so tickets completed
-      // ahead of time still show as progress; a baseline point guarantees a visible line/drop.
-      actualPoints.push({ x: 0, y: totalHours });
-      days.forEach((day, i) => {
-        const dateStr = toISODate(day);
-        if(i > 0 && day > today && dateStr > maxDoneDateStr) return;
-        const doneHours = planningData.tickets
-          .filter(t => t.done && t.completedDate && t.completedDate <= dateStr)
-          .reduce((s, t) => s + t.hours, 0);
-        actualPoints.push({ x: i, y: Math.max(0, totalHours - doneHours) });
-      });
+    const todayStr = toISODate(today);
+    const timeline = (planningData.commitment ? planningData.scopeTimeline : []).map(entry => Object.assign({}, entry));
+    if(planningData.commitment){
+      const current = { date: todayStr, scopeHours: totalPlannedHours(), remainingHours: totalRemainingHours() };
+      const index = timeline.findIndex(entry => entry.date === todayStr);
+      if(index === -1) timeline.push(current); else timeline[index] = Object.assign(timeline[index], current);
+      timeline.sort((a, b) => a.date.localeCompare(b.date));
+    }
+    const latestAt = (dateStr, field, fallback) => {
+      const latest = timeline.filter(entry => entry.date <= dateStr).at(-1);
+      return latest && Number.isFinite(Number(latest[field])) ? Number(latest[field]) : fallback;
+    };
+    const scopePoints = [];
+    const remainingPoints = [];
+    days.forEach((day, index) => {
+      const dateStr = toISODate(day);
+      if(index > 0 && day > today) return;
+      scopePoints.push({ x: index, y: latestAt(dateStr, "scopeHours", baselineHours) });
+      remainingPoints.push({ x: index, y: latestAt(dateStr, "remainingHours", baselineHours) });
+    });
+    if(days.length && !scopePoints.length){
+      scopePoints.push({ x: 0, y: baselineHours });
+      remainingPoints.push({ x: 0, y: baselineHours });
     }
 
-    drawBurndownChart(burndownChartEl, days, totalHours, actualPoints);
+    drawBurndownChart(burndownChartEl, days, baselineHours, scopePoints, remainingPoints);
   }
 
   document.getElementById("openPlanningFromBurndown").addEventListener("click", e => { e.preventDefault(); activateTab("planning"); });
@@ -3973,7 +4691,7 @@
     burndown: {
       label: "Burndown",
       eyebrow: "Sprint insight",
-      description: "Compare planned and actual progress across the sprint's business days."
+      description: "Compare the Sprint commitment, scope changes, and remaining work across working days."
     },
     stats: {
       label: "Stats",
@@ -4018,7 +4736,7 @@
     pageTitle.textContent = view.label;
     pageDescription.textContent = view.description;
     eyebrow.textContent = view.eyebrow;
-    document.title = `${view.label} — ScrumPulse - Scrum done right`;
+    document.title = `${view.label} — Scrum done right`;
   }
 
   airTabs.forEach(button => button.addEventListener("click", () => {
