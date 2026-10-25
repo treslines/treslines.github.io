@@ -256,6 +256,30 @@
   .kb-link-preview:hover{text-decoration:underline}
   .kb-link-entry .kb-link-trash{flex-shrink:0;background:none;border:0;font-size:1rem;cursor:pointer;opacity:.6;transition:opacity .15s}
   .kb-link-entry .kb-link-trash:hover{opacity:1}
+  .definition-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 22px}
+  .definition-tabs button{background:#f6f9fb;border:1px solid var(--border);border-radius:999px;padding:8px 18px;font-weight:700;font-size:.85rem;color:var(--brand-dark)}
+  .definition-tabs button:hover{background:#eef5fb}
+  .definition-tabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
+  .definition-section-title{margin:0 0 18px;color:var(--brand-dark);font-size:1.45rem;line-height:1.2}
+  .definition-guidance-grid{display:grid;grid-template-columns:1.05fr 1.25fr 1fr;gap:14px;margin-bottom:22px}
+  .definition-guidance-card{min-width:0;padding:18px;border:1px solid var(--border);border-radius:12px;background:#f9fbfd;color:var(--ink);font-size:.82rem;line-height:1.5}
+  .definition-guidance-card h4{margin:0 0 10px;color:var(--brand-dark);font-size:.92rem}
+  .definition-guidance-card p{margin:0 0 10px}
+  .definition-guidance-card p:last-child{margin-bottom:0}
+  .definition-guidance-card ul{margin:8px 0 0;padding-left:20px}
+  .definition-guidance-card li+li{margin-top:6px}
+  .definition-table-wrap{overflow-x:auto}
+  .definition-ownership-table{width:100%;border-collapse:collapse;font-size:.74rem}
+  .definition-ownership-table th,.definition-ownership-table td{padding:7px 6px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+  .definition-ownership-table th{color:var(--brand-dark);font-size:.68rem;text-transform:uppercase;letter-spacing:.03em}
+  .definition-add-row{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+  .definition-add-row input{flex:1;min-width:0}
+  .definition-list{list-style:none;margin:0;padding:0}
+  .definition-item{display:grid;grid-template-columns:12px minmax(0,1fr) auto;align-items:start;gap:10px;padding:12px 2px;border-bottom:1px solid var(--border)}
+  .definition-item::before{content:"";width:6px;height:6px;margin-top:.48em;border-radius:50%;background:var(--brand)}
+  .definition-item-text{min-width:0;line-height:1.5;overflow-wrap:anywhere}
+  .definition-trash{border:0;background:transparent;font-size:1rem;cursor:pointer;opacity:.6}
+  .definition-trash:hover{opacity:1}
   .retro-row.completed .retro-title,.retro-row.completed .retro-desc{text-decoration:line-through;opacity:.65}
   .retro-row.completed .retro-check{cursor:pointer}
   .retro-modal-option{display:flex;align-items:center;gap:8px;padding:8px 0;font-size:.9rem;cursor:pointer}
@@ -511,6 +535,10 @@
   .air-rebrand .retro-subtabs button{color:var(--brand-dark);background:#f3f8f8;border-color:var(--border)}
   .air-rebrand .retro-subtabs button:hover{background:#e8f5f4}
   .air-rebrand .retro-subtabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
+  .air-rebrand .definition-tabs button{color:var(--brand-dark);background:#f3f8f8;border-color:var(--border)}
+  .air-rebrand .definition-tabs button:hover{background:#e8f5f4}
+  .air-rebrand .definition-tabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
+  .air-rebrand .definition-guidance-card{border-color:var(--border);background:#f6fbfb}
   .air-rebrand .retro-group-title,.air-rebrand .retro-row{border-color:var(--border)}
   .air-rebrand .search-result-item{border-color:var(--border);border-left-color:var(--brand);background:#f8fcfc}
   .air-rebrand .sr-tag{color:var(--brand-dark);background:#e8f5f4}
@@ -538,6 +566,7 @@
     .air-nav-item{justify-content:center;padding:11px 8px}
     .air-rebrand header.app-header,.air-page-intro{padding-left:28px;padding-right:28px}
     .air-rebrand main{padding-left:28px;padding-right:28px}
+    .definition-guidance-grid{grid-template-columns:1fr}
   }
 
   @media (max-width:760px){
@@ -621,6 +650,7 @@
       <button class="air-nav-item" type="button" data-air-tab="stats"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M3 20h18"/></svg></span><span>Stats</span></button>
       <button class="air-nav-item" type="button" data-air-tab="knowledgebase"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0z"/><path d="M21 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0z"/></svg></span><span>Knowledge Base</span></button>
       <button class="air-nav-item" type="button" data-air-tab="decisionlog"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z" fill="currentColor" stroke="none"/><path d="M8.5 12.5l2 2 4-4.5"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span><span>Decision Log</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="definitions"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></span><span>DoD / DoR</span></button>
       <button class="air-nav-item" type="button" data-air-tab="search"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span>Scrum Search</span></button>
     </nav>
   </div>
@@ -656,6 +686,7 @@
   <button data-tab="stats">Stats</button>
   <button data-tab="knowledgebase">Knowledge Base</button>
   <button data-tab="decisionlog">Decision Log</button>
+  <button data-tab="definitions">DoD / DoR</button>
   <button data-tab="search">Scrum Search</button>
 </nav>
 
@@ -977,6 +1008,70 @@
       </div>
       <div class="retro-empty-msg hidden" id="decisionLogEmpty">No decisions logged yet. New entries are added to the top; use ▲/▼ to reorder.</div>
       <div id="decisionLogList"></div>
+    </div>
+  </section>
+  <section class="panel" id="panel-definitions">
+    <div class="card">
+      <div class="planning-header">
+        <h2>✅ DoD / DoR</h2>
+      </div>
+      <div class="definition-tabs" id="definitionTabs" role="tablist" aria-label="Definition type">
+        <button type="button" class="active" data-definition-tab="dod" role="tab" aria-selected="true">Definition of Done</button>
+        <button type="button" data-definition-tab="dor" role="tab" aria-selected="false">Definition of Ready</button>
+      </div>
+      <h3 class="definition-section-title" id="definitionSectionTitle">Definition of Done (DoD)</h3>
+
+      <div class="definition-guidance-grid hidden" id="dorGuidance">
+        <article class="definition-guidance-card">
+          <h4>Ownership: Who writes what and when?</h4>
+          <div class="definition-table-wrap">
+            <table class="definition-ownership-table">
+              <thead><tr><th>Level</th><th>Jira issue type</th><th>Owner</th><th>Goal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>1</strong></td><td><strong>Epic</strong></td><td><strong>Product Owner</strong></td><td>High-level business strategy and long-term theme.</td></tr>
+                <tr><td><strong>2</strong></td><td><strong>Feature</strong></td><td><strong>Product Owner</strong></td><td>Marketable release or major functional block.</td></tr>
+                <tr><td><strong>3</strong></td><td><strong>User Story</strong></td><td><strong>Product Owner</strong></td><td>The Product Owner defines the <em>why</em> and <em>what</em>: value and Acceptance Criteria.</td></tr>
+                <tr><td><strong>4</strong></td><td><strong>Refinement</strong></td><td><strong>PO + Developers</strong></td><td>Developers add the <em>how</em>: testing notes and development hints.</td></tr>
+                <tr><td><strong>5</strong></td><td><strong>Sub-task</strong></td><td><strong>Developers</strong></td><td>Technical breakdown of implementation steps.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="definition-guidance-card">
+          <h4>What the Product Owner brings</h4>
+          <p>The Product Owner should bring the ticket to the table with <strong>only</strong> the business intent and user boundaries. The Product Owner should not try to guess the technical constraints.</p>
+          <p><strong>Example:</strong></p>
+          <ul>
+            <li><strong>User Story:</strong> “Social Login”</li>
+            <li><strong>Context &amp; Value:</strong> Why we are doing this based on user feedback.</li>
+            <li><strong>Acceptance Criteria:</strong> Scenarios 1 and 2 define the functional boundaries and how the work will be evaluated or tested.</li>
+            <li><strong>Out of Scope:</strong> Crucial for the Product Owner to define to prevent scope creep.</li>
+          </ul>
+        </article>
+
+        <article class="definition-guidance-card">
+          <h4>What Developers create during Planning</h4>
+          <p><strong>Sub-tasks are strictly owned by the Developers.</strong> The Product Owner should almost never write or dictate sub-tasks.</p>
+          <ul>
+            <li>Sub-tasks are the technical roadmap for the Sprint.</li>
+            <li>Keep sub-tasks concise and actionable instead of writing long descriptions.</li>
+          </ul>
+          <p><strong>Example:</strong></p>
+          <ul>
+            <li><strong>Sub-task 1:</strong> Set up Google OAuth API credentials.</li>
+            <li><strong>Sub-task 2:</strong> Create frontend login buttons.</li>
+            <li><strong>Sub-task 3:</strong> Update the database schema for social IDs.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="definition-add-row">
+        <input type="text" class="field-input" id="definitionDraft" placeholder="Specify your DoD item here..." maxlength="500" aria-label="Definition item">
+        <button type="button" class="sprint-goal-add" id="btnAddDefinitionItem" title="Add item" aria-label="Add definition item">+</button>
+      </div>
+      <div class="retro-empty-msg hidden" id="definitionEmpty"></div>
+      <ul class="definition-list" id="definitionList"></ul>
     </div>
   </section>
 </main>
@@ -3235,6 +3330,90 @@
     renderKnowledgeBase();
   });
 
+  // --- Definition of Done / Definition of Ready ---
+  const DEFAULT_DOR_ITEM = "A ticket cannot enter Sprint Planning unless it has a clear PO Value, at least 2 Acceptance Criteria, what is eventually out of scope, and has been reviewed by tech lead.";
+  let definitionsData = Store.get("definitions", null);
+  if(!definitionsData){
+    definitionsData = {
+      dod: [],
+      dor: [{ id: uuid(), text: DEFAULT_DOR_ITEM }]
+    };
+    Store.set("definitions", definitionsData);
+  }
+  ["dod", "dor"].forEach(type => {
+    if(!Array.isArray(definitionsData[type])) definitionsData[type] = [];
+    definitionsData[type] = definitionsData[type]
+      .map(item => typeof item === "string" ? { id: uuid(), text: item } : item)
+      .filter(item => item && String(item.text || "").trim())
+      .map(item => ({ id: item.id || uuid(), text: String(item.text).trim() }));
+  });
+  function saveDefinitions(){ Store.set("definitions", definitionsData); }
+  saveDefinitions();
+
+  const definitionTabButtons = Array.from(document.querySelectorAll("[data-definition-tab]"));
+  const definitionSectionTitleEl = document.getElementById("definitionSectionTitle");
+  const dorGuidanceEl = document.getElementById("dorGuidance");
+  const definitionDraftEl = document.getElementById("definitionDraft");
+  const definitionListEl = document.getElementById("definitionList");
+  const definitionEmptyEl = document.getElementById("definitionEmpty");
+  let activeDefinitionTab = Store.get("ui.definitionTab", "dod") === "dor" ? "dor" : "dod";
+
+  function renderDefinitions(){
+    const isDor = activeDefinitionTab === "dor";
+    const label = isDor ? "Definition of Ready (DoR)" : "Definition of Done (DoD)";
+    definitionTabButtons.forEach(button => {
+      const active = button.dataset.definitionTab === activeDefinitionTab;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+    definitionSectionTitleEl.textContent = label;
+    dorGuidanceEl.classList.toggle("hidden", !isDor);
+    definitionDraftEl.placeholder = `Specify your ${isDor ? "DoR" : "DoD"} item here...`;
+    definitionDraftEl.setAttribute("aria-label", `New ${label} item`);
+
+    const items = definitionsData[activeDefinitionTab];
+    definitionEmptyEl.textContent = `No ${isDor ? "DoR" : "DoD"} items yet.`;
+    definitionEmptyEl.classList.toggle("hidden", items.length > 0);
+    definitionListEl.innerHTML = items.map(item =>
+      `<li class="definition-item" data-id="${item.id}">` +
+        `<span class="definition-item-text">${escapeHtml(item.text)}</span>` +
+        `<button type="button" class="definition-trash" title="Delete item" aria-label="Delete ${isDor ? "DoR" : "DoD"} item">\u{1F5D1}\uFE0F</button>` +
+      `</li>`
+    ).join("");
+  }
+
+  function addDefinitionItem(){
+    const text = definitionDraftEl.value.trim();
+    if(!text) return;
+    definitionsData[activeDefinitionTab].push({ id: uuid(), text });
+    definitionDraftEl.value = "";
+    saveDefinitions();
+    renderDefinitions();
+    definitionDraftEl.focus();
+  }
+
+  definitionTabButtons.forEach(button => button.addEventListener("click", () => {
+    activeDefinitionTab = button.dataset.definitionTab;
+    Store.set("ui.definitionTab", activeDefinitionTab);
+    definitionDraftEl.value = "";
+    renderDefinitions();
+  }));
+  document.getElementById("btnAddDefinitionItem").addEventListener("click", addDefinitionItem);
+  definitionDraftEl.addEventListener("keydown", e => {
+    if(e.key !== "Enter") return;
+    e.preventDefault();
+    addDefinitionItem();
+  });
+  definitionListEl.addEventListener("click", e => {
+    const trash = e.target.closest(".definition-trash");
+    if(!trash) return;
+    const row = trash.closest(".definition-item");
+    definitionsData[activeDefinitionTab] = definitionsData[activeDefinitionTab].filter(item => item.id !== row.dataset.id);
+    saveDefinitions();
+    renderDefinitions();
+  });
+
   // --- Scrum Search ---
   const searchForm = document.getElementById("searchForm");
   const searchInput = document.getElementById("searchInput");
@@ -3521,6 +3700,7 @@
   renderStats();
   renderDecisionLog();
   renderKnowledgeBase();
+  renderDefinitions();
   activateRetroTab(Store.get("ui.retroTab", "previous"));
   activateTab(Store.get("ui.activeTab", "daily"));
 })();
@@ -3577,6 +3757,11 @@
       label: "Decision Log",
       eyebrow: "Project insight",
       description: "Track what was decided, when, and who was involved."
+    },
+    definitions: {
+      label: "DoD / DoR",
+      eyebrow: "Shared quality standards",
+      description: "Make Done and Ready explicit before work moves forward."
     }
   };
 
