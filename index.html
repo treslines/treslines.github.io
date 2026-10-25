@@ -110,7 +110,7 @@
   .capacity-range{font-size:.85rem;font-weight:600}
   .capacity-table-wrap{overflow-x:auto;margin-top:16px}
   .capacity-table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:560px}
-  .capacity-table col.col-member{width:190px}
+  .capacity-table col.col-member{width:270px}
   .capacity-table col.col-day{width:70px}
   .capacity-table th,.capacity-table td{padding:7px 8px;text-align:center;white-space:nowrap}
   .capacity-table .member-col{text-align:left}
@@ -123,6 +123,21 @@
   .capacity-table .role-separator-row td{background:#f6f9fb;color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:8px 10px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
   .capacity-table .day-halves{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
   .capacity-table .day-halves input[type=checkbox]{width:16px;height:16px;cursor:pointer;margin:0}
+  .capacity-table .ceremony-row td{background:#fbfdfd}
+  .capacity-table .ceremony-cell{white-space:normal}
+  .capacity-table .holiday-col{background:#f1f4f4!important;color:#94a3a8}
+  .capacity-table .holiday-col input:not([data-public-holiday]){opacity:.32;cursor:not-allowed}
+  .capacity-table .holiday-col .ceremony-fixed-check{background:#aeb9bc}
+  .capacity-table .holiday-col .ceremony-overhead-mark{background:#cbd4d6}
+  .capacity-table .public-holiday-row td{background:#fffaf0}
+  .capacity-table .public-holiday-row .holiday-selected{background:#fff1d6}
+  .public-holiday-check{width:17px;height:17px;margin:0;accent-color:var(--brand);cursor:pointer}
+  .ceremony-cell-content{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .ceremony-name{font-size:.78rem;font-weight:700;line-height:1.25;color:var(--ink)}
+  .ceremony-hours{flex-shrink:0;padding:3px 7px;border-radius:999px;background:#e8f5f4;color:var(--brand-dark);font-size:.65rem;font-weight:800;white-space:nowrap}
+  .ceremony-day-check{width:17px;height:17px;margin:0;accent-color:var(--brand);cursor:pointer}
+  .ceremony-fixed-check{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:5px;background:var(--brand);color:#fff;font-size:.7rem;font-weight:800}
+  .ceremony-overhead-mark{display:inline-block;width:18px;height:3px;border-radius:999px;background:var(--border)}
   .capacity-table .member-col,.capacity-table .member-cell{border-right:1px solid var(--border)}
   .capacity-table .week-sep{border-left:1px solid var(--border)}
   .capacity-table .week-end{border-right:1px solid var(--border)}
@@ -130,6 +145,7 @@
   .half-day-legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.72rem}
   .half-day-legend-item{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--border);border-radius:999px;background:#f8fbfd;white-space:nowrap}
   .half-day-label{display:inline-grid;place-items:center;min-width:25px;height:19px;padding:0 5px;border-radius:6px;color:var(--brand-dark);background:#e7f2fb;font-size:.64rem;font-weight:800;letter-spacing:.04em}
+  .capacity-effective{font-size:.85rem;font-weight:700;color:#fff;background:var(--brand);padding:4px 10px;border-radius:999px;margin-left:4px;vertical-align:middle}
 
   .planning-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .planning-header h2{margin:0;color:var(--brand-dark);font-size:1.3rem;font-weight:800}
@@ -795,7 +811,7 @@
     </div>
     <div class="card hidden" id="capacityCard">
       <div class="capacity-header">
-        <h2>📦 Capacity/Availability Planning <span class="capacity-total" id="capacityTotalHours"></span></h2>
+        <h2>📦 Capacity/Availability Planning <span class="capacity-total" id="capacityTotalHours"></span><span class="capacity-effective" id="capacityEffectiveHours"></span></h2>
         <div class="capacity-range muted" id="capacityRange"></div>
         <button class="btn-ghost btn-sm" id="btnNewSprint">🔄 Start New Sprint</button>
       </div>
@@ -1131,8 +1147,16 @@
         <div class="tb-row"><span>Sprint Planning</span><input type="number" id="tbPlanning" min="1"></div>
         <div class="tb-row"><span>Sprint Review</span><input type="number" id="tbReview" min="1"></div>
         <div class="tb-row"><span>Sprint Retro</span><input type="number" id="tbRetro" min="1"></div>
+        <div class="tb-row"><span>Backlog Refinement / session</span><input type="number" id="tbRefinement" min="1"></div>
       </div>
       <label class="checkbox-row"><input type="checkbox" id="customizeTimeboxes"> Customize timeboxes manually</label>
+      <h4 class="section-divider">Capacity Deductions</h4>
+      <div class="section-note muted">Ceremony costs use Developer team-hours. Backlog Refinement uses the participant count below.</div>
+      <div class="timebox-grid">
+        <div class="tb-row"><span>Refinement participants</span><input type="number" id="refinementParticipants" min="1" max="10" step="1"></div>
+        <div class="tb-row"><span>Code review, deployment &amp; context switching (%)</span><input type="number" id="engineeringOverheadPercent" min="0" max="100" step="1"></div>
+      </div>
+      <div class="section-note muted" style="margin-top:8px">Engineering overhead is a percentage of available Developer hours after absences.</div>
       <h4 class="section-divider">Ticket Sizer</h4>
       <div class="section-note muted">Working Hours per Day — used by Capacity Planning.</div>
       <input type="number" class="sprint-select" id="workHoursPerDay" min="1" max="24" step="0.5">
@@ -1337,18 +1361,23 @@
       dailyScrumMinutes: 15,
       sprintPlanningMinutes: Math.round(480 * weeks / 4),
       sprintReviewMinutes: Math.round(240 * weeks / 4),
-      sprintRetroMinutes: Math.round(180 * weeks / 4)
+      sprintRetroMinutes: Math.round(180 * weeks / 4),
+      backlogRefinementMinutes: 60
     };
   }
 
   function defaultSettings(){
-    return { team: [], sprintLengthWeeks: 2, timeboxes: deriveTimeboxes(2), timeboxesCustomized: false, maxTeamSize: 10, sprintStartDate: null, workHoursPerDay: 8, ticketMinHours: 1, ticketIncrementHours: 2, statsWindowMode: "rolling", statsWindowSize: 5 };
+    return { team: [], sprintLengthWeeks: 2, timeboxes: deriveTimeboxes(2), timeboxesCustomized: false, maxTeamSize: 10, sprintStartDate: null, workHoursPerDay: 8, ticketMinHours: 1, ticketIncrementHours: 2, refinementParticipants: 1, engineeringOverheadPercent: 25, statsWindowMode: "rolling", statsWindowSize: 5 };
   }
 
   let settings = Store.get("settings", null) || defaultSettings();
+  if(!settings.timeboxes) settings.timeboxes = deriveTimeboxes(settings.sprintLengthWeeks || 2);
   if(settings.workHoursPerDay == null) settings.workHoursPerDay = 8; // migrate settings saved before this field existed
   if(settings.ticketMinHours == null) settings.ticketMinHours = 1;
   if(settings.ticketIncrementHours == null) settings.ticketIncrementHours = 2;
+  if(settings.timeboxes.backlogRefinementMinutes == null) settings.timeboxes.backlogRefinementMinutes = 60;
+  if(settings.refinementParticipants == null) settings.refinementParticipants = 1;
+  if(settings.engineeringOverheadPercent == null) settings.engineeringOverheadPercent = 25;
   if(settings.statsWindowMode == null) settings.statsWindowMode = "rolling";
   if(settings.statsWindowSize == null) settings.statsWindowSize = 5;
   function saveSettings(){ Store.set("settings", settings); }
@@ -1617,6 +1646,9 @@
   const tbPlanning = document.getElementById("tbPlanning");
   const tbReview = document.getElementById("tbReview");
   const tbRetro = document.getElementById("tbRetro");
+  const tbRefinement = document.getElementById("tbRefinement");
+  const refinementParticipantsEl = document.getElementById("refinementParticipants");
+  const engineeringOverheadPercentEl = document.getElementById("engineeringOverheadPercent");
 
   function renderTimeboxes(){
     sprintLengthEl.value = settings.sprintLengthWeeks;
@@ -1629,12 +1661,17 @@
     tbPlanning.value = settings.timeboxes.sprintPlanningMinutes;
     tbReview.value = settings.timeboxes.sprintReviewMinutes;
     tbRetro.value = settings.timeboxes.sprintRetroMinutes;
-    tbPlanning.disabled = tbReview.disabled = tbRetro.disabled = !settings.timeboxesCustomized;
+    tbRefinement.value = settings.timeboxes.backlogRefinementMinutes;
+    refinementParticipantsEl.value = settings.refinementParticipants;
+    engineeringOverheadPercentEl.value = settings.engineeringOverheadPercent;
+    tbPlanning.disabled = tbReview.disabled = tbRetro.disabled = tbRefinement.disabled = !settings.timeboxesCustomized;
   }
 
   sprintLengthEl.addEventListener("change", () => {
     settings.sprintLengthWeeks = Number(sprintLengthEl.value);
     if(!settings.timeboxesCustomized) settings.timeboxes = deriveTimeboxes(settings.sprintLengthWeeks);
+    capacityData.ceremonies = null;
+    saveCapacity();
     saveSettings();
     renderTimeboxes();
     renderCapacity();
@@ -1648,6 +1685,8 @@
       return;
     }
     settings.sprintStartDate = value || null;
+    capacityData.ceremonies = null;
+    saveCapacity();
     saveSettings();
     renderCapacity();
   });
@@ -1678,14 +1717,30 @@
     if(!settings.timeboxesCustomized) settings.timeboxes = deriveTimeboxes(settings.sprintLengthWeeks);
     saveSettings();
     renderTimeboxes();
+    renderCapacity();
   });
 
-  [["sprintPlanningMinutes", tbPlanning], ["sprintReviewMinutes", tbReview], ["sprintRetroMinutes", tbRetro]].forEach(([key, el]) => {
+  [["sprintPlanningMinutes", tbPlanning], ["sprintReviewMinutes", tbReview], ["sprintRetroMinutes", tbRetro], ["backlogRefinementMinutes", tbRefinement]].forEach(([key, el]) => {
     el.addEventListener("change", () => {
       settings.timeboxes[key] = Math.max(1, Number(el.value) || 1);
       saveSettings();
       renderTimeboxes();
+      renderCapacity();
     });
+  });
+
+  refinementParticipantsEl.addEventListener("change", () => {
+    settings.refinementParticipants = Math.max(1, Math.min(settings.maxTeamSize, Math.round(Number(refinementParticipantsEl.value) || 1)));
+    saveSettings();
+    renderTimeboxes();
+    renderCapacity();
+  });
+
+  engineeringOverheadPercentEl.addEventListener("change", () => {
+    settings.engineeringOverheadPercent = Math.max(0, Math.min(100, Number(engineeringOverheadPercentEl.value) || 0));
+    saveSettings();
+    renderTimeboxes();
+    renderCapacity();
   });
 
   // --- Stats averaging window (Board Settings) ---
@@ -1733,11 +1788,17 @@
       try{
         const parsed = JSON.parse(reader.result);
         if(!parsed.settings || !Array.isArray(parsed.settings.team)) throw new Error("Invalid backup file.");
-        settings = Object.assign(defaultSettings(), parsed.settings);
+        const importedDefaults = defaultSettings();
+        settings = Object.assign(importedDefaults, parsed.settings);
+        settings.timeboxes = Object.assign(importedDefaults.timeboxes, parsed.settings.timeboxes || {});
+        if(settings.timeboxes.backlogRefinementMinutes == null) settings.timeboxes.backlogRefinementMinutes = 60;
+        if(settings.refinementParticipants == null) settings.refinementParticipants = 1;
+        if(settings.engineeringOverheadPercent == null) settings.engineeringOverheadPercent = 25;
         saveSettings();
         renderTeamList();
         renderTimeboxes();
         renderStatsSettingsUI();
+        renderCapacity();
       } catch(err){
         alert("Could not import file: " + err.message);
       } finally {
@@ -2114,12 +2175,15 @@
   const capacityCard = document.getElementById("capacityCard");
   const capacityRangeEl = document.getElementById("capacityRange");
   const capacityTotalHoursEl = document.getElementById("capacityTotalHours");
+  const capacityEffectiveHoursEl = document.getElementById("capacityEffectiveHours");
   const capacityTableEl = document.getElementById("capacityTable");
   const btnNewSprint = document.getElementById("btnNewSprint");
   const DAY_LABELS = ["Mo", "Tu", "We", "Th", "Fr"];
 
-  let capacityData = Store.get("capacity", { halves: {} });
+  let capacityData = Store.get("capacity", { halves: {}, holidays: {} });
   if(!capacityData.halves) capacityData.halves = {};
+  if(!capacityData.holidays) capacityData.holidays = {};
+  if(!capacityData.ceremonies) capacityData.ceremonies = null;
   function saveCapacity(){ Store.set("capacity", capacityData); }
 
   function toISODate(d){
@@ -2146,6 +2210,55 @@
       weeks.push(days);
     }
     return weeks;
+  }
+
+  function isPublicHoliday(dateStr){
+    return !!capacityData.holidays[dateStr];
+  }
+
+  function closestAvailableDate(days, preferredIndex){
+    const candidates = [];
+    for(let distance = 0; distance < days.length; distance++){
+      const after = preferredIndex + distance;
+      const before = preferredIndex - distance;
+      if(after < days.length) candidates.push(after);
+      if(distance && before >= 0) candidates.push(before);
+    }
+    const match = candidates.find(index => !isPublicHoliday(toISODate(days[index])));
+    return match === undefined ? null : toISODate(days[match]);
+  }
+
+  function defaultCeremonySchedule(weeks){
+    if(!weeks.length) return { planning: null, review: null, retro: null, refinement: [] };
+    const availableDates = weeks.flat().map(toISODate).filter(date => !isPublicHoliday(date));
+    const finalDay = availableDates[availableDates.length - 1] || null;
+    return {
+      planning: availableDates[0] || null,
+      review: finalDay,
+      retro: finalDay,
+      refinement: weeks.map((days, weekIndex) => closestAvailableDate(days, weekIndex === 0 ? 3 : 2))
+    };
+  }
+
+  function ensureCeremonySchedule(weeks){
+    const defaults = defaultCeremonySchedule(weeks);
+    const current = capacityData.ceremonies || {};
+    const validDates = new Set(weeks.flat().map(toISODate).filter(date => !isPublicHoliday(date)));
+    const normalized = {
+      planning: validDates.has(current.planning) ? current.planning : defaults.planning,
+      review: validDates.has(current.review) ? current.review : defaults.review,
+      retro: validDates.has(current.retro) ? current.retro : defaults.retro,
+      refinement: weeks.map((days, weekIndex) => {
+        const weekDates = new Set(days.map(toISODate).filter(date => !isPublicHoliday(date)));
+        const saved = Array.isArray(current.refinement) ? current.refinement.find(date => weekDates.has(date)) : null;
+        return saved || defaults.refinement[weekIndex];
+      })
+    };
+    if(JSON.stringify(current) !== JSON.stringify(normalized)){
+      capacityData.ceremonies = normalized;
+      saveCapacity();
+    }
+    return normalized;
   }
 
   function capacityMembers(){
@@ -2181,13 +2294,18 @@
 
   function isMemberFullyAvailable(memberId, weeks){
     return weeks.flat().every(day => {
-      const h = getHalves(memberId, toISODate(day));
+      const dateStr = toISODate(day);
+      if(isPublicHoliday(dateStr)) return true;
+      const h = getHalves(memberId, dateStr);
       return h[0] && h[1];
     });
   }
 
   function setMemberAllHalves(memberId, weeks, value){
-    weeks.flat().forEach(day => setHalves(memberId, toISODate(day), [value, value]));
+    weeks.flat().forEach(day => {
+      const dateStr = toISODate(day);
+      if(!isPublicHoliday(dateStr)) setHalves(memberId, dateStr, [value, value]);
+    });
   }
 
   // Only Developers count toward development capacity; PO/SM/Stakeholder checkboxes only track availability.
@@ -2196,11 +2314,58 @@
     let total = 0;
     members.filter(m => m.role === "DEV").forEach(m => {
       weeks.flat().forEach(day => {
-        const h = getHalves(m.id, toISODate(day));
+        const dateStr = toISODate(day);
+        if(isPublicHoliday(dateStr)) return;
+        const h = getHalves(m.id, dateStr);
         total += ((h[0] ? 1 : 0) + (h[1] ? 1 : 0)) * halfHours;
       });
     });
     return Math.round(total * 10) / 10;
+  }
+
+  function roundHours(value){ return Math.round(value * 10) / 10; }
+  function formatHours(value){ return String(roundHours(value)); }
+  function formatDuration(minutes){
+    if(minutes < 60) return `${minutes}m`;
+    return `${formatHours(minutes / 60)}h`;
+  }
+
+  function capacityCosts(members, weeks){
+    const developers = members.filter(member => member.role === "DEV");
+    const developerCount = developers.length;
+    const gross = totalAvailableHours(members, weeks);
+    const timeboxes = settings.timeboxes;
+    const schedule = ensureCeremonySchedule(weeks);
+    let dailyDeveloperDays = 0;
+    developers.forEach(member => {
+      weeks.flat().forEach(day => {
+        const dateStr = toISODate(day);
+        if(isPublicHoliday(dateStr)) return;
+        const halves = getHalves(member.id, dateStr);
+        if(halves[0] || halves[1]) dailyDeveloperDays++;
+      });
+    });
+    const refinementParticipants = Math.min(developerCount, Math.max(1, settings.refinementParticipants || 1));
+    const costs = {
+      gross,
+      daily: dailyDeveloperDays * timeboxes.dailyScrumMinutes / 60,
+      planning: schedule.planning ? developerCount * timeboxes.sprintPlanningMinutes / 60 : 0,
+      review: schedule.review ? developerCount * timeboxes.sprintReviewMinutes / 60 : 0,
+      retro: schedule.retro ? developerCount * timeboxes.sprintRetroMinutes / 60 : 0,
+      refinement: refinementParticipants * schedule.refinement.filter(Boolean).length * timeboxes.backlogRefinementMinutes / 60,
+      overhead: gross * settings.engineeringOverheadPercent / 100,
+      refinementParticipants
+    };
+    costs.totalDeductions = costs.daily + costs.planning + costs.review + costs.retro + costs.refinement + costs.overhead;
+    costs.effective = Math.max(0, roundHours(gross - costs.totalDeductions));
+    Object.keys(costs).forEach(key => {
+      if(typeof costs[key] === "number" && key !== "refinementParticipants") costs[key] = roundHours(costs[key]);
+    });
+    return costs;
+  }
+
+  function effectiveCapacityHours(members, weeks){
+    return capacityCosts(members, weeks).effective;
   }
 
   function renderCapacity(){
@@ -2215,14 +2380,18 @@
     const fmt = d => d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
     const rangeEnd = allDays[allDays.length - 1];
     capacityRangeEl.textContent = `Sprint: ${fmt(allDays[0])} \u2013 ${fmt(rangeEnd)}, ${rangeEnd.getFullYear()}`;
-    capacityTotalHoursEl.textContent = `${totalAvailableHours(members, weeks)}h`;
+    const costs = capacityCosts(members, weeks);
+    capacityTotalHoursEl.textContent = `${formatHours(costs.gross)}h`;
+    capacityTotalHoursEl.title = "Available Developer hours after absences";
+    capacityEffectiveHoursEl.textContent = `Effective Capacity: ${formatHours(costs.effective)}h`;
+    capacityEffectiveHoursEl.title = "Available hours after ceremonies and engineering overhead";
 
     // Explicit column widths keep header/body borders pixel-aligned under table-layout:fixed.
     let colgroup = `<colgroup><col class="col-member">`;
     allDays.forEach(() => { colgroup += `<col class="col-day">`; });
     colgroup += `</colgroup>`;
 
-    let headRow1 = `<tr><th rowspan="2" class="member-col">Member</th>`;
+    let headRow1 = `<tr><th rowspan="2" class="member-col">Member / Activity</th>`;
     weeks.forEach((days, wi) => {
       headRow1 += `<th colspan="5" class="week-label">Week ${wi + 1}</th>`;
     });
@@ -2231,7 +2400,9 @@
     let headRow2 = `<tr>`;
     weeks.forEach((days, wi) => {
       days.forEach((day, di) => {
-        headRow2 += `<th class="day-col${dayColClass(wi, di, weeks.length, days.length)}">${DAY_LABELS[di]}<span class="day-date">${day.getDate()}/${day.getMonth() + 1}</span></th>`;
+        const dateStr = toISODate(day);
+        const holidayClass = isPublicHoliday(dateStr) ? " holiday-col" : "";
+        headRow2 += `<th class="day-col${dayColClass(wi, di, weeks.length, days.length)}${holidayClass}">${DAY_LABELS[di]}<span class="day-date">${day.getDate()}/${day.getMonth() + 1}</span></th>`;
       });
     });
     headRow2 += `</tr>`;
@@ -2247,14 +2418,41 @@
       weeks.forEach((days, wi) => {
         days.forEach((day, di) => {
           const dateStr = toISODate(day);
+          const holiday = isPublicHoliday(dateStr);
           const halves = getHalves(m.id, dateStr);
           const dateLabel = day.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
           const morningLabel = escapeHtml(`${m.name} morning availability on ${dateLabel}`);
           const afternoonLabel = escapeHtml(`${m.name} afternoon availability on ${dateLabel}`);
-          row += `<td class="day-col${dayColClass(wi, di, weeks.length, days.length)}"><div class="day-halves">` +
-            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="0" aria-label="${morningLabel}" title="Morning (AM)"${halves[0] ? " checked" : ""}>` +
-            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="1" aria-label="${afternoonLabel}" title="Afternoon (PM)"${halves[1] ? " checked" : ""}>` +
+          row += `<td class="day-col${dayColClass(wi, di, weeks.length, days.length)}${holiday ? " holiday-col" : ""}"><div class="day-halves">` +
+            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="0" aria-label="${morningLabel}" title="${holiday ? "Unavailable: public holiday" : "Morning (AM)"}"${halves[0] ? " checked" : ""}${holiday ? " disabled" : ""}>` +
+            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="1" aria-label="${afternoonLabel}" title="${holiday ? "Unavailable: public holiday" : "Afternoon (PM)"}"${halves[1] ? " checked" : ""}${holiday ? " disabled" : ""}>` +
             `</div></td>`;
+        });
+      });
+      return row + `</tr>`;
+    }
+
+    const ceremonySchedule = ensureCeremonySchedule(weeks);
+    function renderCeremonyRow(key, label, badge, mode, badgeTitle = ""){
+      let row = `<tr class="ceremony-row"><td class="member-cell ceremony-cell"><div class="ceremony-cell-content">` +
+        `<span class="ceremony-name">${label}</span><span class="ceremony-hours"${badgeTitle ? ` title="${badgeTitle}"` : ""}>${badge}</span>` +
+        `</div></td>`;
+      weeks.forEach((days, weekIndex) => {
+        days.forEach((day, dayIndex) => {
+          const dateStr = toISODate(day);
+          const holiday = isPublicHoliday(dateStr);
+          const columnClass = dayColClass(weekIndex, dayIndex, weeks.length, days.length) + (holiday ? " holiday-col" : "");
+          let marker = `<span class="ceremony-overhead-mark" aria-hidden="true"></span>`;
+          if(mode === "daily"){
+            marker = `<span class="ceremony-fixed-check" title="Daily Scrum" aria-label="Daily Scrum scheduled">✓</span>`;
+          }else if(mode === "scheduled"){
+            const checked = ceremonySchedule[key] === dateStr;
+            marker = `<input class="ceremony-day-check" type="checkbox" data-ceremony="${key}" data-date="${dateStr}" aria-label="Schedule ${label} on ${dateStr}"${checked ? " checked" : ""}${holiday ? " disabled" : ""}>`;
+          }else if(mode === "refinement"){
+            const checked = ceremonySchedule.refinement[weekIndex] === dateStr;
+            marker = `<input class="ceremony-day-check" type="checkbox" data-ceremony="refinement" data-week="${weekIndex}" data-date="${dateStr}" aria-label="Schedule Backlog Refinement on ${dateStr}"${checked ? " checked" : ""}${holiday ? " disabled" : ""}>`;
+          }
+          row += `<td class="day-col${columnClass}">${marker}</td>`;
         });
       });
       return row + `</tr>`;
@@ -2263,11 +2461,29 @@
     const sortedMembers = sortTeamByRole(members);
     const nonDevMembers = sortedMembers.filter(m => m.role !== "DEV");
     const devMembers = sortedMembers.filter(m => m.role === "DEV");
-    if(nonDevMembers.length){
-      body += `<tr class="role-separator-row"><td colspan="${colspan}">Availability only</td></tr>`;
-      nonDevMembers.forEach(m => { body += renderMemberRow(m); });
-    }
+    body += `<tr class="public-holiday-row"><td class="member-cell ceremony-cell"><div class="ceremony-cell-content">` +
+      `<span class="ceremony-name">Public Holiday</span><span class="ceremony-hours">Whole day</span></div></td>`;
+    weeks.forEach((days, weekIndex) => {
+      days.forEach((day, dayIndex) => {
+        const dateStr = toISODate(day);
+        const checked = isPublicHoliday(dateStr);
+        const columnClass = dayColClass(weekIndex, dayIndex, weeks.length, days.length);
+        body += `<td class="day-col${columnClass}${checked ? " holiday-selected" : ""}"><input class="public-holiday-check" type="checkbox" data-public-holiday="${dateStr}" aria-label="Mark ${dateStr} as a public holiday"${checked ? " checked" : ""}></td>`;
+      });
+    });
+    body += `</tr>`;
     if(devMembers.length){
+      body += `<tr class="role-separator-row"><td colspan="${colspan}">Ceremonies &amp; overhead</td></tr>`;
+      body += renderCeremonyRow("daily", "Daily Scrum", `${formatDuration(settings.timeboxes.dailyScrumMinutes)}/day · ${formatHours(costs.daily)}h team`, "daily");
+      body += renderCeremonyRow("planning", "Sprint Planning", formatDuration(settings.timeboxes.sprintPlanningMinutes), "scheduled", `${formatHours(costs.planning)} team hours deducted from capacity`);
+      body += renderCeremonyRow("review", "Sprint Review", formatDuration(settings.timeboxes.sprintReviewMinutes), "scheduled", `${formatHours(costs.review)} team hours deducted from capacity`);
+      body += renderCeremonyRow("retro", "Sprint Retrospective", formatDuration(settings.timeboxes.sprintRetroMinutes), "scheduled", `${formatHours(costs.retro)} team hours deducted from capacity`);
+      body += renderCeremonyRow("refinement", "Backlog Refinement", `${formatDuration(settings.timeboxes.backlogRefinementMinutes)}/session · ${costs.refinementParticipants} dev · ${formatHours(costs.refinement)}h team`, "refinement");
+      body += renderCeremonyRow("overhead", "Code reviews, deployment &amp; context switching", `${formatHours(settings.engineeringOverheadPercent)}% · ${formatHours(costs.overhead)}h`, "overhead");
+      if(nonDevMembers.length){
+        body += `<tr class="role-separator-row"><td colspan="${colspan}">Availability only</td></tr>`;
+        nonDevMembers.forEach(m => { body += renderMemberRow(m); });
+      }
       body += `<tr class="role-separator-row"><td colspan="${colspan}">Availability &amp; Capacity</td></tr>`;
       devMembers.forEach(m => { body += renderMemberRow(m); });
     }
@@ -2286,6 +2502,27 @@
   });
 
   capacityTableEl.addEventListener("change", e => {
+    const holidayCheckbox = e.target.closest("input[type=checkbox][data-public-holiday]");
+    if(holidayCheckbox){
+      const dateStr = holidayCheckbox.dataset.publicHoliday;
+      if(holidayCheckbox.checked) capacityData.holidays[dateStr] = true;
+      else delete capacityData.holidays[dateStr];
+      saveCapacity();
+      renderCapacity();
+      return;
+    }
+    const ceremonyCheckbox = e.target.closest("input[type=checkbox][data-ceremony]");
+    if(ceremonyCheckbox){
+      const weeks = sprintWeeks();
+      const schedule = ensureCeremonySchedule(weeks);
+      const type = ceremonyCheckbox.dataset.ceremony;
+      if(type === "refinement") schedule.refinement[Number(ceremonyCheckbox.dataset.week)] = ceremonyCheckbox.dataset.date;
+      else schedule[type] = ceremonyCheckbox.dataset.date;
+      capacityData.ceremonies = schedule;
+      saveCapacity();
+      renderCapacity();
+      return;
+    }
     const cb = e.target.closest("input[type=checkbox][data-member]");
     if(!cb) return;
     toggleHalf(cb.dataset.member, cb.dataset.date, Number(cb.dataset.half));
@@ -2326,7 +2563,7 @@
     if(value) settings.sprintStartDate = value;
     saveSettings();
 
-    capacityData = { halves: {} };
+    capacityData = { halves: {}, holidays: {}, ceremonies: null };
     saveCapacity();
     planningTimer.discard();
     reviewTimer.discard();
@@ -2411,7 +2648,7 @@
     const members = capacityMembers();
     const weeks = sprintWeeks();
     if(!settings.sprintStartDate || !members.length || !weeks.length) return null;
-    return Math.floor(totalAvailableHours(members, weeks) / (settings.workHoursPerDay || 8));
+    return Math.floor(effectiveCapacityHours(members, weeks) / (settings.workHoursPerDay || 8));
   }
 
   if(!planningData || !Array.isArray(planningData.tickets) || planningData.tickets.length === 0){
@@ -2472,7 +2709,7 @@
     const count = planningData.tickets.length;
     planningCountEl.textContent = count === 0 ? "0 Tickets Planned" : `${count} Ticket${count === 1 ? "" : "s"}`;
 
-    const capacityHours = totalAvailableHours(capacityMembers(), sprintWeeks());
+    const capacityHours = effectiveCapacityHours(capacityMembers(), sprintWeeks());
     const remaining = Math.round((capacityHours - totalPlannedHours()) * 10) / 10;
     planningHoursEl.textContent = remaining < 0
       ? `Available Capacity: -${Math.abs(remaining)}h`
@@ -3781,7 +4018,7 @@
     pageTitle.textContent = view.label;
     pageDescription.textContent = view.description;
     eyebrow.textContent = view.eyebrow;
-    document.title = `${view.label} — ScrumPulse Air Preview`;
+    document.title = `${view.label} — ScrumPulse - Scrum done right`;
   }
 
   airTabs.forEach(button => button.addEventListener("click", () => {
