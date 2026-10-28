@@ -251,6 +251,9 @@
   .backlog-form-grid input[type=checkbox],.backlog-type-choice input{accent-color:var(--brand)}
   .backlog-type-choice{display:flex;gap:12px;flex-wrap:wrap;padding:8px 0}
   .backlog-type-choice label,.inline-check{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:6px;color:var(--ink)!important;font-weight:600!important}
+  .backlog-form-grid .field-row.needs-attention>label{color:#8a5a00}
+  .backlog-form-grid .field-row.needs-attention input:not([type=checkbox]),.backlog-form-grid .field-row.needs-attention textarea{border-color:#d99a22;background:#fff9e8;box-shadow:0 0 0 3px rgba(217,154,34,.13)}
+  .backlog-form-grid .field-row.needs-attention>label.inline-check,.backlog-form-grid .field-row.needs-attention .inline-check{width:max-content;padding:6px 9px;border-radius:8px;background:#fff4cf;color:#754b00!important}
   .field-help{font-size:.68rem;color:var(--muted);font-weight:400}.form-error{min-height:18px;margin-top:8px;color:var(--bad);font-size:.75rem;font-weight:700}
   .poker-reference{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px}
   .poker-ref-card{width:52px;height:74px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;padding:5px 0;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 1px 3px rgba(20,40,60,.12);color:var(--ink)}
@@ -1439,7 +1442,7 @@
 <div class="summary-overlay hidden" id="newSprintOverlay">
   <div class="summary-card">
     <h2>🔄 Start New Sprint</h2>
-    <p class="muted">The current Sprint will be saved to Sprint History. Unfinished Stories return to the Product Backlog with their Sub-tasks, while completed Stories become part of the read-only snapshot.</p>
+    <p class="muted">The current Sprint will be saved to Sprint History. Unfinished Stories, Bugs, and Tests return to the Product Backlog with their Sub-tasks, while completed items become part of the read-only snapshot.</p>
     <div class="field-row">
       <label>Sprint Start Date<input type="date" id="newSprintDate"></label>
     </div>
@@ -3141,6 +3144,9 @@
     if(!alwaysBullets && cleanLines.length === 1) return `<p><strong>${label}:</strong> ${escapeHtml(cleanLines[0])}</p>`;
     return `<div class="backlog-detail-group"><strong>${label}:</strong><ul>${cleanLines.map(line => `<li>${escapeHtml(line)}</li>`).join("")}</ul></div>`;
   }
+  const SPRINT_ITEM_TYPES = ["story", "bug", "test"];
+  function isSprintItemType(type){ return SPRINT_ITEM_TYPES.includes(type); }
+  function itemTypeLabel(item){ return item?.type ? item.type[0].toUpperCase() + item.type.slice(1) : "Item"; }
   function isPbiReady(item){
     return !!(item.title.trim() && item.context.trim() && acceptanceLines(item.acceptanceCriteria).length >= 1 && item.estimateHours > 0 &&
       (item.outOfScope.trim() || item.outOfScopeNA) && (item.refinementNotes.trim() || item.refinementNotesNA) && item.reviewedByTechLead);
@@ -3158,7 +3164,7 @@
     if(breakdownComplete(story.id)) return roundHours(tasks.filter(task => !task.done).reduce((sum, task) => sum + task.hours, 0));
     return story.estimateHours;
   }
-  function sprintStories(){ return planningData.sprintStoryIds.map(productItem).filter(item => item && item.type === "story"); }
+  function sprintStories(){ return planningData.sprintStoryIds.map(productItem).filter(item => item && isSprintItemType(item.type)); }
   function totalPlannedHours(){ return roundHours(sprintStories().reduce((sum, story) => sum + storyForecastHours(story), 0)); }
   function totalRemainingHours(){ return roundHours(sprintStories().reduce((sum, story) => sum + storyRemainingHours(story), 0)); }
   function storyActualHours(story){
@@ -3191,15 +3197,15 @@
   function siblingItems(item){ return planningData.productItems.filter(candidate => candidate.parentId === item.parentId); }
   function moveBacklogItem(id, direction){
     const item = productItem(id); if(!item) return;
-    const siblings = siblingItems(item).filter(candidate => !(candidate.type === "story" && planningData.sprintStoryIds.includes(candidate.id)));
+    const siblings = siblingItems(item).filter(candidate => !(isSprintItemType(candidate.type) && planningData.sprintStoryIds.includes(candidate.id)));
     const index = siblings.findIndex(candidate => candidate.id === id); const target = siblings[index + direction]; if(!target) return;
     const fromIndex = planningData.productItems.findIndex(candidate => candidate.id === id);
     const toIndex = planningData.productItems.findIndex(candidate => candidate.id === target.id);
     [planningData.productItems[fromIndex], planningData.productItems[toIndex]] = [planningData.productItems[toIndex], planningData.productItems[fromIndex]];
   }
   function rollupEstimate(item){
-    if(["story", "bug", "test"].includes(item.type)) return item.estimateHours;
-    return roundHours(itemDescendants(item.id).filter(child => ["story", "bug", "test"].includes(child.type)).reduce((sum, child) => sum + child.estimateHours, 0));
+    if(isSprintItemType(item.type)) return item.estimateHours;
+    return roundHours(itemDescendants(item.id).filter(child => isSprintItemType(child.type)).reduce((sum, child) => sum + child.estimateHours, 0));
   }
   function renderExternalLink(url){
     const safe = safeExternalUrl(url);
@@ -3237,18 +3243,18 @@
       (expanded ? `<div class="product-subtask-details">${task.description ? renderDetailLines("Description", task.description, false) : ""}${link ? `<p>${link}</p>` : ""}</div>` : "") + `</article>`;
   }
   function renderProductItem(item){
-    if(item.type === "story" && planningData.sprintStoryIds.includes(item.id)) return "";
-    const children = itemChildren(item.id).filter(child => !(child.type === "story" && planningData.sprintStoryIds.includes(child.id)));
-    const productSubtasks = item.type === "story" ? storySubtasks(item.id) : [];
-    const siblings = siblingItems(item).filter(candidate => !(candidate.type === "story" && planningData.sprintStoryIds.includes(candidate.id)));
+    if(isSprintItemType(item.type) && planningData.sprintStoryIds.includes(item.id)) return "";
+    const children = itemChildren(item.id).filter(child => !(isSprintItemType(child.type) && planningData.sprintStoryIds.includes(child.id)));
+    const productSubtasks = isSprintItemType(item.type) ? storySubtasks(item.id) : [];
+    const siblings = siblingItems(item).filter(candidate => !(isSprintItemType(candidate.type) && planningData.sprintStoryIds.includes(candidate.id)));
     const siblingIndex = siblings.findIndex(candidate => candidate.id === item.id);
     const ready = isPbiReady(item); const expanded = !item.collapsed;
-    return `<article class="backlog-item product-pbi${ready ? " ready" : ""}" data-pbi-id="${item.id}" data-type="${item.type}"${item.type === "story" ? ` draggable="true"` : ""}>` +
+    return `<article class="backlog-item product-pbi${ready ? " ready" : ""}" data-pbi-id="${item.id}" data-type="${item.type}"${isSprintItemType(item.type) ? ` draggable="true"` : ""}>` +
       `<div class="backlog-item-head"><button class="backlog-toggle" data-action="toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
       `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-type ${item.type}">${item.type}</span><span class="backlog-title">${escapeHtml(item.title)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}${!expanded && productSubtasks.length ? `<span class="backlog-counter">${productSubtasks.length} Sub-task${productSubtasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
-      `<div class="backlog-meta"><span>${["story", "bug", "test"].includes(item.type) ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div>` +
+      `<div class="backlog-meta"><span>${isSprintItemType(item.type) ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div>` +
       `<div class="backlog-actions">${siblings.length > 1 ? `<button class="backlog-icon-btn" data-action="moveup" title="Move up" aria-label="Move up"${siblingIndex <= 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="movedown" title="Move down" aria-label="Move down"${siblingIndex === siblings.length - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}` +
-      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${item.type === "story" ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div></div>` +
+      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${isSprintItemType(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div></div>` +
       (expanded ? renderPbiDetails(item) + (productSubtasks.length ? `<div class="product-subtask-list">${productSubtasks.map(renderProductSubtask).join("")}</div>` : "") + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
   }
   function renderHourBox(kind, storyId, task){
@@ -3276,10 +3282,10 @@
     const allTasksDone = tasks.length > 0 && tasks.every(task => task.done); const expanded = !story.collapsed;
     const articleStart = `<article class="backlog-item sprint-story${ready ? " ready" : ""}${story.done ? " done" : ""}${allTasksDone && !story.done ? " completion-ready ready-to-close" : ""}" data-story-id="${story.id}" draggable="true">`;
     if(story.done && !tasks.length && !expanded){
-      return articleStart + `<div class="done-story-summary"><button class="backlog-toggle" data-action="sprint-toggle" title="Expand" aria-label="Expand">${planningIcon("chevronRight")}</button><span class="backlog-type">Story</span><span class="backlog-title">${escapeHtml(story.title)}</span></div></article>`;
+      return articleStart + `<div class="done-story-summary"><button class="backlog-toggle" data-action="sprint-toggle" title="Expand" aria-label="Expand">${planningIcon("chevronRight")}</button><span class="backlog-type ${story.type}">${itemTypeLabel(story)}</span><span class="backlog-title">${escapeHtml(story.title)}</span></div></article>`;
     }
     return articleStart +
-      `<div class="backlog-item-head"><div class="sprint-story-identity"><button class="backlog-toggle" data-action="sprint-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button><span class="backlog-type">Story</span>${!expanded && tasks.length ? `<span class="backlog-counter">${tasks.length} Sub-task${tasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
+      `<div class="backlog-item-head"><div class="sprint-story-identity"><button class="backlog-toggle" data-action="sprint-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button><span class="backlog-type ${story.type}">${itemTypeLabel(story)}</span>${!expanded && tasks.length ? `<span class="backlog-counter">${tasks.length} Sub-task${tasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
       `<div class="backlog-actions">${total > 1 ? `<button class="backlog-icon-btn" data-action="sprint-up" title="Move up" aria-label="Move up"${index === 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="sprint-down" title="Move down" aria-label="Move down"${index === total - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}<button class="backlog-icon-btn text-action" data-action="edit-story">${planningIcon("edit")}<span>Edit</span></button><button class="backlog-icon-btn text-action" data-action="return-product">${planningIcon("arrowLeft")}<span>Product</span></button><button class="backlog-icon-btn text-action" data-action="add-subtask">${planningIcon("plus")}<span>Sub-task</span></button></div>` +
       renderHourBox("story", story.id) + `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-title">${escapeHtml(story.title)}</span></div></div></div>` +
       (expanded ? renderPbiDetails(story) + (tasks.length ? `<div class="subtask-list">${tasks.map((task, taskIndex) => renderSubtask(task, story.id, taskIndex, tasks.length)).join("")}</div>` : "") : "") + `</article>`;
@@ -3306,7 +3312,7 @@
   function renderPlanning(){
     const ready = planningReady(); planningEmptyState.classList.add("hidden"); planningCard.classList.remove("hidden"); btnPlanningStart.disabled = !ready;
     const stories = sprintStories(); const count = stories.length;
-    planningCountEl.textContent = `${count} Sprint Stor${count === 1 ? "y" : "ies"}`;
+    planningCountEl.textContent = `${count} Sprint Item${count === 1 ? "" : "s"}`;
     if(ready){
       const remaining = roundHours(effectiveCapacityHours(capacityMembers(), sprintWeeks()) - totalPlannedHours());
       planningHoursEl.textContent = `Available Capacity: ${remaining < 0 ? "-" : ""}${formatHours(Math.abs(remaining))}h`;
@@ -3315,11 +3321,11 @@
       planningHoursEl.textContent = "Available Capacity: configure Sprint"; planningHoursEl.classList.remove("over"); planningCountEl.classList.remove("over");
     }
     const roots = planningData.productItems.filter(item => !item.parentId || planningData.sprintStoryIds.includes(item.parentId));
-    const productVisibleCount = planningData.productItems.filter(item => !(item.type === "story" && planningData.sprintStoryIds.includes(item.id))).length;
+    const productVisibleCount = planningData.productItems.filter(item => !(isSprintItemType(item.type) && planningData.sprintStoryIds.includes(item.id))).length;
     productBacklogCountEl.textContent = `${productVisibleCount} item${productVisibleCount === 1 ? "" : "s"}`;
-    sprintBacklogCountEl.textContent = `${count} Stor${count === 1 ? "y" : "ies"}`;
+    sprintBacklogCountEl.textContent = `${count} Item${count === 1 ? "" : "s"}`;
     productBacklogListEl.innerHTML = roots.map(renderProductItem).join("") || `<div class="backlog-empty">No Product Backlog items yet. Use + Ticket to create one.</div>`;
-    sprintBacklogListEl.innerHTML = stories.map((story, index) => renderSprintStory(story, index, stories.length)).join("") || `<div class="backlog-empty">Drag a ready Story here or use its “→ Sprint” button.</div>`;
+    sprintBacklogListEl.innerHTML = stories.map((story, index) => renderSprintStory(story, index, stories.length)).join("") || `<div class="backlog-empty">Drag a ready Story, Bug, or Test here, or use its “→ Sprint” button.</div>`;
     if(planningData.commitment){
       planningCommitmentEl.innerHTML = `<span class="commitment-state committed">Ready</span><span>Sprint planning complete.</span>`;
     }else{
@@ -3345,6 +3351,26 @@
   const pbiTechReviewedEl = document.getElementById("pbiTechReviewed");
   const pbiErrorEl = document.getElementById("pbiError");
   let editingPbiId = null;
+  let pbiReadinessGuidance = false;
+
+  function setReadinessAttention(control, needsAttention){
+    const row = control?.closest(".field-row");
+    if(!row) return;
+    row.classList.toggle("needs-attention", !!needsAttention);
+    if(needsAttention) control.setAttribute("aria-invalid", "true"); else control.removeAttribute("aria-invalid");
+  }
+  function refreshPbiReadinessHighlights(){
+    const checks = [
+      [pbiTitleEl, !pbiTitleEl.value.trim()],
+      [pbiContextEl, !pbiContextEl.value.trim()],
+      [pbiAcceptanceEl, acceptanceLines(pbiAcceptanceEl.value).length < 1],
+      [pbiOutOfScopeEl, !(pbiOutOfScopeEl.value.trim() || pbiOutOfScopeNAEl.checked)],
+      [pbiRefinementEl, !(pbiRefinementEl.value.trim() || pbiRefinementNAEl.checked)],
+      [pbiHoursEl, !(Number(pbiHoursEl.value) > 0)],
+      [pbiTechReviewedEl, !pbiTechReviewedEl.checked]
+    ];
+    checks.forEach(([control, missing]) => setReadinessAttention(control, pbiReadinessGuidance && missing));
+  }
 
   function selectedPbiType(){ return pbiTypeInputs.find(input => input.checked)?.value || "story"; }
   function updateParentOptions(selectedId){
@@ -3357,6 +3383,7 @@
   }
   function syncNotApplicableFields(){
     pbiOutOfScopeEl.disabled = pbiOutOfScopeNAEl.checked; pbiRefinementEl.disabled = pbiRefinementNAEl.checked;
+    refreshPbiReadinessHighlights();
   }
   function openPbiModal(id){
     editingPbiId = id || null; const item = id ? productItem(id) : null;
@@ -3367,14 +3394,17 @@
     pbiOutOfScopeEl.value = item?.outOfScope || ""; pbiOutOfScopeNAEl.checked = !!item?.outOfScopeNA;
     pbiRefinementEl.value = item?.refinementNotes || ""; pbiRefinementNAEl.checked = !!item?.refinementNotesNA;
     pbiHoursEl.value = item?.estimateHours ?? 0; pbiUrlEl.value = item?.externalUrl || ""; pbiTechReviewedEl.checked = !!item?.reviewedByTechLead;
-    pbiErrorEl.textContent = ""; updateParentOptions(item?.parentId || ""); syncNotApplicableFields(); pbiOverlay.classList.remove("hidden"); pbiTitleEl.focus();
+    pbiReadinessGuidance = !!item && !isPbiReady(item);
+    pbiErrorEl.textContent = ""; updateParentOptions(item?.parentId || ""); syncNotApplicableFields(); refreshPbiReadinessHighlights(); pbiOverlay.classList.remove("hidden"); pbiTitleEl.focus();
   }
   pbiTypeInputs.forEach(input => input.addEventListener("change", () => updateParentOptions("")));
   pbiOutOfScopeNAEl.addEventListener("change", syncNotApplicableFields); pbiRefinementNAEl.addEventListener("change", syncNotApplicableFields);
+  [pbiTitleEl, pbiContextEl, pbiAcceptanceEl, pbiOutOfScopeEl, pbiRefinementEl, pbiHoursEl].forEach(control => control.addEventListener("input", refreshPbiReadinessHighlights));
+  pbiTechReviewedEl.addEventListener("change", refreshPbiReadinessHighlights);
   document.getElementById("pbiCancel").addEventListener("click", () => pbiOverlay.classList.add("hidden"));
   document.getElementById("pbiSave").addEventListener("click", () => {
     const title = pbiTitleEl.value.trim(); const criteria = acceptanceLines(pbiAcceptanceEl.value); const rawUrl = pbiUrlEl.value.trim();
-    if(!title || !criteria.length){ pbiErrorEl.textContent = "Title and at least one Acceptance Criterion are required."; return; }
+    if(!title || !criteria.length){ pbiReadinessGuidance = true; refreshPbiReadinessHighlights(); pbiErrorEl.textContent = "Title and at least one Acceptance Criterion are required."; return; }
     if(rawUrl && !safeExternalUrl(rawUrl)){ pbiErrorEl.textContent = "Use a valid external ticket link."; return; }
     const values = { type: selectedPbiType(), parentId: pbiParentRow.classList.contains("hidden") ? null : (pbiParentEl.value || null), title,
       context: pbiContextEl.value.trim(), acceptanceCriteria: criteria, outOfScope: pbiOutOfScopeEl.value.trim(), outOfScopeNA: pbiOutOfScopeNAEl.checked,
@@ -3393,18 +3423,29 @@
   const subtaskUrlEl = document.getElementById("subtaskUrl");
   const subtaskErrorEl = document.getElementById("subtaskError");
   let editingSubtask = null;
+  let subtaskReadinessGuidance = false;
+  function refreshSubtaskReadinessHighlights(){
+    const checks = [
+      [subtaskTitleEl, !subtaskTitleEl.value.trim()],
+      [subtaskDescriptionEl, !subtaskDescriptionEl.value.trim()],
+      [subtaskHoursEl, !(Number(subtaskHoursEl.value) > 0)]
+    ];
+    checks.forEach(([control, missing]) => setReadinessAttention(control, subtaskReadinessGuidance && missing));
+  }
   function openSubtaskModal(storyId, taskId){
     const task = taskId ? storySubtasks(storyId).find(item => item.id === taskId) : null;
     editingSubtask = { storyId, taskId: taskId || null };
     document.getElementById("subtaskModalTitle").textContent = task ? "Edit Sub-task" : "Create a Sub-task";
     document.getElementById("subtaskSave").textContent = task ? "Save Changes" : "Create Sub-task";
     subtaskTitleEl.value = task?.title || ""; subtaskDescriptionEl.value = task?.description || ""; subtaskHoursEl.value = task?.hours ?? 0;
-    subtaskUrlEl.value = task?.externalUrl || ""; subtaskErrorEl.textContent = ""; subtaskOverlay.classList.remove("hidden"); subtaskTitleEl.focus();
+    subtaskReadinessGuidance = !!task && !isSubtaskReady(task);
+    subtaskUrlEl.value = task?.externalUrl || ""; subtaskErrorEl.textContent = ""; refreshSubtaskReadinessHighlights(); subtaskOverlay.classList.remove("hidden"); subtaskTitleEl.focus();
   }
+  [subtaskTitleEl, subtaskDescriptionEl, subtaskHoursEl].forEach(control => control.addEventListener("input", refreshSubtaskReadinessHighlights));
   document.getElementById("subtaskCancel").addEventListener("click", () => subtaskOverlay.classList.add("hidden"));
   document.getElementById("subtaskSave").addEventListener("click", () => {
     const title = subtaskTitleEl.value.trim(); const rawUrl = subtaskUrlEl.value.trim();
-    if(!title){ subtaskErrorEl.textContent = "Title is required."; return; }
+    if(!title){ subtaskReadinessGuidance = true; refreshSubtaskReadinessHighlights(); subtaskErrorEl.textContent = "Title is required."; return; }
     if(rawUrl && !safeExternalUrl(rawUrl)){ subtaskErrorEl.textContent = "Use a valid external ticket link."; return; }
     const values = { title, description: subtaskDescriptionEl.value.trim(), hours: Math.max(0, Number(subtaskHoursEl.value) || 0), externalUrl: safeExternalUrl(rawUrl) };
     const tasks = storySubtasks(editingSubtask.storyId); const task = editingSubtask.taskId ? tasks.find(item => item.id === editingSubtask.taskId) : null;
@@ -3413,22 +3454,22 @@
   });
 
   async function addStoryToSprint(id){
-    const story = productItem(id); if(!story || story.type !== "story" || planningData.sprintStoryIds.includes(id)) return;
+    const story = productItem(id); if(!story || !isSprintItemType(story.type) || planningData.sprintStoryIds.includes(id)) return;
     if(!planningReady()){ alert("Configure an active Sprint and team capacity before selecting Sprint work."); return; }
-    if(!isPbiReady(story) && !(await showConfirm("This Story does not yet meet its Definition of Ready. Add it to the Sprint anyway?", "Add Anyway"))) return;
+    if(!isPbiReady(story) && !(await showConfirm(`This ${itemTypeLabel(story)} does not yet meet its Definition of Ready. Add it to the Sprint anyway?`, "Add Anyway"))) return;
     story.collapsed = true;
     planningData.sprintStoryIds.push(id);
     if(planningData.commitment) planningData.commitment.storyHours[id] = storyForecastHours(story);
-    recordPlanningSnapshot(toISODate(new Date()), "Story added to Sprint"); savePlanning(); renderPlanning();
+    recordPlanningSnapshot(toISODate(new Date()), `${itemTypeLabel(story)} added to Sprint`); savePlanning(); renderPlanning();
   }
   async function returnStoryToProduct(id){
     const story = productItem(id); if(!story) return;
     if(story.done){
-      if(!(await showConfirm("Returning this completed Story will reopen it and remove its completion from this Sprint. Continue?", "Return & Reopen"))) return;
+      if(!(await showConfirm(`Returning this completed ${itemTypeLabel(story)} will reopen it and remove its completion from this Sprint. Continue?`, "Return & Reopen"))) return;
       story.done = false; story.actualHours = null; story.completedDate = null;
     }
     planningData.sprintStoryIds = planningData.sprintStoryIds.filter(storyId => storyId !== id);
-    recordPlanningSnapshot(toISODate(new Date()), "Story returned to Product Backlog"); savePlanning(); renderPlanning();
+    recordPlanningSnapshot(toISODate(new Date()), `${itemTypeLabel(story)} returned to Product Backlog`); savePlanning(); renderPlanning();
   }
 
   productBacklogListEl.addEventListener("click", async e => {
@@ -3459,11 +3500,11 @@
       const descendants = itemDescendants(id);
       const sprintDescendant = [item, ...descendants].some(candidate => planningData.sprintStoryIds.includes(candidate.id));
       if(sprintDescendant){
-        alert("Return every affected Story from the Sprint Backlog before deleting this item.");
+        alert("Return every affected item from the Sprint Backlog before deleting this item.");
         return;
       }
       const nestedTaskCount = [item, ...descendants]
-        .filter(candidate => candidate.type === "story")
+        .filter(candidate => isSprintItemType(candidate.type))
         .reduce((sum, story) => sum + storySubtasks(story.id).length, 0);
       const nestedCount = descendants.length + nestedTaskCount;
       const childCopy = nestedCount ? ` This will also delete ${nestedCount} nested item${nestedCount === 1 ? "" : "s"}.` : "";
@@ -3492,7 +3533,7 @@
     if(!item) return;
     if(kind === "story" && !item.done){
       const openTasks = storySubtasks(storyId).filter(task => !task.done);
-      if(openTasks.length && !(await showConfirm(`This Story still has ${openTasks.length} open Sub-task${openTasks.length === 1 ? "" : "s"}. Close it anyway?`, "Continue"))) return;
+      if(openTasks.length && !(await showConfirm(`This ${itemTypeLabel(item)} still has ${openTasks.length} open Sub-task${openTasks.length === 1 ? "" : "s"}. Close it anyway?`, "Continue"))) return;
     }
     workDoneTarget = { kind, storyId, taskId: taskId || null };
     const suggested = kind === "story"
@@ -3512,7 +3553,7 @@
       if(workDoneTarget.kind === "story" && !storySubtasks(workDoneTarget.storyId).length) item.collapsed = true;
       item.actualHours = Math.max(0, Number(workDoneHoursEl.value) || 0);
       item.completedDate = workDoneDateEl.value || toISODate(new Date());
-      recordPlanningSnapshot(item.completedDate, `${workDoneTarget.kind === "story" ? "Story" : "Sub-task"} completed`);
+      recordPlanningSnapshot(item.completedDate, `${workDoneTarget.kind === "story" ? itemTypeLabel(item) : "Sub-task"} completed`);
       savePlanning(); renderPlanning();
     }
     workDoneOverlay.classList.add("hidden");
@@ -3521,7 +3562,7 @@
     const item = selectedWorkItem();
     if(item){
       item.done = false; item.actualHours = null; item.completedDate = null;
-      recordPlanningSnapshot(toISODate(new Date()), `${workDoneTarget.kind === "story" ? "Story" : "Sub-task"} reopened`);
+      recordPlanningSnapshot(toISODate(new Date()), `${workDoneTarget.kind === "story" ? itemTypeLabel(item) : "Sub-task"} reopened`);
       savePlanning(); renderPlanning();
     }
     workDoneOverlay.classList.add("hidden");
@@ -3573,7 +3614,7 @@
   });
 
   productBacklogListEl.addEventListener("dragstart", e => {
-    const story = e.target.closest('[data-pbi-id][data-type="story"]');
+    const story = e.target.closest('[data-pbi-id][data-type="story"], [data-pbi-id][data-type="bug"], [data-pbi-id][data-type="test"]');
     if(!story) return;
     e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", story.dataset.pbiId);
   });
@@ -3592,7 +3633,7 @@
 
   btnRemoveAllTickets.addEventListener("click", async () => {
     if(!planningData.sprintStoryIds.length && !planningData.commitment) return;
-    if(!(await showConfirm("Reset and archive this Sprint? Completed Stories will be removed from the active boards. Unfinished Stories and their Sub-tasks will return to the Product Backlog.", "Reset Sprint"))) return;
+    if(!(await showConfirm("Reset and archive this Sprint? Completed items will be removed from the active boards. Unfinished Stories, Bugs, and Tests and their Sub-tasks will return to the Product Backlog.", "Reset Sprint"))) return;
     const stories = sprintStories();
     archiveCurrentSprint(settings.sprintStartDate, stories);
     const completedIds = new Set(stories.filter(story => story.done).map(story => story.id));
@@ -3637,6 +3678,7 @@
     const lastSprintDay = sprintDays[sprintDays.length - 1];
     const archivedStories = stories.map(story => ({
       id: story.id,
+      type: story.type || "story",
       title: story.title,
       done: !!story.done,
       completedDate: story.completedDate || null,
@@ -3691,6 +3733,7 @@
   }
 
   function renderHistoryStory(story){
+    const type = isSprintItemType(story.type) ? story.type : "story";
     const link = renderExternalLink(story.externalUrl);
     const subtasks = Array.isArray(story.subtasks) ? story.subtasks : [];
     const details = renderDetailLines("Context", story.context, false) +
@@ -3700,7 +3743,7 @@
       (link ? `<p>${link}</p>` : "") +
       (subtasks.length ? `<ul class="history-subtasks">${subtasks.map(task => `<li><strong>${escapeHtml(task.title)}</strong> · ${task.done ? "Done" : "Open"} · ${formatHours(task.actualHours ?? task.hours)}h${task.description ? `<div>${escapeHtml(task.description)}</div>` : ""}</li>`).join("")}</ul>` : "");
     return `<details class="history-story"><summary class="history-story-head">` +
-      `<span class="backlog-type">Story</span><span class="history-story-title">${escapeHtml(story.title || "Untitled Story")}</span>` +
+      `<span class="backlog-type ${type}">${escapeHtml(type)}</span><span class="history-story-title">${escapeHtml(story.title || "Untitled Item")}</span>` +
       `<span class="history-story-state${story.done ? " done" : ""}">${story.done ? "Completed" : "Incomplete"}</span>` +
       `<span class="history-story-hours">${formatHours(story.forecastHours ?? story.estimateHours ?? 0)}h forecast · ${formatHours(story.actualHours ?? 0)}h actual</span>` +
       `</summary>${details ? `<div class="history-story-details">${details}</div>` : ""}</details>`;
@@ -3726,7 +3769,7 @@
             `<div class="history-metric"><span class="history-metric-label">Baseline</span><span class="history-metric-value">${formatHours(entry.plannedHours ?? 0)}h</span></div>` +
             `<div class="history-metric"><span class="history-metric-label">Final forecast</span><span class="history-metric-value">${formatHours(entry.finalForecastHours ?? 0)}h</span></div>` +
             `<div class="history-metric"><span class="history-metric-label">Actual completed</span><span class="history-metric-value">${formatHours(entry.actualHours ?? 0)}h</span></div>` +
-            `<div class="history-metric"><span class="history-metric-label">Stories completed</span><span class="history-metric-value">${entry.completedTicketsCount ?? 0}/${entry.plannedTicketsCount ?? 0}</span></div>` +
+            `<div class="history-metric"><span class="history-metric-label">Items completed</span><span class="history-metric-value">${entry.completedTicketsCount ?? 0}/${entry.plannedTicketsCount ?? 0}</span></div>` +
             `<div class="history-metric"><span class="history-metric-label">Commitment reliability</span><span class="history-metric-value">${reliability}</span></div>` +
             `<div class="history-metric"><span class="history-metric-label">Scope updates</span><span class="history-metric-value">${scope.length}</span></div>` +
           `</div>` +
