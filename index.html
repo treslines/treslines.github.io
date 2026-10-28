@@ -171,7 +171,7 @@
   .ticket-corner-btn.ticket-minus{left:-7px}
   .ticket-corner-btn.ticket-plus{right:-7px}
   .ticket-corner-btn:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
-  .planning-board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;margin-top:20px;align-items:start}
+  .planning-board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;margin-top:20px;align-items:stretch}
   .backlog-column{min-width:0;padding:0 20px 0 0;transition:background .15s}
   #sprintBacklogColumn{padding:0 0 0 20px;border-left:1px solid var(--border)}
   .backlog-column.drag-over .backlog-list{outline:2px dashed var(--brand);outline-offset:6px;background:#f2faf9}
@@ -196,7 +196,7 @@
   .backlog-title-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
   .backlog-title{font-size:.84rem;line-height:1.3;font-weight:500;color:var(--ink);overflow-wrap:anywhere}
   .backlog-type{padding:3px 7px;border-radius:999px;background:#0f7180;color:#fff;font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-  .backlog-type.epic{background:#6746a5;color:#fff}.backlog-type.feature{background:#a76c00;color:#fff}
+  .backlog-type.epic{background:#6746a5;color:#fff}.backlog-type.feature{background:#9a6b00;color:#fff}.backlog-type.bug{background:#c43d4d;color:#fff}.backlog-type.test{background:#e56717;color:#fff}
   .backlog-status{display:inline-flex;align-items:center;padding:2px 6px;border-radius:999px;background:#fff0c7;color:#805600;font-size:.61rem;font-weight:800}.backlog-item.ready .backlog-status{background:#e1f4e8;color:#14723a}
   .backlog-item.done .backlog-status,.backlog-item.completion-ready .backlog-status{background:#ccefd9;color:#116b35}
   .backlog-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:5px;color:var(--muted);font-size:.67rem;line-height:1.35}
@@ -209,6 +209,15 @@
   .backlog-details p{margin:4px 0;overflow-wrap:anywhere}.backlog-details strong{color:var(--ink)}.backlog-details a{color:var(--brand);font-weight:700}
   .backlog-details ul{margin:3px 0 6px 17px;padding:0}.backlog-details li{margin:1px 0;padding-left:1px}
   .backlog-children{margin:10px 0 0 24px;display:flex;flex-direction:column;gap:8px}
+  .product-subtask-list{margin:12px 0 0 33px;display:flex;flex-direction:column;gap:7px}
+  .product-subtask-list::before{content:"Sub-tasks";color:#627b84;font-size:.61rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .product-subtask{padding:9px 10px;border:1px solid var(--border);border-radius:8px;background:#f7fbfb}
+  .product-subtask-head{display:flex;align-items:center;gap:6px;min-width:0}
+  .product-subtask-title{min-width:0;flex:1;color:var(--ink);font-size:.75rem;font-weight:600;overflow-wrap:anywhere}
+  .product-subtask-hours{color:var(--muted);font-size:.67rem;font-weight:700;white-space:nowrap}
+  .product-subtask-details{margin:7px 0 0 30px;color:var(--muted);font-size:.69rem;line-height:1.4}
+  .product-subtask-details ul{margin:3px 0 0;padding-left:17px}
+  .product-subtask.ready .backlog-status,.product-subtask.done .backlog-status{background:#e1f4e8;color:#14723a}
   .sprint-story{background:#fff}.sprint-story.ready-to-close{border-color:#72c996;background:#e9f8ef}
   .story-forecast{font-weight:800;color:var(--brand-dark)}.story-forecast.warning{color:#9a6700}
   .subtask-list{margin:12px 0 0 33px;display:flex;flex-direction:column;gap:0}
@@ -230,7 +239,7 @@
   .sprint-story>.backlog-item-head>.backlog-title-wrap{grid-column:1/4;grid-row:2;margin-top:8px}
   .done-story-summary{display:flex;align-items:center;gap:6px;min-height:30px}
   .backlog-item[data-task-id]>.backlog-item-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:start}
-  .subtask-identity{grid-column:1;grid-row:1;display:flex;align-items:center;min-height:30px}
+  .subtask-identity{grid-column:1;grid-row:1;display:flex;align-items:center;gap:6px;min-height:30px}
   .backlog-item[data-task-id]>.backlog-item-head>.backlog-actions{grid-column:2;grid-row:1;margin:0;justify-content:flex-end}
   .backlog-item[data-task-id]>.backlog-item-head>.work-estimate{grid-column:3;grid-row:1}
   .backlog-item[data-task-id]>.backlog-item-head>.backlog-title-wrap{grid-column:1/4;grid-row:2;margin-top:7px}
@@ -347,12 +356,11 @@
   .kb-link-preview:hover{text-decoration:underline}
   .kb-link-entry .kb-link-trash{flex-shrink:0;background:none;border:0;font-size:1rem;cursor:pointer;opacity:.6;transition:opacity .15s}
   .kb-link-entry .kb-link-trash:hover{opacity:1}
-  .definition-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 22px}
-  .definition-tabs button{background:#f6f9fb;border:1px solid var(--border);border-radius:999px;padding:8px 18px;font-weight:700;font-size:.85rem;color:var(--brand-dark)}
-  .definition-tabs button:hover{background:#eef5fb}
-  .definition-tabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
   .definition-section-title{margin:0 0 18px;color:var(--brand-dark);font-size:1.45rem;line-height:1.2}
-  .definition-guidance-grid{display:grid;grid-template-columns:1.05fr 1.25fr 1fr;gap:14px;margin-bottom:22px}
+  .definitions-board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+  .definition-column{min-width:0;padding-right:20px}
+  .definition-column+.definition-column{padding:0 0 0 20px;border-left:1px solid var(--border)}
+  .ownership-stack{display:flex;flex-direction:column;gap:14px}
   .definition-guidance-card{min-width:0;padding:18px;border:1px solid var(--border);border-radius:12px;background:#f9fbfd;color:var(--ink);font-size:.82rem;line-height:1.5}
   .definition-guidance-card h4{margin:0 0 10px;color:var(--brand-dark);font-size:.92rem}
   .definition-guidance-card p{margin:0 0 10px}
@@ -371,6 +379,36 @@
   .definition-item-text{min-width:0;line-height:1.5;overflow-wrap:anywhere}
   .definition-trash{border:0;background:transparent;font-size:1rem;cursor:pointer;opacity:.6}
   .definition-trash:hover{opacity:1}
+  .sprint-history-list{display:flex;flex-direction:column;gap:12px}
+  .history-sprint{border:1px solid var(--border);border-radius:12px;background:#fbfefe;overflow:hidden}
+  .history-sprint summary{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;list-style:none;color:var(--ink)}
+  .history-sprint summary::-webkit-details-marker{display:none}
+  .history-sprint summary::before{content:"›";flex:0 0 auto;color:var(--brand);font-size:1.25rem;line-height:1;transform-origin:center;transition:transform .15s}
+  .history-sprint[open] summary::before{transform:rotate(90deg)}
+  .history-sprint-title{min-width:0;flex:1;font-size:.92rem;font-weight:700;color:var(--brand-dark)}
+  .history-sprint-meta{font-size:.7rem;color:var(--muted);white-space:nowrap}
+  .history-sprint-body{padding:0 18px 18px;border-top:1px solid var(--border)}
+  .history-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+  .history-metric{padding:10px 12px;border-radius:9px;background:#eef7f7}
+  .history-metric-label{display:block;margin-bottom:3px;color:var(--muted);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .history-metric-value{color:var(--brand-dark);font-size:.94rem;font-weight:800}
+  .history-goals{margin:12px 0;padding-left:20px;color:var(--ink);font-size:.78rem}
+  .history-story-list{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+  .history-story{padding:10px 12px;border:1px solid var(--border);border-radius:9px;background:#fff}
+  .history-story-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .history-story>summary{cursor:pointer;list-style:none}.history-story>summary::-webkit-details-marker{display:none}
+  .history-story-title{flex:1;min-width:160px;font-size:.78rem;font-weight:600}
+  .history-story-state{padding:2px 7px;border-radius:999px;background:#fff0c7;color:#805600;font-size:.61rem;font-weight:800}
+  .history-story-state.done{background:#dff5e7;color:#126e38}
+  .history-story-hours{color:var(--muted);font-size:.69rem}
+  .history-subtasks{margin:8px 0 0 22px;padding-left:17px;color:var(--muted);font-size:.7rem}
+  .history-story-details{margin:10px 0 0 28px;padding-top:8px;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem}
+  .history-story-details p{margin:4px 0}.history-story-details ul{margin:4px 0 8px;padding-left:18px}
+  .history-scope{margin:10px 0 0;padding-left:19px;color:var(--muted);font-size:.7rem}
+  .guest-role{display:inline-flex;align-items:center;justify-content:center;min-width:27px;padding:2px 7px;border-radius:999px;font-size:.66rem;font-weight:800;line-height:1.25}
+  .guest-role.SM{background:#ede9fe;color:#5b21b6}.guest-role.PO{background:#fef3c7;color:#854d0e}.guest-role.SH{background:#ccfbf1;color:#115e59}
+  .guest-name{white-space:nowrap}
+  .guest-elapsed{font-variant-numeric:tabular-nums;font-size:.7rem;font-weight:800}
   .retro-row.completed .retro-title,.retro-row.completed .retro-desc{text-decoration:line-through;opacity:.65}
   .retro-row.completed .retro-check{cursor:pointer}
   .retro-modal-option{display:flex;align-items:center;gap:8px;padding:8px 0;font-size:.9rem;cursor:pointer}
@@ -420,7 +458,7 @@
   .overall-timer-text.expired{animation:blink 1s step-start infinite}
 
   .guest-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-  .guest-btn{border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 14px;font-weight:600;font-size:.8rem;transition:background .15s,border-color .15s,box-shadow .15s}
+  .guest-btn{border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 14px;font-weight:600;font-size:.8rem;display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s,box-shadow .15s}
   .guest-btn:disabled{opacity:.4;cursor:not-allowed}
   .guest-btn:not(:disabled):hover{box-shadow:0 0 0 3px rgba(20,93,160,.14)}
   .guest-btn:not(:disabled):active{box-shadow:0 0 0 2px rgba(20,93,160,.18)}
@@ -590,6 +628,7 @@
   .air-rebrand .btn-primary:hover,.air-rebrand .search-form button:not(:disabled):hover,.air-rebrand .add-member-form button:hover,.air-rebrand .summary-close:hover{background:var(--brand-dark)}
   .air-rebrand .btn-ghost{border-color:var(--border);border-radius:9px;color:var(--ink);background:#fff}
   .air-rebrand .btn-ghost:hover{background:#f3faf9}
+  .air-rebrand .btn-ghost.btn-danger:hover{background:#fff0f0;color:var(--bad);border-color:var(--bad)}
   .air-rebrand .btn-ghost.active{color:#fff;background:var(--brand);border-color:var(--brand)}
   .air-rebrand .control-panel button{border-radius:9px;padding:10px 15px;box-shadow:none}
   .air-rebrand .control-panel .primary{background:var(--brand)}
@@ -659,7 +698,9 @@
     .air-nav-item{justify-content:center;padding:11px 8px}
     .air-rebrand header.app-header,.air-page-intro{padding-left:28px;padding-right:28px}
     .air-rebrand main{padding-left:28px;padding-right:28px}
-    .definition-guidance-grid{grid-template-columns:1fr}
+    .definitions-board{grid-template-columns:1fr}
+    .definition-column{padding:0}
+    .definition-column+.definition-column{padding:22px 0 0;margin-top:22px;border-left:0;border-top:1px solid var(--border)}
   }
 
   @media (max-width:1180px){
@@ -757,8 +798,10 @@
     <nav class="air-side-nav" aria-label="Insights and help">
       <button class="air-nav-item" type="button" data-air-tab="burndown"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="5,6 10,9 13,14 20,17"/></svg></span><span>Burndown</span></button>
       <button class="air-nav-item" type="button" data-air-tab="stats"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M3 20h18"/></svg></span><span>Stats</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="history"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>Sprint History</span></button>
       <button class="air-nav-item" type="button" data-air-tab="knowledgebase"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0z"/><path d="M21 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0z"/></svg></span><span>Knowledge Base</span></button>
       <button class="air-nav-item" type="button" data-air-tab="decisionlog"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z" fill="currentColor" stroke="none"/><path d="M8.5 12.5l2 2 4-4.5"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span><span>Decision Log</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="ownership"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2"/><path d="M16 8h5M18.5 5.5v5"/></svg></span><span>Ownership</span></button>
       <button class="air-nav-item" type="button" data-air-tab="definitions"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></span><span>DoD / DoR</span></button>
       <button class="air-nav-item" type="button" data-air-tab="search"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span>Scrum Search</span></button>
     </nav>
@@ -793,8 +836,10 @@
   <button data-tab="review">3. Review</button>
   <button data-tab="retro">4. Retro</button>
   <button data-tab="stats">Stats</button>
+  <button data-tab="history">Sprint History</button>
   <button data-tab="knowledgebase">Knowledge Base</button>
   <button data-tab="decisionlog">Decision Log</button>
+  <button data-tab="ownership">Ownership</button>
   <button data-tab="definitions">DoD / DoR</button>
   <button data-tab="search">Scrum Search</button>
 </nav>
@@ -934,7 +979,7 @@
         <span class="planning-hours" id="planningHours"></span>
         <div class="planning-actions">
           <button class="btn-ghost btn-sm" id="btnPlanningPoker">🃏 Planning Poker</button>
-          <button class="btn-ghost btn-sm btn-danger" id="btnRemoveAllTickets">Clear Sprint</button>
+          <button class="btn-ghost btn-sm btn-danger" id="btnRemoveAllTickets">Reset Sprint</button>
           <button class="btn-primary btn-sm" id="btnAddTicket">+ Ticket</button>
         </div>
       </div>
@@ -1103,6 +1148,12 @@
       <div class="stats-grid" id="statsGrid"></div>
     </div>
   </section>
+  <section class="panel" id="panel-history">
+    <div class="card">
+      <div class="retro-empty-msg hidden" id="sprintHistoryEmpty">No completed Sprints have been archived yet. Starting a new Sprint will preserve the previous Sprint here.</div>
+      <div class="sprint-history-list" id="sprintHistoryList"></div>
+    </div>
+  </section>
   <section class="panel" id="panel-knowledgebase">
     <div class="card">
       <div class="planning-header">
@@ -1131,18 +1182,33 @@
   </section>
   <section class="panel" id="panel-definitions">
     <div class="card">
-      <div class="planning-header">
-        <h2>✅ DoD / DoR</h2>
+      <div class="definitions-board">
+        <section class="definition-column" aria-labelledby="definitionDoneTitle">
+          <h3 class="definition-section-title" id="definitionDoneTitle">Definition of Done (DoD)</h3>
+          <div class="definition-add-row">
+            <input type="text" class="field-input" id="definitionDraftDod" placeholder="Specify your DoD item here..." maxlength="500" aria-label="New Definition of Done item">
+            <button type="button" class="sprint-goal-add" id="btnAddDefinitionDod" title="Add DoD item" aria-label="Add DoD item">+</button>
+          </div>
+          <div class="retro-empty-msg hidden" id="definitionEmptyDod">No DoD items yet.</div>
+          <ul class="definition-list" id="definitionListDod"></ul>
+        </section>
+        <section class="definition-column" aria-labelledby="definitionReadyTitle">
+          <h3 class="definition-section-title" id="definitionReadyTitle">Definition of Ready (DoR)</h3>
+          <div class="definition-add-row">
+            <input type="text" class="field-input" id="definitionDraftDor" placeholder="Specify your DoR item here..." maxlength="500" aria-label="New Definition of Ready item">
+            <button type="button" class="sprint-goal-add" id="btnAddDefinitionDor" title="Add DoR item" aria-label="Add DoR item">+</button>
+          </div>
+          <div class="retro-empty-msg hidden" id="definitionEmptyDor">No DoR items yet.</div>
+          <ul class="definition-list" id="definitionListDor"></ul>
+        </section>
       </div>
-      <div class="definition-tabs" id="definitionTabs" role="tablist" aria-label="Definition type">
-        <button type="button" class="active" data-definition-tab="dod" role="tab" aria-selected="true">Definition of Done</button>
-        <button type="button" data-definition-tab="dor" role="tab" aria-selected="false">Definition of Ready</button>
-      </div>
-      <h3 class="definition-section-title" id="definitionSectionTitle">Definition of Done (DoD)</h3>
-
-      <div class="definition-guidance-grid hidden" id="dorGuidance">
+    </div>
+  </section>
+  <section class="panel" id="panel-ownership">
+    <div class="card">
+      <div class="ownership-stack">
         <article class="definition-guidance-card">
-          <h4>Ownership: Who writes what and when?</h4>
+          <h4>Who writes what and when?</h4>
           <div class="definition-table-wrap">
             <table class="definition-ownership-table">
               <thead><tr><th>Level</th><th>Jira issue type</th><th>Owner</th><th>Goal</th></tr></thead>
@@ -1184,13 +1250,6 @@
           </ul>
         </article>
       </div>
-
-      <div class="definition-add-row">
-        <input type="text" class="field-input" id="definitionDraft" placeholder="Specify your DoD item here..." maxlength="500" aria-label="Definition item">
-        <button type="button" class="sprint-goal-add" id="btnAddDefinitionItem" title="Add item" aria-label="Add definition item">+</button>
-      </div>
-      <div class="retro-empty-msg hidden" id="definitionEmpty"></div>
-      <ul class="definition-list" id="definitionList"></ul>
     </div>
   </section>
 </main>
@@ -1351,11 +1410,13 @@
         <label><input type="radio" name="pbiType" value="epic"> Epic</label>
         <label><input type="radio" name="pbiType" value="feature"> Feature</label>
         <label><input type="radio" name="pbiType" value="story" checked> Story</label>
+        <label><input type="radio" name="pbiType" value="bug"> Bug</label>
+        <label><input type="radio" name="pbiType" value="test"> Test</label>
       </span></label></div>
       <div class="field-row span-2 hidden" id="pbiParentRow"><label>Parent<select id="pbiParent"></select></label></div>
       <div class="field-row span-2"><label>Title *<input type="text" id="pbiTitle" placeholder="What needs to be delivered?"></label></div>
       <div class="field-row span-2"><label>Context and value<textarea id="pbiContext" rows="3" placeholder="Why is this needed and what value does it create?"></textarea></label></div>
-      <div class="field-row span-2"><label>Acceptance Criteria *<textarea id="pbiAcceptance" rows="4" placeholder="One acceptance criterion per line"></textarea><span class="field-help">At least one is required to create the item; two are required for Ready.</span></label></div>
+      <div class="field-row span-2"><label>Acceptance Criteria *<textarea id="pbiAcceptance" rows="4" placeholder="One acceptance criterion per line"></textarea><span class="field-help">At least one Acceptance Criterion is required.</span></label></div>
       <div class="field-row"><label>Out of Scope<textarea id="pbiOutOfScope" rows="3" placeholder="What is explicitly excluded?"></textarea><span class="inline-check"><input type="checkbox" id="pbiOutOfScopeNA"> Not applicable</span></label></div>
       <div class="field-row"><label>Refinement Notes<textarea id="pbiRefinement" rows="3" placeholder="Technical constraints, risks, and decisions"></textarea><span class="inline-check"><input type="checkbox" id="pbiRefinementNA"> Not applicable</span></label></div>
       <div class="field-row"><label>Estimated hours<input type="number" id="pbiHours" min="0" step="0.5" value="0"></label></div>
@@ -1384,7 +1445,7 @@
 <div class="summary-overlay hidden" id="newSprintOverlay">
   <div class="summary-card">
     <h2>🔄 Start New Sprint</h2>
-    <p class="muted">Completed Stories are archived for velocity. Unfinished Stories return to the Product Backlog with their Sub-tasks, while availability and the current Sprint commitment are reset.</p>
+    <p class="muted">The current Sprint will be saved to Sprint History. Unfinished Stories return to the Product Backlog with their Sub-tasks, while completed Stories become part of the read-only snapshot.</p>
     <div class="field-row">
       <label>Sprint Start Date<input type="date" id="newSprintDate"></label>
     </div>
@@ -1547,6 +1608,7 @@
     // (e.g. on first load) - redraw once the panel actually becomes visible so it never gets stuck
     // using a stale fallback width.
     if(name === "burndown") renderBurndown();
+    if(name === "history") renderSprintHistory();
   }
   tabButtons.forEach(b => b.addEventListener("click", () => activateTab(b.dataset.tab)));
   window.addEventListener("resize", () => {
@@ -2083,9 +2145,9 @@
       btn.classList.toggle("speaking", active);
       btn.disabled = !enabled;
       const elapsed = session.guestElapsedMs[m.id] || 0;
-      btn.textContent = active
-        ? `${ROLE_EMOJI[m.role]} ${m.name} speaking ${formatMs(elapsed)}`
-        : `${ROLE_EMOJI[m.role]} ${m.name} speaks`;
+      btn.innerHTML = `<span class="guest-role ${m.role}">${escapeHtml(ROLE_BADGE[m.role] || m.role)}</span>` +
+        `<span class="guest-name">${escapeHtml(m.name)}</span>` +
+        (active ? `<span class="guest-elapsed">${formatMs(elapsed)}</span>` : "");
     });
   }
 
@@ -2721,28 +2783,10 @@
     const stories = sprintStories();
     if(stories.length){
       const completedStories = stories.filter(story => story.done);
-      const wasCommitted = !!planningData.commitment;
-      const committedHours = planningData.commitment?.storyHours || {};
-      const plannedHours = planningData.commitment?.totalHours ?? 0;
-      const completedHours = wasCommitted
-        ? roundHours(completedStories.reduce((sum, story) => sum + (committedHours[story.id] ?? 0), 0))
-        : 0;
-      const actualHours = roundHours(completedStories.reduce((sum, story) => sum + storyActualHours(story), 0));
-      sprintHistory.push({
-        sprintStartDate: previousSprintStart,
-        committed: wasCommitted,
-        plannedHours,
-        completedHours,
-        actualHours,
-        finalForecastHours: totalPlannedHours(),
-        forecastVarianceHours: roundHours(totalPlannedHours() - plannedHours),
-        commitmentReliabilityPct: plannedHours ? Math.round((completedHours / plannedHours) * 1000) / 10 : null,
-        plannedTicketsCount: stories.length,
-        completedTicketsCount: completedStories.length
-      });
-      saveSprintHistory();
+      archiveCurrentSprint(previousSprintStart, stories);
 
       const archivedIds = new Set(completedStories.map(story => story.id));
+      planningData.productItems.forEach(item => { if(archivedIds.has(item.parentId)) item.parentId = null; });
       planningData.productItems = planningData.productItems.filter(item => !archivedIds.has(item.id));
       archivedIds.forEach(id => delete planningData.subtasksByStory[id]);
     }
@@ -2766,6 +2810,7 @@
     renderPlanning();
     renderRetro();
     renderStats();
+    renderSprintHistory();
     newSprintOverlay.classList.add("hidden");
   });
 
@@ -3052,7 +3097,7 @@
     }, item, { estimateHours: Math.max(0, Number(item.estimateHours ?? item.hours) || 0) });
   }
   function normalizeSubtask(item){
-    return Object.assign({ id: uuid(), title: "", description: "", externalUrl: "", hours: 0, done: false, actualHours: null, completedDate: null }, item,
+    return Object.assign({ id: uuid(), title: "", description: "", externalUrl: "", hours: 0, collapsed: true, done: false, actualHours: null, completedDate: null }, item,
       { hours: Math.max(0, Number(item.hours) || 0) });
   }
 
@@ -3103,7 +3148,7 @@
     return `<div class="backlog-detail-group"><strong>${label}:</strong><ul>${cleanLines.map(line => `<li>${escapeHtml(line)}</li>`).join("")}</ul></div>`;
   }
   function isPbiReady(item){
-    return !!(item.title.trim() && item.context.trim() && acceptanceLines(item.acceptanceCriteria).length >= 2 && item.estimateHours > 0 &&
+    return !!(item.title.trim() && item.context.trim() && acceptanceLines(item.acceptanceCriteria).length >= 1 && item.estimateHours > 0 &&
       (item.outOfScope.trim() || item.outOfScopeNA) && (item.refinementNotes.trim() || item.refinementNotesNA) && item.reviewedByTechLead);
   }
   function isSubtaskReady(task){ return !!(task.title.trim() && task.description.trim() && task.hours > 0); }
@@ -3158,8 +3203,8 @@
     [planningData.productItems[fromIndex], planningData.productItems[toIndex]] = [planningData.productItems[toIndex], planningData.productItems[fromIndex]];
   }
   function rollupEstimate(item){
-    if(item.type === "story") return item.estimateHours;
-    return roundHours(itemDescendants(item.id).filter(child => child.type === "story").reduce((sum, story) => sum + story.estimateHours, 0));
+    if(["story", "bug", "test"].includes(item.type)) return item.estimateHours;
+    return roundHours(itemDescendants(item.id).filter(child => ["story", "bug", "test"].includes(child.type)).reduce((sum, child) => sum + child.estimateHours, 0));
   }
   function renderExternalLink(url){
     const safe = safeExternalUrl(url);
@@ -3186,19 +3231,30 @@
       ((item.refinementNotes || item.refinementNotesNA) ? (item.refinementNotesNA ? `<p><strong>Refinement:</strong> Not applicable</p>` : renderDetailLines("Refinement", item.refinementNotes, false)) : "") +
       (link ? `<p>${link}</p>` : "") + `</div>`;
   }
+  function renderProductSubtask(task){
+    const ready = isSubtaskReady(task); const expanded = !task.collapsed; const link = renderExternalLink(task.externalUrl);
+    return `<article class="product-subtask${ready ? " ready" : ""}${task.done ? " done" : ""}" data-product-task-id="${task.id}">` +
+      `<div class="product-subtask-head"><button class="backlog-toggle" data-action="product-task-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
+      `<span class="backlog-type">Sub-task</span><span class="product-subtask-title">${escapeHtml(task.title)}</span>` +
+      `<span class="backlog-status">${task.done ? "Done" : ready ? "Ready" : "Needs details"}</span><span class="product-subtask-hours">${formatHours(task.hours)}h</span>` +
+      `<button class="backlog-icon-btn text-action" data-action="product-task-edit" title="Edit Sub-task">${planningIcon("edit")}<span>Edit</span></button>` +
+      `<button class="backlog-icon-btn danger" data-action="product-task-delete" title="Delete Sub-task" aria-label="Delete Sub-task">${planningIcon("trash")}</button></div>` +
+      (expanded ? `<div class="product-subtask-details">${task.description ? renderDetailLines("Description", task.description, false) : ""}${link ? `<p>${link}</p>` : ""}</div>` : "") + `</article>`;
+  }
   function renderProductItem(item){
     if(item.type === "story" && planningData.sprintStoryIds.includes(item.id)) return "";
     const children = itemChildren(item.id).filter(child => !(child.type === "story" && planningData.sprintStoryIds.includes(child.id)));
+    const productSubtasks = item.type === "story" ? storySubtasks(item.id) : [];
     const siblings = siblingItems(item).filter(candidate => !(candidate.type === "story" && planningData.sprintStoryIds.includes(candidate.id)));
     const siblingIndex = siblings.findIndex(candidate => candidate.id === item.id);
     const ready = isPbiReady(item); const expanded = !item.collapsed;
     return `<article class="backlog-item product-pbi${ready ? " ready" : ""}" data-pbi-id="${item.id}" data-type="${item.type}"${item.type === "story" ? ` draggable="true"` : ""}>` +
       `<div class="backlog-item-head"><button class="backlog-toggle" data-action="toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
-      `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-type ${item.type}">${item.type}</span><span class="backlog-title">${escapeHtml(item.title)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}</div>` +
-      `<div class="backlog-meta"><span>${item.type === "story" ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div>` +
+      `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-type ${item.type}">${item.type}</span><span class="backlog-title">${escapeHtml(item.title)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}${!expanded && productSubtasks.length ? `<span class="backlog-counter">${productSubtasks.length} Sub-task${productSubtasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
+      `<div class="backlog-meta"><span>${["story", "bug", "test"].includes(item.type) ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div>` +
       `<div class="backlog-actions">${siblings.length > 1 ? `<button class="backlog-icon-btn" data-action="moveup" title="Move up" aria-label="Move up"${siblingIndex <= 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="movedown" title="Move down" aria-label="Move down"${siblingIndex === siblings.length - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}` +
       `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${item.type === "story" ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div></div>` +
-      (expanded ? renderPbiDetails(item) + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
+      (expanded ? renderPbiDetails(item) + (productSubtasks.length ? `<div class="product-subtask-list">${productSubtasks.map(renderProductSubtask).join("")}</div>` : "") + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
   }
   function renderHourBox(kind, storyId, task){
     const item = task || productItem(storyId); const hours = task ? task.hours : item.estimateHours;
@@ -3212,24 +3268,23 @@
       `</div></div>`;
   }
   function renderSubtask(task, storyId, index, total){
-    const ready = isSubtaskReady(task); const link = renderExternalLink(task.externalUrl);
+    const ready = isSubtaskReady(task); const link = renderExternalLink(task.externalUrl); const expanded = !task.collapsed;
     return `<article class="backlog-item${ready ? " ready" : ""}${task.done ? " done" : ""}" data-task-id="${task.id}"><div class="backlog-item-head">` +
-      `<div class="subtask-identity"><span class="backlog-type">Sub-task</span></div>` +
+      `<div class="subtask-identity"><button class="backlog-toggle" data-action="task-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button><span class="backlog-type">Sub-task</span></div>` +
       `<div class="backlog-actions">${total > 1 ? `<button class="backlog-icon-btn" data-action="task-up" title="Move up" aria-label="Move up"${index === 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="task-down" title="Move down" aria-label="Move down"${index === total - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}<button class="backlog-icon-btn text-action" data-action="task-edit">${planningIcon("edit")}<span>Edit</span></button><button class="backlog-icon-btn danger" data-action="task-delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div>` +
       renderHourBox("subtask", storyId, task) + `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-title">${escapeHtml(task.title)}</span></div>` +
-      `<div class="backlog-meta"><span class="backlog-status">${task.done ? "Done" : ready ? "Ready" : "Needs details and estimate"}</span>${link ? `<span>· ${link}</span>` : ""}</div></div></div>` +
-      (task.description ? `<div class="backlog-details subtask-details">${renderDetailLines("Description", task.description, false)}</div>` : "") + `</article>`;
+      (expanded ? `<div class="backlog-meta"><span class="backlog-status">${task.done ? "Done" : ready ? "Ready" : "Needs details and estimate"}</span>${link ? `<span>· ${link}</span>` : ""}</div>` : "") + `</div></div>` +
+      (expanded && task.description ? `<div class="backlog-details subtask-details">${renderDetailLines("Description", task.description, false)}</div>` : "") + `</article>`;
   }
   function renderSprintStory(story, index, total){
     const tasks = storySubtasks(story.id); const ready = isPbiReady(story);
-    const allTasksDone = tasks.length > 0 && tasks.every(task => task.done); const canToggle = tasks.length > 0 || story.done;
-    const expanded = canToggle ? !story.collapsed : true;
+    const allTasksDone = tasks.length > 0 && tasks.every(task => task.done); const expanded = !story.collapsed;
     const articleStart = `<article class="backlog-item sprint-story${ready ? " ready" : ""}${story.done ? " done" : ""}${allTasksDone && !story.done ? " completion-ready ready-to-close" : ""}" data-story-id="${story.id}" draggable="true">`;
     if(story.done && !tasks.length && !expanded){
-      return articleStart + `<div class="done-story-summary"><button class="backlog-toggle" data-action="sprint-toggle" title="Expand" aria-label="Expand">${planningIcon("chevronRight")}</button><span class="backlog-title">${escapeHtml(story.title)}</span></div></article>`;
+      return articleStart + `<div class="done-story-summary"><button class="backlog-toggle" data-action="sprint-toggle" title="Expand" aria-label="Expand">${planningIcon("chevronRight")}</button><span class="backlog-type">Story</span><span class="backlog-title">${escapeHtml(story.title)}</span></div></article>`;
     }
     return articleStart +
-      `<div class="backlog-item-head"><div class="sprint-story-identity">${canToggle ? `<button class="backlog-toggle" data-action="sprint-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` : ""}<span class="backlog-type">Story</span>${!expanded && tasks.length ? `<span class="backlog-counter">${tasks.length} Sub-task${tasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
+      `<div class="backlog-item-head"><div class="sprint-story-identity"><button class="backlog-toggle" data-action="sprint-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button><span class="backlog-type">Story</span>${!expanded && tasks.length ? `<span class="backlog-counter">${tasks.length} Sub-task${tasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
       `<div class="backlog-actions">${total > 1 ? `<button class="backlog-icon-btn" data-action="sprint-up" title="Move up" aria-label="Move up"${index === 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="sprint-down" title="Move down" aria-label="Move down"${index === total - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}<button class="backlog-icon-btn text-action" data-action="edit-story">${planningIcon("edit")}<span>Edit</span></button><button class="backlog-icon-btn text-action" data-action="return-product">${planningIcon("arrowLeft")}<span>Product</span></button><button class="backlog-icon-btn text-action" data-action="add-subtask">${planningIcon("plus")}<span>Sub-task</span></button></div>` +
       renderHourBox("story", story.id) + `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-title">${escapeHtml(story.title)}</span></div></div></div>` +
       (expanded ? renderPbiDetails(story) + (tasks.length ? `<div class="subtask-list">${tasks.map((task, taskIndex) => renderSubtask(task, story.id, taskIndex, tasks.length)).join("")}</div>` : "") : "") + `</article>`;
@@ -3264,7 +3319,7 @@
     }else{
       planningHoursEl.textContent = "Available Capacity: configure Sprint"; planningHoursEl.classList.remove("over"); planningCountEl.classList.remove("over");
     }
-    const roots = planningData.productItems.filter(item => !item.parentId);
+    const roots = planningData.productItems.filter(item => !item.parentId || planningData.sprintStoryIds.includes(item.parentId));
     const productVisibleCount = planningData.productItems.filter(item => !(item.type === "story" && planningData.sprintStoryIds.includes(item.id))).length;
     productBacklogCountEl.textContent = `${productVisibleCount} item${productVisibleCount === 1 ? "" : "s"}`;
     sprintBacklogCountEl.textContent = `${count} Stor${count === 1 ? "y" : "ies"}`;
@@ -3298,10 +3353,11 @@
 
   function selectedPbiType(){ return pbiTypeInputs.find(input => input.checked)?.value || "story"; }
   function updateParentOptions(selectedId){
-    const type = selectedPbiType(); const parentType = type === "feature" ? "epic" : type === "story" ? "feature" : null;
-    const options = parentType ? planningData.productItems.filter(item => item.type === parentType && item.id !== editingPbiId) : [];
+    const type = selectedPbiType();
+    const parentTypes = type === "feature" ? ["epic"] : type === "story" ? ["feature"] : ["bug", "test"].includes(type) ? ["epic", "feature", "story"] : [];
+    const options = planningData.productItems.filter(item => parentTypes.includes(item.type) && item.id !== editingPbiId);
     pbiParentRow.classList.toggle("hidden", !options.length);
-    pbiParentEl.innerHTML = `<option value="">No parent</option>` + options.map(item => `<option value="${item.id}">${escapeHtml(item.title)}</option>`).join("");
+    pbiParentEl.innerHTML = `<option value="">No parent</option>` + options.map(item => `<option value="${item.id}">${escapeHtml(item.type[0].toUpperCase() + item.type.slice(1))} · ${escapeHtml(item.title)}</option>`).join("");
     pbiParentEl.value = options.some(item => item.id === selectedId) ? selectedId : "";
   }
   function syncNotApplicableFields(){
@@ -3365,6 +3421,7 @@
     const story = productItem(id); if(!story || story.type !== "story" || planningData.sprintStoryIds.includes(id)) return;
     if(!planningReady()){ alert("Configure an active Sprint and team capacity before selecting Sprint work."); return; }
     if(!isPbiReady(story) && !(await showConfirm("This Story does not yet meet its Definition of Ready. Add it to the Sprint anyway?", "Add Anyway"))) return;
+    story.collapsed = true;
     planningData.sprintStoryIds.push(id);
     if(planningData.commitment) planningData.commitment.storyHours[id] = storyForecastHours(story);
     recordPlanningSnapshot(toISODate(new Date()), "Story added to Sprint"); savePlanning(); renderPlanning();
@@ -3386,7 +3443,19 @@
     const id = itemEl.dataset.pbiId;
     const item = productItem(id);
     if(!item) return;
-    if(action === "toggle") item.collapsed = !item.collapsed;
+    const productTaskId = e.target.closest("[data-product-task-id]")?.dataset.productTaskId;
+    if(action === "product-task-toggle"){
+      const task = storySubtasks(id).find(candidate => candidate.id === productTaskId);
+      if(!task) return;
+      task.collapsed = !task.collapsed;
+    }
+    else if(action === "product-task-edit") return openSubtaskModal(id, productTaskId);
+    else if(action === "product-task-delete"){
+      const task = storySubtasks(id).find(candidate => candidate.id === productTaskId);
+      if(!task || !(await showConfirm(`Delete Sub-task \"${task.title}\"?`, "Delete"))) return;
+      planningData.subtasksByStory[id] = storySubtasks(id).filter(candidate => candidate.id !== productTaskId);
+    }
+    else if(action === "toggle") item.collapsed = !item.collapsed;
     else if(action === "moveup") moveBacklogItem(id, -1);
     else if(action === "movedown") moveBacklogItem(id, 1);
     else if(action === "edit") return openPbiModal(id);
@@ -3490,6 +3559,11 @@
     else if(action === "edit-story") return openPbiModal(storyId);
     else if(action === "return-product") return returnStoryToProduct(storyId);
     else if(action === "add-subtask") return openSubtaskModal(storyId);
+    else if(action === "task-toggle"){
+      const task = storySubtasks(storyId).find(candidate => candidate.id === taskId);
+      if(!task) return;
+      task.collapsed = !task.collapsed;
+    }
     else if(action === "task-edit") return openSubtaskModal(storyId, taskId);
     else if(action === "task-delete"){
       const task = storySubtasks(storyId).find(candidate => candidate.id === taskId);
@@ -3522,11 +3596,19 @@
   productBacklogColumnEl.addEventListener("drop", e => { e.preventDefault(); returnStoryToProduct(e.dataTransfer.getData("text/plain")); });
 
   btnRemoveAllTickets.addEventListener("click", async () => {
-    if(!planningData.sprintStoryIds.length) return;
-    if(!(await showConfirm("Return every Story to the Product Backlog and clear the Sprint commitment?", "Clear Sprint"))) return;
-    sprintStories().forEach(story => { story.done = false; story.actualHours = null; story.completedDate = null; });
-    planningData.sprintStoryIds = []; planningData.commitment = null; planningData.scopeTimeline = [];
-    savePlanning(); renderPlanning();
+    if(!planningData.sprintStoryIds.length && !planningData.commitment) return;
+    if(!(await showConfirm("Reset and archive this Sprint? Completed Stories will be removed from the active boards. Unfinished Stories and their Sub-tasks will return to the Product Backlog.", "Reset Sprint"))) return;
+    const stories = sprintStories();
+    archiveCurrentSprint(settings.sprintStartDate, stories);
+    const completedIds = new Set(stories.filter(story => story.done).map(story => story.id));
+    planningData.productItems.forEach(item => { if(completedIds.has(item.parentId)) item.parentId = null; });
+    planningData.productItems = planningData.productItems.filter(item => !completedIds.has(item.id));
+    completedIds.forEach(id => delete planningData.subtasksByStory[id]);
+    planningData.sprintStoryIds = [];
+    planningData.commitment = null;
+    planningData.scopeTimeline = [];
+    planningData.goals = [""];
+    savePlanning(); renderPlanning(); renderStats(); renderSprintHistory();
   });
   btnPlanningFinish.addEventListener("click", () => {
     if(!sprintStories().length) return;
@@ -3543,7 +3625,122 @@
 
   // Archived once per finished sprint (on "Start New Sprint") to compute a rolling velocity average.
   let sprintHistory = Store.get("sprintHistory", []);
+  if(!Array.isArray(sprintHistory)) sprintHistory = [];
   function saveSprintHistory(){ Store.set("sprintHistory", sprintHistory); }
+
+  function archiveCurrentSprint(sprintStartDate, stories){
+    if(!stories.length) return;
+    const completedStories = stories.filter(story => story.done);
+    const wasCommitted = !!planningData.commitment;
+    const committedHours = planningData.commitment?.storyHours || {};
+    const plannedHours = planningData.commitment?.totalHours ?? 0;
+    const completedHours = wasCommitted
+      ? roundHours(completedStories.reduce((sum, story) => sum + (committedHours[story.id] ?? 0), 0))
+      : 0;
+    const actualHours = roundHours(completedStories.reduce((sum, story) => sum + storyActualHours(story), 0));
+    const sprintDays = sprintWeeks().flat();
+    const lastSprintDay = sprintDays[sprintDays.length - 1];
+    const archivedStories = stories.map(story => ({
+      id: story.id,
+      title: story.title,
+      done: !!story.done,
+      completedDate: story.completedDate || null,
+      estimateHours: story.estimateHours,
+      committedHours: committedHours[story.id] ?? null,
+      forecastHours: storyForecastHours(story),
+      actualHours: storyActualHours(story),
+      context: story.context || "",
+      acceptanceCriteria: acceptanceLines(story.acceptanceCriteria),
+      outOfScope: story.outOfScope || "",
+      outOfScopeNA: !!story.outOfScopeNA,
+      refinementNotes: story.refinementNotes || "",
+      refinementNotesNA: !!story.refinementNotesNA,
+      externalUrl: story.externalUrl || "",
+      subtasks: storySubtasks(story.id).map(task => ({
+        id: task.id,
+        title: task.title,
+        description: task.description || "",
+        hours: task.hours,
+        done: !!task.done,
+        actualHours: task.actualHours ?? null,
+        completedDate: task.completedDate || null,
+        externalUrl: task.externalUrl || ""
+      }))
+    }));
+
+    sprintHistory.push({
+      id: uuid(),
+      archivedAt: new Date().toISOString(),
+      sprintStartDate,
+      sprintEndDate: lastSprintDay ? toISODate(lastSprintDay) : null,
+      goals: planningData.goals.map(goal => String(goal || "").trim()).filter(Boolean),
+      committed: wasCommitted,
+      plannedHours,
+      completedHours,
+      actualHours,
+      finalForecastHours: totalPlannedHours(),
+      forecastVarianceHours: roundHours(totalPlannedHours() - plannedHours),
+      commitmentReliabilityPct: plannedHours ? Math.round((completedHours / plannedHours) * 1000) / 10 : null,
+      plannedTicketsCount: stories.length,
+      completedTicketsCount: completedStories.length,
+      scopeTimeline: planningData.scopeTimeline.map(entry => Object.assign({}, entry)),
+      stories: archivedStories
+    });
+    saveSprintHistory();
+  }
+
+  function formatHistoryDate(dateStr){
+    if(!dateStr) return "Date not set";
+    try{ return parseISODate(dateStr).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }); }
+    catch(e){ return dateStr; }
+  }
+
+  function renderHistoryStory(story){
+    const link = renderExternalLink(story.externalUrl);
+    const subtasks = Array.isArray(story.subtasks) ? story.subtasks : [];
+    const details = renderDetailLines("Context", story.context, false) +
+      renderDetailLines("Acceptance Criteria", story.acceptanceCriteria, true) +
+      (story.outOfScopeNA ? `<p><strong>Out of Scope:</strong> Not applicable</p>` : renderDetailLines("Out of Scope", story.outOfScope, false)) +
+      (story.refinementNotesNA ? `<p><strong>Refinement:</strong> Not applicable</p>` : renderDetailLines("Refinement", story.refinementNotes, false)) +
+      (link ? `<p>${link}</p>` : "") +
+      (subtasks.length ? `<ul class="history-subtasks">${subtasks.map(task => `<li><strong>${escapeHtml(task.title)}</strong> · ${task.done ? "Done" : "Open"} · ${formatHours(task.actualHours ?? task.hours)}h${task.description ? `<div>${escapeHtml(task.description)}</div>` : ""}</li>`).join("")}</ul>` : "");
+    return `<details class="history-story"><summary class="history-story-head">` +
+      `<span class="backlog-type">Story</span><span class="history-story-title">${escapeHtml(story.title || "Untitled Story")}</span>` +
+      `<span class="history-story-state${story.done ? " done" : ""}">${story.done ? "Completed" : "Incomplete"}</span>` +
+      `<span class="history-story-hours">${formatHours(story.forecastHours ?? story.estimateHours ?? 0)}h forecast · ${formatHours(story.actualHours ?? 0)}h actual</span>` +
+      `</summary>${details ? `<div class="history-story-details">${details}</div>` : ""}</details>`;
+  }
+
+  function renderSprintHistory(){
+    const emptyEl = document.getElementById("sprintHistoryEmpty");
+    const listEl = document.getElementById("sprintHistoryList");
+    if(!emptyEl || !listEl) return;
+    emptyEl.classList.toggle("hidden", sprintHistory.length > 0);
+    const entries = sprintHistory.slice().reverse();
+    listEl.innerHTML = entries.map((entry, reverseIndex) => {
+      const sequence = sprintHistory.length - reverseIndex;
+      const range = entry.sprintEndDate ? `${formatHistoryDate(entry.sprintStartDate)} – ${formatHistoryDate(entry.sprintEndDate)}` : formatHistoryDate(entry.sprintStartDate);
+      const goals = Array.isArray(entry.goals) ? entry.goals.filter(Boolean) : [];
+      const stories = Array.isArray(entry.stories) ? entry.stories : [];
+      const scope = Array.isArray(entry.scopeTimeline) ? entry.scopeTimeline : [];
+      const reliability = entry.commitmentReliabilityPct == null ? "—" : `${entry.commitmentReliabilityPct}%`;
+      return `<details class="history-sprint"${reverseIndex === 0 ? " open" : ""}>` +
+        `<summary><span class="history-sprint-title">Sprint ${sequence}</span><span class="history-sprint-meta">${escapeHtml(range)}</span></summary>` +
+        `<div class="history-sprint-body">` +
+          `<div class="history-metrics">` +
+            `<div class="history-metric"><span class="history-metric-label">Baseline</span><span class="history-metric-value">${formatHours(entry.plannedHours ?? 0)}h</span></div>` +
+            `<div class="history-metric"><span class="history-metric-label">Final forecast</span><span class="history-metric-value">${formatHours(entry.finalForecastHours ?? 0)}h</span></div>` +
+            `<div class="history-metric"><span class="history-metric-label">Actual completed</span><span class="history-metric-value">${formatHours(entry.actualHours ?? 0)}h</span></div>` +
+            `<div class="history-metric"><span class="history-metric-label">Stories completed</span><span class="history-metric-value">${entry.completedTicketsCount ?? 0}/${entry.plannedTicketsCount ?? 0}</span></div>` +
+            `<div class="history-metric"><span class="history-metric-label">Commitment reliability</span><span class="history-metric-value">${reliability}</span></div>` +
+            `<div class="history-metric"><span class="history-metric-label">Scope updates</span><span class="history-metric-value">${scope.length}</span></div>` +
+          `</div>` +
+          (goals.length ? `<span class="sprint-goal-label">Sprint Goal${goals.length === 1 ? "" : "s"}</span><ul class="history-goals">${goals.map(goal => `<li>${escapeHtml(goal)}</li>`).join("")}</ul>` : "") +
+          (scope.length ? `<strong>Scope timeline</strong><ul class="history-scope">${scope.map(point => `<li>${escapeHtml(formatHistoryDate(point.date))}: ${formatHours(point.scopeHours ?? 0)}h scope, ${formatHours(point.remainingHours ?? 0)}h remaining${point.reason ? ` · ${escapeHtml(point.reason)}` : ""}</li>`).join("")}</ul>` : "") +
+          (stories.length ? `<div class="history-story-list">${stories.map(renderHistoryStory).join("")}</div>` : `<p class="muted">This older record contains summary metrics only.</p>`) +
+        `</div></details>`;
+    }).join("");
+  }
 
   // Sprint-cadence Stats metrics (Velocity, Planning, Review, Retro) share this window, configurable
   // in Board Settings: either a rolling window of the last N sprints (min 5) or all-time.
@@ -4286,7 +4483,8 @@
   });
 
   // --- Definition of Done / Definition of Ready ---
-  const DEFAULT_DOR_ITEM = "A ticket cannot enter Sprint Planning unless it has a clear PO Value, at least 2 Acceptance Criteria, what is eventually out of scope, and has been reviewed by tech lead.";
+  const LEGACY_DEFAULT_DOR_ITEM = "A ticket cannot enter Sprint Planning unless it has a clear PO Value, at least 2 Acceptance Criteria, what is eventually out of scope, and has been reviewed by tech lead.";
+  const DEFAULT_DOR_ITEM = "A ticket cannot enter Sprint Planning unless it has a clear PO Value, at least 1 Acceptance Criterion, what is eventually out of scope, and has been reviewed by tech lead.";
   let definitionsData = Store.get("definitions", null);
   if(!definitionsData){
     definitionsData = {
@@ -4302,71 +4500,66 @@
       .filter(item => item && String(item.text || "").trim())
       .map(item => ({ id: item.id || uuid(), text: String(item.text).trim() }));
   });
+  definitionsData.dor.forEach(item => { if(item.text === LEGACY_DEFAULT_DOR_ITEM) item.text = DEFAULT_DOR_ITEM; });
   function saveDefinitions(){ Store.set("definitions", definitionsData); }
   saveDefinitions();
 
-  const definitionTabButtons = Array.from(document.querySelectorAll("[data-definition-tab]"));
-  const definitionSectionTitleEl = document.getElementById("definitionSectionTitle");
-  const dorGuidanceEl = document.getElementById("dorGuidance");
-  const definitionDraftEl = document.getElementById("definitionDraft");
-  const definitionListEl = document.getElementById("definitionList");
-  const definitionEmptyEl = document.getElementById("definitionEmpty");
-  let activeDefinitionTab = Store.get("ui.definitionTab", "dod") === "dor" ? "dor" : "dod";
+  const definitionUi = {
+    dod: {
+      draft: document.getElementById("definitionDraftDod"),
+      list: document.getElementById("definitionListDod"),
+      empty: document.getElementById("definitionEmptyDod"),
+      add: document.getElementById("btnAddDefinitionDod"),
+      shortLabel: "DoD"
+    },
+    dor: {
+      draft: document.getElementById("definitionDraftDor"),
+      list: document.getElementById("definitionListDor"),
+      empty: document.getElementById("definitionEmptyDor"),
+      add: document.getElementById("btnAddDefinitionDor"),
+      shortLabel: "DoR"
+    }
+  };
 
   function renderDefinitions(){
-    const isDor = activeDefinitionTab === "dor";
-    const label = isDor ? "Definition of Ready (DoR)" : "Definition of Done (DoD)";
-    definitionTabButtons.forEach(button => {
-      const active = button.dataset.definitionTab === activeDefinitionTab;
-      button.classList.toggle("active", active);
-      button.setAttribute("aria-selected", String(active));
-      button.tabIndex = active ? 0 : -1;
+    Object.entries(definitionUi).forEach(([type, ui]) => {
+      const items = definitionsData[type];
+      ui.empty.classList.toggle("hidden", items.length > 0);
+      ui.list.innerHTML = items.map(item =>
+        `<li class="definition-item" data-id="${item.id}">` +
+          `<span class="definition-item-text">${escapeHtml(item.text)}</span>` +
+          `<button type="button" class="definition-trash" title="Delete item" aria-label="Delete ${ui.shortLabel} item">\u{1F5D1}\uFE0F</button>` +
+        `</li>`
+      ).join("");
     });
-    definitionSectionTitleEl.textContent = label;
-    dorGuidanceEl.classList.toggle("hidden", !isDor);
-    definitionDraftEl.placeholder = `Specify your ${isDor ? "DoR" : "DoD"} item here...`;
-    definitionDraftEl.setAttribute("aria-label", `New ${label} item`);
-
-    const items = definitionsData[activeDefinitionTab];
-    definitionEmptyEl.textContent = `No ${isDor ? "DoR" : "DoD"} items yet.`;
-    definitionEmptyEl.classList.toggle("hidden", items.length > 0);
-    definitionListEl.innerHTML = items.map(item =>
-      `<li class="definition-item" data-id="${item.id}">` +
-        `<span class="definition-item-text">${escapeHtml(item.text)}</span>` +
-        `<button type="button" class="definition-trash" title="Delete item" aria-label="Delete ${isDor ? "DoR" : "DoD"} item">\u{1F5D1}\uFE0F</button>` +
-      `</li>`
-    ).join("");
   }
 
-  function addDefinitionItem(){
-    const text = definitionDraftEl.value.trim();
+  function addDefinitionItem(type){
+    const ui = definitionUi[type];
+    const text = ui.draft.value.trim();
     if(!text) return;
-    definitionsData[activeDefinitionTab].push({ id: uuid(), text });
-    definitionDraftEl.value = "";
+    definitionsData[type].push({ id: uuid(), text });
+    ui.draft.value = "";
     saveDefinitions();
     renderDefinitions();
-    definitionDraftEl.focus();
+    ui.draft.focus();
   }
 
-  definitionTabButtons.forEach(button => button.addEventListener("click", () => {
-    activeDefinitionTab = button.dataset.definitionTab;
-    Store.set("ui.definitionTab", activeDefinitionTab);
-    definitionDraftEl.value = "";
-    renderDefinitions();
-  }));
-  document.getElementById("btnAddDefinitionItem").addEventListener("click", addDefinitionItem);
-  definitionDraftEl.addEventListener("keydown", e => {
-    if(e.key !== "Enter") return;
-    e.preventDefault();
-    addDefinitionItem();
-  });
-  definitionListEl.addEventListener("click", e => {
-    const trash = e.target.closest(".definition-trash");
-    if(!trash) return;
-    const row = trash.closest(".definition-item");
-    definitionsData[activeDefinitionTab] = definitionsData[activeDefinitionTab].filter(item => item.id !== row.dataset.id);
-    saveDefinitions();
-    renderDefinitions();
+  Object.entries(definitionUi).forEach(([type, ui]) => {
+    ui.add.addEventListener("click", () => addDefinitionItem(type));
+    ui.draft.addEventListener("keydown", e => {
+      if(e.key !== "Enter") return;
+      e.preventDefault();
+      addDefinitionItem(type);
+    });
+    ui.list.addEventListener("click", e => {
+      const trash = e.target.closest(".definition-trash");
+      if(!trash) return;
+      const row = trash.closest(".definition-item");
+      definitionsData[type] = definitionsData[type].filter(item => item.id !== row.dataset.id);
+      saveDefinitions();
+      renderDefinitions();
+    });
   });
 
   // --- Scrum Search ---
@@ -4653,6 +4846,7 @@
   renderCapacity();
   renderRetro();
   renderStats();
+  renderSprintHistory();
   renderDecisionLog();
   renderKnowledgeBase();
   renderDefinitions();
@@ -4698,6 +4892,11 @@
       eyebrow: "Team insight",
       description: "Review recent ceremony and delivery trends without leaving the board."
     },
+    history: {
+      label: "Sprint History",
+      eyebrow: "Sprint archive",
+      description: "Inspect read-only Sprint snapshots, goals, delivery results, and scope changes."
+    },
     search: {
       label: "Scrum Search",
       eyebrow: "Scrum Guide knowledge",
@@ -4712,6 +4911,11 @@
       label: "Decision Log",
       eyebrow: "Project insight",
       description: "Track what was decided, when, and who was involved."
+    },
+    ownership: {
+      label: "Ownership",
+      eyebrow: "Shared delivery ownership",
+      description: "Clarify who shapes the work, when decisions are made, and what Developers own."
     },
     definitions: {
       label: "DoD / DoR",
