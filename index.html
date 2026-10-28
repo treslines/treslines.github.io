@@ -432,6 +432,7 @@
   .settings-footer{margin-top:4px;text-align:center}
   .bmc-btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;background:#ffdd00;color:#000;border:1px solid #000;border-radius:999px;font-weight:800;font-size:.85rem;text-decoration:none;transition:transform .15s,box-shadow .15s}
   .bmc-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.15)}
+  .air-header-support{flex:0 0 auto;white-space:nowrap}
 
   /* Daily Scrum team preview */
   .daily-preview-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;justify-content:center}
@@ -600,13 +601,6 @@
   .air-local-chip strong,.air-local-chip span{display:block}
   .air-local-chip strong{font-size:12px}
   .air-local-chip span{color:var(--muted);font-size:10px}
-  .air-support-chip{display:flex;align-items:center;gap:10px;flex:0 0 auto;border:1px solid #f1c9ac;border-radius:13px;padding:9px 13px;color:var(--ink);background:#fff;text-decoration:none;box-shadow:0 4px 14px rgba(7,59,76,.05);transition:border-color .15s,box-shadow .15s,transform .15s}
-  .air-support-chip:hover{border-color:var(--accent);box-shadow:0 7px 18px rgba(255,138,61,.16);transform:translateY(-1px)}
-  .air-support-chip svg{flex:0 0 auto}
-  .air-support-chip strong,.air-support-chip span{display:block}
-  .air-support-chip strong{font-size:12px}
-  .air-support-chip span{color:var(--muted);font-size:10px}
-
   /* Real application content, restyled with the Air tokens. */
   .air-rebrand main{max-width:none;margin:0;padding:0 46px 48px}
   .air-rebrand .panel{animation:none}
@@ -724,9 +718,8 @@
     .air-rebrand nav.tabs button.active{color:#fff;background:var(--brand);border-color:var(--brand)}
     .air-page-intro{align-items:flex-start;flex-direction:column;padding:24px 16px 18px}
     .air-page-title{font-size:30px}
-    .air-page-actions{width:100%}
-    .air-local-chip{display:none}
-    .air-support-chip{padding:8px 12px}
+    .air-page-actions{display:none}
+    .air-header-support{padding:0 11px;font-size:.76rem}
     .air-rebrand main{padding:0 12px 34px}
     .air-rebrand .card{padding:22px 20px;border-radius:18px}
     .air-rebrand .daily-controls-row{gap:14px}
@@ -735,6 +728,11 @@
     .air-rebrand .overall-timer-area{min-width:100%;width:100%}
     .air-rebrand .planning-actions{width:100%;margin-left:0}
     .air-rebrand .capacity-header{align-items:flex-start}
+  }
+
+  @media (max-width:390px){
+    .air-header-support{width:38px;padding:0;justify-content:center}
+    .air-header-support span{display:none}
   }
 
   @media (max-width:460px){
@@ -824,6 +822,10 @@
   <h1 class="app-title">Workspace / <strong id="airCurrentView">Daily Scrum</strong></h1>
   <div class="air-top-actions">
     <button class="air-search-shortcut" type="button" id="airSearchShortcut"><span aria-hidden="true">⌕</span><span>Search Scrum knowledge</span></button>
+    <a class="bmc-btn air-header-support" href="https://www.buymeacoffee.com/progdeelite" target="_blank" rel="noopener noreferrer" aria-label="Support ScrumPulse on Buy Me a Coffee">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h12v7a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8z" fill="#FFDD00" stroke="#000" stroke-width="1.3"/><path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2" fill="none" stroke="#000" stroke-width="1.3"/><path d="M8 8c0-1.2.6-1.6.6-2.6S8 3.8 8 3.4" fill="none" stroke="#000" stroke-width="1.1" stroke-linecap="round"/><path d="M11 8c0-1.2.6-1.6.6-2.6S11 3.8 11 3.4" fill="none" stroke="#000" stroke-width="1.1" stroke-linecap="round"/></svg>
+      <span>Buy me a coffee</span>
+    </a>
     <button class="menu-btn" id="settingsBtn" aria-label="Board Settings" title="Board Settings">☰</button>
   </div>
 </header>
@@ -851,14 +853,6 @@
     <p class="air-page-description" id="airPageDescription">Keep the team aligned, focused on the Sprint Goal, and within the 15-minute timebox.</p>
   </div>
   <div class="air-page-actions">
-    <a class="air-support-chip" href="https://www.buymeacoffee.com/progdeelite" target="_blank" rel="noopener noreferrer" aria-label="Support ScrumPulse on Buy Me a Coffee">
-      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-        <rect width="30" height="30" rx="9" fill="#fff1e7"/>
-        <path d="M8 11h11v7a4 4 0 0 1-4 4h-3a4 4 0 0 1-4-4v-7z" fill="#ff8a3d"/>
-        <path d="M19 13h1.5a2.5 2.5 0 0 1 0 5H19M11 9c0-1.5 1-1.5 1-3M15 9c0-1.5 1-1.5 1-3" fill="none" stroke="#073b4c" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      <div><strong>Buy me a coffee</strong><span>Support ScrumPulse</span></div>
-    </a>
     <div class="air-local-chip">
       <span class="air-status-dot" aria-hidden="true"></span>
       <div><strong>Local workspace</strong><span>Offline ready</span></div>
@@ -1420,7 +1414,7 @@
       <div class="field-row"><label>Out of Scope<textarea id="pbiOutOfScope" rows="3" placeholder="What is explicitly excluded?"></textarea><span class="inline-check"><input type="checkbox" id="pbiOutOfScopeNA"> Not applicable</span></label></div>
       <div class="field-row"><label>Refinement Notes<textarea id="pbiRefinement" rows="3" placeholder="Technical constraints, risks, and decisions"></textarea><span class="inline-check"><input type="checkbox" id="pbiRefinementNA"> Not applicable</span></label></div>
       <div class="field-row"><label>Estimated hours<input type="number" id="pbiHours" min="0" step="0.5" value="0"></label></div>
-      <div class="field-row"><label>External ticket link<input type="url" id="pbiUrl" placeholder="https://..."></label></div>
+      <div class="field-row"><label>External ticket link<input type="url" id="pbiUrl" placeholder="example.com or https://..."></label></div>
       <div class="field-row span-2"><label class="inline-check"><input type="checkbox" id="pbiTechReviewed"> Reviewed by Tech Lead</label></div>
     </div>
     <div class="form-error" id="pbiError"></div>
@@ -1435,7 +1429,7 @@
       <div class="field-row span-2"><label>Title *<input type="text" id="subtaskTitle" placeholder="Actionable implementation step"></label></div>
       <div class="field-row span-2"><label>Description / Developer Hints<textarea id="subtaskDescription" rows="4" placeholder="Technical notes or implementation guidance"></textarea></label></div>
       <div class="field-row"><label>Estimated hours<input type="number" id="subtaskHours" min="0" step="0.5" value="0"></label></div>
-      <div class="field-row"><label>External ticket link<input type="url" id="subtaskUrl" placeholder="https://..."></label></div>
+      <div class="field-row"><label>External ticket link<input type="url" id="subtaskUrl" placeholder="example.com or https://..."></label></div>
     </div>
     <div class="form-error" id="subtaskError"></div>
     <div class="retro-modal-actions"><button class="btn-ghost" id="subtaskCancel">Cancel</button><button class="btn-primary" id="subtaskSave">Create Sub-task</button></div>
@@ -3189,7 +3183,8 @@
   }
   function safeExternalUrl(value){
     const raw = String(value || "").trim(); if(!raw) return "";
-    try{ const parsed = new URL(raw); return parsed.protocol === "http:" || parsed.protocol === "https:" ? parsed.href : ""; }catch(e){ return ""; }
+    const candidate = /^[a-z][a-z0-9+.-]*:/i.test(raw) ? raw : `https://${raw}`;
+    try{ const parsed = new URL(candidate); return parsed.protocol === "http:" || parsed.protocol === "https:" ? parsed.href : ""; }catch(e){ return ""; }
   }
   function itemChildren(parentId){ return planningData.productItems.filter(item => item.parentId === parentId); }
   function itemDescendants(id){ const direct = itemChildren(id); return direct.concat(direct.flatMap(child => itemDescendants(child.id))); }
@@ -3380,7 +3375,7 @@
   document.getElementById("pbiSave").addEventListener("click", () => {
     const title = pbiTitleEl.value.trim(); const criteria = acceptanceLines(pbiAcceptanceEl.value); const rawUrl = pbiUrlEl.value.trim();
     if(!title || !criteria.length){ pbiErrorEl.textContent = "Title and at least one Acceptance Criterion are required."; return; }
-    if(rawUrl && !safeExternalUrl(rawUrl)){ pbiErrorEl.textContent = "Use a valid http:// or https:// external ticket link."; return; }
+    if(rawUrl && !safeExternalUrl(rawUrl)){ pbiErrorEl.textContent = "Use a valid external ticket link."; return; }
     const values = { type: selectedPbiType(), parentId: pbiParentRow.classList.contains("hidden") ? null : (pbiParentEl.value || null), title,
       context: pbiContextEl.value.trim(), acceptanceCriteria: criteria, outOfScope: pbiOutOfScopeEl.value.trim(), outOfScopeNA: pbiOutOfScopeNAEl.checked,
       refinementNotes: pbiRefinementEl.value.trim(), refinementNotesNA: pbiRefinementNAEl.checked, estimateHours: Math.max(0, Number(pbiHoursEl.value) || 0),
@@ -3410,7 +3405,7 @@
   document.getElementById("subtaskSave").addEventListener("click", () => {
     const title = subtaskTitleEl.value.trim(); const rawUrl = subtaskUrlEl.value.trim();
     if(!title){ subtaskErrorEl.textContent = "Title is required."; return; }
-    if(rawUrl && !safeExternalUrl(rawUrl)){ subtaskErrorEl.textContent = "Use a valid http:// or https:// external ticket link."; return; }
+    if(rawUrl && !safeExternalUrl(rawUrl)){ subtaskErrorEl.textContent = "Use a valid external ticket link."; return; }
     const values = { title, description: subtaskDescriptionEl.value.trim(), hours: Math.max(0, Number(subtaskHoursEl.value) || 0), externalUrl: safeExternalUrl(rawUrl) };
     const tasks = storySubtasks(editingSubtask.storyId); const task = editingSubtask.taskId ? tasks.find(item => item.id === editingSubtask.taskId) : null;
     if(task) Object.assign(task, values); else tasks.push(normalizeSubtask(Object.assign({ id: uuid() }, values)));
