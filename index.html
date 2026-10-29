@@ -1,10 +1,93 @@
 <!doctype html>
+<!--
+  Copyright 2026 Ricardo Ferreira
+  SPDX-License-Identifier: Apache-2.0
+-->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ScrumPulse — Air Rebrand Preview</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%230d3d6b'/><polyline points='8,35 18,35 23,22 30,46 35,28 42,35 56,35' fill='none' stroke='%23ff8a3d' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<title>ScrumPulse — Free Offline Scrum Board</title>
+<meta name="description" content="ScrumPulse is a free, offline Scrum board for Daily Scrum, capacity planning, Sprint Planning, Reviews, Retrospectives, Burndown, team statistics, DoD and DoR.">
+<meta name="author" content="Ricardo Ferreira">
+<meta name="application-name" content="ScrumPulse">
+<meta name="theme-color" content="#073b4c">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://treslines.github.io/">
+<link rel="sitemap" type="application/xml" href="https://treslines.github.io/sitemap.xml">
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ScrumPulse">
+<meta property="og:title" content="ScrumPulse — Free Offline Scrum Board">
+<meta property="og:description" content="Plan capacity, facilitate every Scrum event, and track Sprint progress in a focused board that works locally and offline.">
+<meta property="og:url" content="https://treslines.github.io/">
+<meta property="og:image" content="https://treslines.github.io/assets/promo-overview.png">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="ScrumPulse free offline Scrum board overview">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ScrumPulse — Free Offline Scrum Board">
+<meta name="twitter:description" content="A free, focused Scrum workspace that runs entirely in your browser and works offline.">
+<meta name="twitter:image" content="https://treslines.github.io/assets/promo-overview.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://treslines.github.io/#website",
+      "url": "https://treslines.github.io/",
+      "name": "ScrumPulse",
+      "alternateName": "ScrumPulse Scrum Management Board",
+      "description": "A free, offline-first Scrum board for facilitators and Scrum Teams.",
+      "inLanguage": "en",
+      "creator": { "@id": "https://treslines.github.io/#author" }
+    },
+    {
+      "@type": ["SoftwareApplication", "WebApplication"],
+      "@id": "https://treslines.github.io/#app",
+      "name": "ScrumPulse",
+      "url": "https://treslines.github.io/",
+      "image": "https://treslines.github.io/assets/promo-overview.png",
+      "description": "Free Scrum management board with Daily Scrum timers, capacity and availability planning, Sprint Planning, Review, Retrospective, Burndown, statistics, Scrum guidance, DoD and DoR.",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Project Management",
+      "operatingSystem": "Any operating system with a modern web browser",
+      "browserRequirements": "JavaScript enabled; works offline after loading",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Daily Scrum facilitation and timers",
+        "Team capacity and availability planning",
+        "Sprint Planning and Planning Poker",
+        "Sprint Review and Retrospective guidance",
+        "Burndown and velocity statistics",
+        "Definition of Done and Definition of Ready",
+        "Offline browser storage without an account"
+      ],
+      "license": "https://www.apache.org/licenses/LICENSE-2.0",
+      "author": { "@id": "https://treslines.github.io/#author" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://treslines.github.io/#author",
+      "name": "Ricardo Ferreira",
+      "url": "https://github.com/treslines",
+      "sameAs": [
+        "https://github.com/treslines",
+        "https://ch.linkedin.com/in/jricardogferreira"
+      ]
+    }
+  ]
+}
+</script>
 <style>
   :root{
     --brand:#145da0;
@@ -429,9 +512,11 @@
   .btn-ghost.active{background:var(--brand);color:#fff;border-color:var(--brand)}
   .btn-danger-solid{background:var(--bad);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-weight:700;transition:background .15s}
   .btn-danger-solid:hover{background:#c23030}
-  .app-footer{text-align:center;padding:10px 16px 28px;color:var(--muted);font-size:.8rem}
+  .app-footer{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px 18px;text-align:center;padding:10px 16px 28px;color:var(--muted);font-size:.8rem}
   .footer-copyright{color:inherit;text-decoration:none}
   .footer-copyright:hover{color:var(--brand-dark);text-decoration:underline}
+  .footer-about{color:inherit;text-decoration:none}
+  .footer-about:hover{color:var(--brand-dark);text-decoration:underline}
   .settings-footer{margin-top:4px;text-align:center}
   .bmc-btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;background:#ffdd00;color:#000;border:1px solid #000;border-radius:999px;font-weight:800;font-size:.85rem;text-decoration:none;transition:transform .15s,box-shadow .15s}
   .bmc-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.15)}
@@ -573,8 +658,6 @@
   .air-sidebar-bottom{margin-top:auto;padding-top:22px}
   .air-offline-status{display:flex;align-items:center;gap:8px;margin:13px 10px 0;color:var(--muted);font-size:10px}
   .air-status-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#58d39a;box-shadow:0 0 0 4px rgba(88,211,154,.12)}
-  .air-copyright{display:block;margin:12px 10px 0;color:var(--muted);font-size:10px;text-decoration:none}
-  .air-copyright:hover{color:var(--brand)}
 
   /* Compact workspace top bar */
   .air-rebrand header.app-header{
@@ -685,13 +768,13 @@
   .air-rebrand .summary-overlay{z-index:100;background:rgba(7,36,48,.44);backdrop-filter:blur(3px)}
   .air-rebrand .summary-card{border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 60px rgba(7,36,48,.22)}
   .air-rebrand .summary-card h2{color:var(--ink)}
-  .air-rebrand>.app-footer,.air-workspace>.app-footer{display:none}
+  .air-workspace>.app-footer{display:flex}
 
   @media (max-width:1050px){
     body.air-rebrand{--air-sidebar:82px}
     .air-sidebar{padding:22px 10px}
     .air-brand{justify-content:center;padding:0 0 23px}
-    .air-brand-copy,.air-nav-label,.air-nav-item span:last-child,.air-offline-status,.air-copyright{display:none}
+    .air-brand-copy,.air-nav-label,.air-nav-item span:last-child,.air-offline-status{display:none}
     .air-nav-item{justify-content:center;padding:11px 8px}
     .air-rebrand header.app-header,.air-page-intro{padding-left:28px;padding-right:28px}
     .air-rebrand main{padding-left:28px;padding-right:28px}
@@ -811,7 +894,6 @@
   <div class="air-sidebar-bottom">
     <button class="air-nav-item" type="button" id="airSettingsButton"><span class="air-nav-icon">⚙</span><span>Board settings</span></button>
     <div class="air-offline-status"><span class="air-status-dot" aria-hidden="true"></span><span>Offline and saved locally</span></div>
-    <a class="air-copyright" href="https://ch.linkedin.com/in/jricardogferreira?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">© 2026 by Ricardo Ferreira</a>
   </div>
 </aside>
 
@@ -1252,7 +1334,8 @@
 </main>
 
 <footer class="app-footer">
-  <a class="footer-copyright" href="https://ch.linkedin.com/in/jricardogferreira?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">© 2026 by Ricardo Ferreira</a>
+  <a class="footer-copyright" href="https://ch.linkedin.com/in/jricardogferreira?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">ScrumPulse © 2026 Ricardo Ferreira</a>
+  <a class="footer-about" href="about.html">About ScrumPulse</a>
 </footer>
 </div>
 
@@ -1354,7 +1437,7 @@
       </div>
     </div>
     <div class="settings-footer">
-      <a class="footer-copyright" href="https://ch.linkedin.com/in/jricardogferreira?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">© 2026 by Ricardo Ferreira</a>
+      <a class="footer-copyright" href="https://ch.linkedin.com/in/jricardogferreira?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">ScrumPulse © 2026 Ricardo Ferreira</a>
     </div>
   </div>
 </aside>
@@ -4978,7 +5061,7 @@
     pageTitle.textContent = view.label;
     pageDescription.textContent = view.description;
     eyebrow.textContent = view.eyebrow;
-    document.title = `${view.label} — Scrum done right`;
+    document.title = `${view.label} | ScrumPulse Free Offline Scrum Board`;
   }
 
   airTabs.forEach(button => button.addEventListener("click", () => {

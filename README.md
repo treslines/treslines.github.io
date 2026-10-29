@@ -17,6 +17,8 @@ I have seen Scrum work in practice, but I have also seen it fail far too often s
 
 Give it a try: [**ScrumPulse**](https://treslines.github.io/)
 
+Learn more: [Free offline Scrum board](https://treslines.github.io/about.html) · [Quadro Scrum gratuito](https://treslines.github.io/pt/)
+
 ## ScrumPulse in action
 
 ![ScrumPulse overview — a beautiful, fully offline Scrum workspace](assets/promo-overview.png)
@@ -52,7 +54,9 @@ Support the project and motivate me to keep improving ScrumPulse.
 
 ## License
 
-- Copyright © 2026 Ricardo Ferreira
+ScrumPulse is licensed under the [Apache License 2.0](LICENSE).
+
+Copyright © 2026 Ricardo Ferreira. See [NOTICE](NOTICE) for attribution information.
 
 ## Author
 

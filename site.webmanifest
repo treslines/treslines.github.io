@@ -1,0 +1,18 @@
+{
+  "name": "ScrumPulse — Free Offline Scrum Board",
+  "short_name": "ScrumPulse",
+  "description": "Free offline Scrum board for Sprint events, capacity planning, Burndown and team insights.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef8f8",
+  "theme_color": "#073b4c",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
