@@ -230,6 +230,39 @@
   .half-day-label{display:inline-grid;place-items:center;min-width:25px;height:19px;padding:0 5px;border-radius:6px;color:var(--brand-dark);background:#e7f2fb;font-size:.64rem;font-weight:800;letter-spacing:.04em}
   .capacity-effective{font-size:.85rem;font-weight:700;color:#fff;background:var(--brand);padding:4px 10px;border-radius:999px;margin-left:4px;vertical-align:middle}
 
+  /* Vacation calendar */
+  .vacation-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  .vacation-periods{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .vacation-period-option{position:relative}
+  .vacation-period-option input{position:absolute;opacity:0;pointer-events:none}
+  .vacation-period-option span{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 13px;border:1px solid var(--border);border-radius:999px;background:#f8fbfb;color:var(--ink);font-size:.78rem;font-weight:650;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+  .vacation-period-option input:checked+span{background:var(--brand);border-color:var(--brand);color:#fff}
+  .vacation-period-option input:focus-visible+span{outline:3px solid rgba(14,132,147,.2);outline-offset:2px}
+  .vacation-date-field{display:flex;flex-direction:column;gap:5px;min-width:190px;color:var(--muted);font-size:.72rem;font-weight:700}
+  .vacation-date-field input{height:36px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:.82rem}
+  .vacation-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:10px}
+  .vacation-range{font-size:.82rem;font-weight:650;color:var(--muted)}
+  .vacation-table-wrap{overflow:auto;max-width:100%;margin-top:14px;border:1px solid var(--border);border-radius:12px}
+  .vacation-table{width:max-content;min-width:100%;background:#fff}
+  .vacation-table col.col-member{width:230px}
+  .vacation-table col.col-day{width:58px}
+  .vacation-table .member-col,.vacation-table .member-cell{position:sticky;left:0;z-index:3;background:#fff;box-shadow:1px 0 0 var(--border)}
+  .vacation-table thead .member-col{z-index:5}
+  .vacation-table .month-label{font-size:.7rem;font-weight:800;color:var(--brand-dark);background:#e5f2f1;border-right:1px solid var(--border)}
+  .vacation-table .week-label{border-radius:0;border-right:1px solid var(--border)}
+  .vacation-table .out-of-range{background:#f6f8f8!important;color:#a7b2b7}
+  .vacation-table .out-of-range input{visibility:hidden}
+  .vacation-table .vacation-selected{background:#fff4dd}
+  .vacation-table .public-holiday-row .member-cell{background:#fffaf0}
+  .vacation-table .day-halves input{accent-color:#f59e0b}
+  .vacation-table .public-holiday-check{accent-color:#f59e0b}
+  .vacation-member-cell{display:flex;align-items:center;gap:8px;min-width:0}
+  .vacation-member-identity{display:flex;align-items:center;gap:0;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .vacation-half-row-labels{display:flex;flex-direction:column;gap:3px;margin-left:auto}
+  .vacation-half-row-labels .half-day-label{min-width:27px;height:16px;font-size:.58rem}
+  .vacation-locked-half{opacity:.4;cursor:not-allowed!important}
+  .vacation-empty-copy{max-width:520px;margin:0 auto}
+
   .planning-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .planning-header h2{margin:0;color:var(--brand-dark);font-size:1.3rem;font-weight:800}
   .planning-count,.planning-hours{font-size:.85rem;font-weight:700;color:var(--brand-dark);background:#eef5fb;padding:4px 10px;border-radius:999px}
@@ -882,6 +915,7 @@
     <nav class="air-side-nav" aria-label="Insights and help">
       <button class="air-nav-item" type="button" data-air-tab="burndown"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="5,6 10,9 13,14 20,17"/></svg></span><span>Burndown</span></button>
       <button class="air-nav-item" type="button" data-air-tab="stats"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M3 20h18"/></svg></span><span>Stats</span></button>
+      <button class="air-nav-item" type="button" data-air-tab="vacation"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span><span>Vacation</span></button>
       <button class="air-nav-item" type="button" data-air-tab="history"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>Sprint History</span></button>
       <button class="air-nav-item" type="button" data-air-tab="knowledgebase"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0z"/><path d="M21 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0z"/></svg></span><span>Knowledge Base</span></button>
       <button class="air-nav-item" type="button" data-air-tab="decisionlog"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z" fill="currentColor" stroke="none"/><path d="M8.5 12.5l2 2 4-4.5"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span><span>Decision Log</span></button>
@@ -923,6 +957,7 @@
   <button data-tab="review">3. Review</button>
   <button data-tab="retro">4. Retro</button>
   <button data-tab="stats">Stats</button>
+  <button data-tab="vacation">Vacation</button>
   <button data-tab="history">Sprint History</button>
   <button data-tab="knowledgebase">Knowledge Base</button>
   <button data-tab="decisionlog">Decision Log</button>
@@ -1225,6 +1260,38 @@
         <div class="stats-info-desc muted" id="statsWindowNote"></div>
       </div>
       <div class="stats-grid" id="statsGrid"></div>
+    </div>
+  </section>
+  <section class="panel" id="panel-vacation">
+    <div class="card empty-state" id="vacationEmptyState">
+      <span class="big-emoji">🏖️</span>
+      <div class="vacation-empty-copy">No team configured yet. Add active team members in Board Settings to plan vacations and public holidays.</div>
+      <div><a href="#" class="cta" id="openSettingsFromVacation">Open Board Settings</a></div>
+    </div>
+    <div class="card hidden" id="vacationCard">
+      <div class="vacation-toolbar">
+        <div>
+          <div class="vacation-periods" id="vacationPeriods" role="radiogroup" aria-label="Vacation calendar period">
+            <label class="vacation-period-option"><input type="radio" name="vacationPeriod" value="yearly"><span>Yearly</span></label>
+            <label class="vacation-period-option"><input type="radio" name="vacationPeriod" value="semesterly"><span>Semesterly</span></label>
+            <label class="vacation-period-option"><input type="radio" name="vacationPeriod" value="quarterly"><span>Quarterly</span></label>
+            <label class="vacation-period-option"><input type="radio" name="vacationPeriod" value="monthly"><span>Monthly</span></label>
+            <label class="vacation-period-option"><input type="radio" name="vacationPeriod" value="3weeks"><span>3 Weeks</span></label>
+            <label class="vacation-period-option"><input type="radio" name="vacationPeriod" value="2weeks"><span>2 Weeks</span></label>
+            <label class="vacation-period-option"><input type="radio" name="vacationPeriod" value="1week"><span>1 Week</span></label>
+          </div>
+        </div>
+        <label class="vacation-date-field">Reference date
+          <input type="date" id="vacationStartDate">
+        </label>
+      </div>
+      <div class="vacation-summary">
+        <div class="section-note muted">Mark planned time off here. Public holidays block the whole day; each team member has separate AM and PM periods.</div>
+        <div class="vacation-range" id="vacationRange"></div>
+      </div>
+      <div class="vacation-table-wrap" id="vacationTableWrap">
+        <table class="capacity-table vacation-table" id="vacationTable"></table>
+      </div>
     </div>
   </section>
   <section class="panel" id="panel-history">
@@ -1548,7 +1615,7 @@
   const LEGACY_PROJECT_KEYS = ["settings", "ui.activeTab", "ui.retroTab", "dailyScrum.session",
     "stats.dailyScrumHistory", "planningTimer.session", "stats.planningTimerHistory",
     "reviewTimer.session", "stats.reviewTimerHistory", "retroTimer.session",
-    "stats.retroTimerHistory", "capacity", "planning", "sprintHistory",
+    "stats.retroTimerHistory", "capacity", "vacation", "planning", "sprintHistory",
     "retro", "retro.wentWell", "retro.wentNotWell", "decisionLog", "knowledgeBase",
     "definitions", "ui.definitionTab"];
 
@@ -1688,6 +1755,7 @@
     // (e.g. on first load) - redraw once the panel actually becomes visible so it never gets stuck
     // using a stale fallback width.
     if(name === "burndown") renderBurndown();
+    if(name === "vacation") renderVacation();
     if(name === "history") renderSprintHistory();
   }
   tabButtons.forEach(b => b.addEventListener("click", () => activateTab(b.dataset.tab)));
@@ -1836,6 +1904,7 @@
 
     renderDailyPanel();
     renderCapacity();
+    renderVacation();
   }
 
   function startMemberNameEdit(row, member){
@@ -1882,7 +1951,9 @@
     if(btn && btn.dataset.action === "delete"){
       if(!(await showConfirm(`Remove ${member.name} permanently? This cannot be undone.`, "Remove"))) return;
       settings.team = settings.team.filter(m => m.id !== member.id);
+      if(vacationData?.absences) delete vacationData.absences[member.id];
       saveSettings();
+      saveVacation();
       renderTeamList();
       return;
     }
@@ -2098,6 +2169,7 @@
         renderTimeboxes();
         renderStatsSettingsUI();
         renderCapacity();
+        renderVacation();
       } catch(err){
         alert("Could not import file: " + err.message);
       } finally {
@@ -2485,6 +2557,26 @@
   if(!capacityData.ceremonies) capacityData.ceremonies = null;
   function saveCapacity(){ Store.set("capacity", capacityData); }
 
+  let vacationData = Store.get("vacation", null) || {
+    period: "3weeks",
+    startDate: settings.sprintStartDate || toISODate(new Date()),
+    holidays: {},
+    absences: {}
+  };
+  if(!vacationData.period) vacationData.period = "3weeks";
+  if(!vacationData.startDate) vacationData.startDate = settings.sprintStartDate || toISODate(new Date());
+  if(!vacationData.holidays) vacationData.holidays = {};
+  if(!vacationData.absences) vacationData.absences = {};
+  // Public holidays used to belong to the active Sprint. Move them into the persistent
+  // calendar once so starting a new Sprint can no longer erase company holidays.
+  Object.entries(capacityData.holidays).forEach(([date, selected]) => {
+    if(selected) vacationData.holidays[date] = true;
+  });
+  delete capacityData.holidays;
+  function saveVacation(){ Store.set("vacation", vacationData); }
+  saveVacation();
+  saveCapacity();
+
   function toISODate(d){
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   }
@@ -2496,6 +2588,22 @@
     const r = new Date(d);
     r.setDate(r.getDate() + n);
     return r;
+  }
+
+  function startOfISOWeek(date){
+    const result = new Date(date);
+    const day = result.getDay() || 7;
+    result.setDate(result.getDate() - day + 1);
+    result.setHours(0, 0, 0, 0);
+    return result;
+  }
+
+  function isoWeekNumber(date){
+    const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const day = utcDate.getUTCDay() || 7;
+    utcDate.setUTCDate(utcDate.getUTCDate() + 4 - day);
+    const yearStart = new Date(Date.UTC(utcDate.getUTCFullYear(), 0, 1));
+    return Math.ceil((((utcDate - yearStart) / 86400000) + 1) / 7);
   }
 
   // Each sprint week renders Mon-Fri only, starting from the configured Sprint Start Date.
@@ -2512,7 +2620,20 @@
   }
 
   function isPublicHoliday(dateStr){
-    return !!capacityData.holidays[dateStr];
+    return !!vacationData.holidays[dateStr];
+  }
+
+  function getVacationHalves(memberId, dateStr){
+    const stored = vacationData.absences[memberId] && vacationData.absences[memberId][dateStr];
+    return Array.isArray(stored) ? [!!stored[0], !!stored[1]] : [false, false];
+  }
+
+  function setVacationHalves(memberId, dateStr, halves){
+    if(!vacationData.absences[memberId]) vacationData.absences[memberId] = {};
+    if(!halves[0] && !halves[1]) delete vacationData.absences[memberId][dateStr];
+    else vacationData.absences[memberId][dateStr] = [!!halves[0], !!halves[1]];
+    if(!Object.keys(vacationData.absences[memberId]).length) delete vacationData.absences[memberId];
+    saveVacation();
   }
 
   function closestAvailableDate(days, preferredIndex){
@@ -2573,9 +2694,15 @@
   }
 
   // Each day has two independent half-day slots; default is fully available ([true, true]).
-  function getHalves(memberId, dateStr){
+  function getStoredHalves(memberId, dateStr){
     const stored = capacityData.halves[memberId] && capacityData.halves[memberId][dateStr];
-    return stored || [true, true];
+    return Array.isArray(stored) ? [!!stored[0], !!stored[1]] : [true, true];
+  }
+
+  function getHalves(memberId, dateStr){
+    const stored = getStoredHalves(memberId, dateStr);
+    const vacation = getVacationHalves(memberId, dateStr);
+    return [stored[0] && !vacation[0], stored[1] && !vacation[1]];
   }
 
   function setHalves(memberId, dateStr, halves){
@@ -2595,15 +2722,21 @@
     return weeks.flat().every(day => {
       const dateStr = toISODate(day);
       if(isPublicHoliday(dateStr)) return true;
-      const h = getHalves(memberId, dateStr);
-      return h[0] && h[1];
+      const stored = getStoredHalves(memberId, dateStr);
+      const vacation = getVacationHalves(memberId, dateStr);
+      return (vacation[0] || stored[0]) && (vacation[1] || stored[1]);
     });
   }
 
   function setMemberAllHalves(memberId, weeks, value){
     weeks.flat().forEach(day => {
       const dateStr = toISODate(day);
-      if(!isPublicHoliday(dateStr)) setHalves(memberId, dateStr, [value, value]);
+      if(isPublicHoliday(dateStr)) return;
+      const stored = getStoredHalves(memberId, dateStr);
+      const vacation = getVacationHalves(memberId, dateStr);
+      if(!vacation[0]) stored[0] = value;
+      if(!vacation[1]) stored[1] = value;
+      setHalves(memberId, dateStr, stored);
     });
   }
 
@@ -2667,6 +2800,188 @@
     return capacityCosts(members, weeks).effective;
   }
 
+  // --- Persistent vacation and public-holiday calendar ---
+  const vacationEmptyState = document.getElementById("vacationEmptyState");
+  const vacationCard = document.getElementById("vacationCard");
+  const vacationTableEl = document.getElementById("vacationTable");
+  const vacationTableWrap = document.getElementById("vacationTableWrap");
+  const vacationRangeEl = document.getElementById("vacationRange");
+  const vacationStartDateEl = document.getElementById("vacationStartDate");
+  const vacationPeriodEls = Array.from(document.querySelectorAll('input[name="vacationPeriod"]'));
+
+  function vacationPeriodBounds(period, referenceDate){
+    const year = referenceDate.getFullYear();
+    const month = referenceDate.getMonth();
+    if(period === "yearly") return { start: new Date(year, 0, 1), end: new Date(year, 11, 31) };
+    if(period === "semesterly"){
+      const startMonth = month < 6 ? 0 : 6;
+      return { start: new Date(year, startMonth, 1), end: new Date(year, startMonth + 6, 0) };
+    }
+    if(period === "quarterly"){
+      const startMonth = Math.floor(month / 3) * 3;
+      return { start: new Date(year, startMonth, 1), end: new Date(year, startMonth + 3, 0) };
+    }
+    if(period === "monthly") return { start: new Date(year, month, 1), end: new Date(year, month + 1, 0) };
+    const weeks = Math.max(1, Number.parseInt(period, 10) || 1);
+    const start = startOfISOWeek(referenceDate);
+    return { start, end: addDays(start, weeks * 7 - 1) };
+  }
+
+  function vacationWeeks(bounds){
+    const weeks = [];
+    let firstMonday = startOfISOWeek(bounds.start);
+    // If the period starts on a weekend, the containing ISO week has no visible
+    // business day in range, so do not render an entirely empty leading week.
+    if(addDays(firstMonday, 4) < bounds.start) firstMonday = addDays(firstMonday, 7);
+    const finalMonday = startOfISOWeek(bounds.end);
+    for(let monday = firstMonday; monday <= finalMonday; monday = addDays(monday, 7)){
+      const days = [];
+      for(let day = 0; day < 5; day++) days.push(addDays(monday, day));
+      weeks.push(days);
+    }
+    return weeks;
+  }
+
+  function dateWithinBounds(date, bounds){
+    const value = date.getTime();
+    return value >= bounds.start.getTime() && value <= bounds.end.getTime();
+  }
+
+  function vacationMonthSegments(days){
+    const segments = [];
+    days.forEach(day => {
+      const key = `${day.getFullYear()}-${day.getMonth()}`;
+      const current = segments[segments.length - 1];
+      if(current && current.key === key) current.count++;
+      else segments.push({ key, count: 1, label: day.toLocaleDateString(undefined, { month: "long", year: "numeric" }) });
+    });
+    return segments;
+  }
+
+  function formatVacationRange(bounds){
+    const format = date => date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    return `${format(bounds.start)} – ${format(bounds.end)}`;
+  }
+
+  function renderVacation(resetScroll = false){
+    const members = sortTeamByRole(capacityMembers());
+    const ready = members.length > 0;
+    vacationEmptyState.classList.toggle("hidden", ready);
+    vacationCard.classList.toggle("hidden", !ready);
+    if(!ready) return;
+
+    const referenceDate = parseISODate(vacationData.startDate || toISODate(new Date()));
+    const bounds = vacationPeriodBounds(vacationData.period, referenceDate);
+    const weeks = vacationWeeks(bounds);
+    const allDays = weeks.flat();
+    const previousScroll = resetScroll ? 0 : vacationTableWrap.scrollLeft;
+
+    vacationStartDateEl.value = vacationData.startDate;
+    vacationPeriodEls.forEach(input => { input.checked = input.value === vacationData.period; });
+    vacationRangeEl.textContent = formatVacationRange(bounds);
+
+    let colgroup = `<colgroup><col class="col-member">`;
+    allDays.forEach(() => { colgroup += `<col class="col-day">`; });
+    colgroup += `</colgroup>`;
+
+    let monthHeader = `<tr><th rowspan="3" class="member-col">Member / Absence</th>`;
+    vacationMonthSegments(allDays).forEach(segment => {
+      monthHeader += `<th colspan="${segment.count}" class="month-label">${escapeHtml(segment.label)}</th>`;
+    });
+    monthHeader += `</tr>`;
+
+    let weekHeader = `<tr>`;
+    weeks.forEach(days => {
+      weekHeader += `<th colspan="5" class="week-label">Week ${isoWeekNumber(days[0])}</th>`;
+    });
+    weekHeader += `</tr>`;
+
+    let dayHeader = `<tr>`;
+    weeks.forEach((days, weekIndex) => {
+      days.forEach((day, dayIndex) => {
+        const outside = !dateWithinBounds(day, bounds);
+        dayHeader += `<th class="day-col${dayColClass(weekIndex, dayIndex, weeks.length, days.length)}${outside ? " out-of-range" : ""}">${DAY_LABELS[dayIndex]}<span class="day-date">${day.getDate()}/${day.getMonth() + 1}</span></th>`;
+      });
+    });
+    dayHeader += `</tr>`;
+
+    let body = `<tr class="public-holiday-row"><td class="member-cell ceremony-cell"><div class="ceremony-cell-content"><span class="ceremony-name">Public Holiday</span><span class="ceremony-hours">Whole day</span></div></td>`;
+    weeks.forEach((days, weekIndex) => {
+      days.forEach((day, dayIndex) => {
+        const dateStr = toISODate(day);
+        const outside = !dateWithinBounds(day, bounds);
+        const selected = isPublicHoliday(dateStr);
+        body += `<td class="day-col${dayColClass(weekIndex, dayIndex, weeks.length, days.length)}${outside ? " out-of-range" : ""}${selected ? " holiday-selected" : ""}">` +
+          `<input class="public-holiday-check" type="checkbox" data-vacation-holiday="${dateStr}" aria-label="Mark ${dateStr} as a public holiday"${selected ? " checked" : ""}${outside ? " disabled" : ""}></td>`;
+      });
+    });
+    body += `</tr>`;
+
+    members.forEach((member, memberIndex) => {
+      const halfLabels = memberIndex === 0
+        ? `<span class="vacation-half-row-labels" aria-label="Vacation periods"><span class="half-day-label" title="Morning off">AM</span><span class="half-day-label" title="Afternoon off">PM</span></span>`
+        : "";
+      body += `<tr><td class="member-cell"><div class="vacation-member-cell"><span class="vacation-member-identity"><span class="role-tag ${member.role}">${ROLE_BADGE[member.role]}</span>${escapeHtml(member.name)}</span>${halfLabels}</div></td>`;
+      weeks.forEach((days, weekIndex) => {
+        days.forEach((day, dayIndex) => {
+          const dateStr = toISODate(day);
+          const outside = !dateWithinBounds(day, bounds);
+          const holiday = isPublicHoliday(dateStr);
+          const halves = getVacationHalves(member.id, dateStr);
+          const selected = halves[0] || halves[1];
+          const disabled = outside || holiday;
+          const dateLabel = day.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+          body += `<td class="day-col${dayColClass(weekIndex, dayIndex, weeks.length, days.length)}${outside ? " out-of-range" : ""}${holiday ? " holiday-col" : ""}${selected ? " vacation-selected" : ""}"><div class="day-halves">` +
+            `<input type="checkbox" data-vacation-member="${member.id}" data-date="${dateStr}" data-half="0" aria-label="${escapeHtml(`${member.name} morning off on ${dateLabel}`)}" title="${holiday ? "Public holiday" : "Morning off (AM)"}"${halves[0] ? " checked" : ""}${disabled ? " disabled" : ""}>` +
+            `<input type="checkbox" data-vacation-member="${member.id}" data-date="${dateStr}" data-half="1" aria-label="${escapeHtml(`${member.name} afternoon off on ${dateLabel}`)}" title="${holiday ? "Public holiday" : "Afternoon off (PM)"}"${halves[1] ? " checked" : ""}${disabled ? " disabled" : ""}>` +
+            `</div></td>`;
+        });
+      });
+      body += `</tr>`;
+    });
+
+    vacationTableEl.innerHTML = `${colgroup}<thead>${monthHeader}${weekHeader}${dayHeader}</thead><tbody>${body}</tbody>`;
+    requestAnimationFrame(() => { vacationTableWrap.scrollLeft = previousScroll; });
+  }
+
+  vacationPeriodEls.forEach(input => input.addEventListener("change", () => {
+    if(!input.checked) return;
+    vacationData.period = input.value;
+    saveVacation();
+    renderVacation(true);
+  }));
+
+  vacationStartDateEl.addEventListener("change", () => {
+    if(!vacationStartDateEl.value) return;
+    vacationData.startDate = vacationStartDateEl.value;
+    saveVacation();
+    renderVacation(true);
+  });
+
+  vacationTableEl.addEventListener("change", e => {
+    const holidayCheckbox = e.target.closest("input[data-vacation-holiday]");
+    if(holidayCheckbox){
+      const dateStr = holidayCheckbox.dataset.vacationHoliday;
+      if(holidayCheckbox.checked) vacationData.holidays[dateStr] = true;
+      else delete vacationData.holidays[dateStr];
+      saveVacation();
+      renderVacation();
+      renderCapacity();
+      renderBurndown();
+      return;
+    }
+    const vacationCheckbox = e.target.closest("input[data-vacation-member]");
+    if(!vacationCheckbox) return;
+    const halves = getVacationHalves(vacationCheckbox.dataset.vacationMember, vacationCheckbox.dataset.date);
+    halves[Number(vacationCheckbox.dataset.half)] = vacationCheckbox.checked;
+    setVacationHalves(vacationCheckbox.dataset.vacationMember, vacationCheckbox.dataset.date, halves);
+    renderVacation();
+    renderCapacity();
+    renderBurndown();
+  });
+
+  document.getElementById("openSettingsFromVacation").addEventListener("click", e => { e.preventDefault(); openSettings(); });
+
   function renderCapacity(){
     const members = capacityMembers();
     const weeks = sprintWeeks();
@@ -2692,7 +3007,7 @@
 
     let headRow1 = `<tr><th rowspan="2" class="member-col">Member / Activity</th>`;
     weeks.forEach((days, wi) => {
-      headRow1 += `<th colspan="5" class="week-label">Week ${wi + 1}</th>`;
+      headRow1 += `<th colspan="5" class="week-label">Week ${isoWeekNumber(days[0])}</th>`;
     });
     headRow1 += `</tr>`;
 
@@ -2719,12 +3034,13 @@
           const dateStr = toISODate(day);
           const holiday = isPublicHoliday(dateStr);
           const halves = getHalves(m.id, dateStr);
+          const vacation = getVacationHalves(m.id, dateStr);
           const dateLabel = day.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
           const morningLabel = escapeHtml(`${m.name} morning availability on ${dateLabel}`);
           const afternoonLabel = escapeHtml(`${m.name} afternoon availability on ${dateLabel}`);
           row += `<td class="day-col${dayColClass(wi, di, weeks.length, days.length)}${holiday ? " holiday-col" : ""}"><div class="day-halves">` +
-            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="0" aria-label="${morningLabel}" title="${holiday ? "Unavailable: public holiday" : "Morning (AM)"}"${halves[0] ? " checked" : ""}${holiday ? " disabled" : ""}>` +
-            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="1" aria-label="${afternoonLabel}" title="${holiday ? "Unavailable: public holiday" : "Afternoon (PM)"}"${halves[1] ? " checked" : ""}${holiday ? " disabled" : ""}>` +
+            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="0" class="${vacation[0] ? "vacation-locked-half" : ""}" aria-label="${morningLabel}" title="${holiday ? "Unavailable: public holiday" : vacation[0] ? "Unavailable: planned vacation" : "Morning (AM)"}"${halves[0] ? " checked" : ""}${holiday || vacation[0] ? " disabled" : ""}>` +
+            `<input type="checkbox" data-member="${m.id}" data-date="${dateStr}" data-half="1" class="${vacation[1] ? "vacation-locked-half" : ""}" aria-label="${afternoonLabel}" title="${holiday ? "Unavailable: public holiday" : vacation[1] ? "Unavailable: planned vacation" : "Afternoon (PM)"}"${halves[1] ? " checked" : ""}${holiday || vacation[1] ? " disabled" : ""}>` +
             `</div></td>`;
         });
       });
@@ -2804,10 +3120,12 @@
     const holidayCheckbox = e.target.closest("input[type=checkbox][data-public-holiday]");
     if(holidayCheckbox){
       const dateStr = holidayCheckbox.dataset.publicHoliday;
-      if(holidayCheckbox.checked) capacityData.holidays[dateStr] = true;
-      else delete capacityData.holidays[dateStr];
-      saveCapacity();
+      if(holidayCheckbox.checked) vacationData.holidays[dateStr] = true;
+      else delete vacationData.holidays[dateStr];
+      saveVacation();
       renderCapacity();
+      renderVacation();
+      renderBurndown();
       return;
     }
     const ceremonyCheckbox = e.target.closest("input[type=checkbox][data-ceremony]");
@@ -2878,7 +3196,7 @@
 
     if(value) settings.sprintStartDate = value;
     saveSettings();
-    capacityData = { halves: {}, holidays: {}, ceremonies: null };
+    capacityData = { halves: {}, ceremonies: null };
     saveCapacity();
     planningTimer.discard();
     reviewTimer.discard();
@@ -3947,7 +4265,7 @@
     document.getElementById("burndownNote").innerHTML =
       `Ideal progress, current scope, and remaining forecast across working days. Public holidays are excluded.<br>Velocity uses the committed estimates of completed Stories and is averaged over ${statsWindowLabel()}.`;
 
-    const days = sprintWeeks().flat().filter(day => !capacityData.holidays?.[toISODate(day)]);
+    const days = sprintWeeks().flat().filter(day => !isPublicHoliday(toISODate(day)));
     const baselineHours = planningData.commitment?.totalHours ?? totalPlannedHours();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -4967,6 +5285,7 @@
   renderStatsSettingsUI();
   renderMeeting();
   renderCapacity();
+  renderVacation();
   renderRetro();
   renderStats();
   renderSprintHistory();
@@ -5014,6 +5333,11 @@
       label: "Stats",
       eyebrow: "Team insight",
       description: "Review recent ceremony and delivery trends without leaving the board."
+    },
+    vacation: {
+      label: "Vacation",
+      eyebrow: "Team availability",
+      description: "Plan vacations and public holidays once, then reuse them automatically in Sprint capacity."
     },
     history: {
       label: "Sprint History",
