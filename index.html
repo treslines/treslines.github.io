@@ -263,6 +263,36 @@
   .vacation-locked-half{opacity:.4;cursor:not-allowed!important}
   .vacation-empty-copy{max-width:520px;margin:0 auto}
 
+  /* Product Roadmap */
+  .roadmap-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .roadmap-header h2{margin:0;color:var(--brand-dark);font-size:1.3rem}.roadmap-header p{margin:5px 0 0;max-width:760px;font-size:.78rem}
+  .roadmap-status{display:inline-flex;align-items:center;min-height:30px;padding:0 11px;border-radius:999px;background:#eef4f5;color:#536d76;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .roadmap-status.on-track{background:#e1f4e8;color:#14723a}.roadmap-status.at-risk{background:#fff0c7;color:#805600}.roadmap-status.behind{background:#fde7e9;color:#a92939}
+  .roadmap-metrics{display:grid;grid-template-columns:repeat(4,minmax(145px,1fr));gap:10px;margin:16px 0 10px}
+  .roadmap-metric{min-width:0;padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:#f8fbfb}
+  .roadmap-metric-label{display:block;color:var(--muted);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .roadmap-metric-value{display:block;margin-top:4px;color:var(--ink);font-size:.92rem;font-weight:750;overflow-wrap:anywhere}
+  .roadmap-scroll{max-width:100%;margin-top:14px;overflow:auto;border:1px solid var(--border);border-radius:12px;background:#fff}
+  .roadmap-board{width:max-content;min-width:100%;--roadmap-width:720px}
+  .roadmap-row{display:grid;grid-template-columns:260px 150px var(--roadmap-width);min-height:58px;border-bottom:1px solid #e5edef}
+  .roadmap-row:last-child{border-bottom:0}.roadmap-row.header{position:sticky;top:0;z-index:6;min-height:48px;background:#f3f8f8}
+  .roadmap-task-cell,.roadmap-owner-cell{position:sticky;z-index:3;display:flex;align-items:center;min-width:0;padding:9px 11px;background:#fff;border-right:1px solid var(--border)}
+  .roadmap-task-cell{left:0}.roadmap-owner-cell{left:260px;z-index:2}.roadmap-row.header .roadmap-task-cell,.roadmap-row.header .roadmap-owner-cell{z-index:7;background:#eaf4f4;color:var(--brand-dark);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .roadmap-task-copy{min-width:0}.roadmap-task-title{margin-top:4px;color:var(--ink);font-size:.73rem;line-height:1.3;overflow-wrap:anywhere}.roadmap-task-meta{margin-top:3px;color:var(--muted);font-size:.62rem}
+  .roadmap-owner-select{width:100%;height:30px;padding:0 25px 0 8px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:.69rem}
+  .roadmap-timeline{position:relative;min-height:58px;background-image:repeating-linear-gradient(to right,transparent 0,transparent 27px,rgba(87,126,133,.12) 27px,rgba(87,126,133,.12) 28px)}
+  .roadmap-row.header .roadmap-timeline{min-height:48px;background:#eaf4f4;overflow:hidden}
+  .roadmap-weekend{position:absolute;top:0;bottom:0;width:28px;background:rgba(93,119,125,.07);pointer-events:none}
+  .roadmap-week-label{position:absolute;top:7px;color:#57727a;font-size:.59rem;font-weight:800;white-space:nowrap}.roadmap-week-label.month{color:var(--brand-dark)}
+  .roadmap-day-number{position:absolute;bottom:6px;width:28px;color:#789097;font-size:.57rem;font-weight:650;text-align:center;white-space:nowrap}
+  .roadmap-month-boundary{position:absolute;top:0;bottom:0;width:3px;z-index:1;background:#a9b7bb;pointer-events:none}
+  .roadmap-bar{position:absolute;top:17px;height:24px;min-width:8px;border-radius:6px;background:#198493;color:#fff;box-shadow:0 1px 2px rgba(5,49,59,.18);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 7px;font-size:.61rem;font-weight:800;line-height:14px}
+  .roadmap-bar.bug{background:#c43d4d}.roadmap-bar.test{background:#e56717}.roadmap-bar.done{background:#38a965}.roadmap-bar.blocked{background:#9daeb3;color:#fff}
+  .roadmap-unscheduled{position:absolute;top:17px;left:10px;height:24px;padding:5px 8px;border:1px dashed #9daeb3;border-radius:6px;background:#f1f4f4;color:#647b83;font-size:.61rem;font-weight:750;line-height:12px}
+  .roadmap-marker{position:absolute;top:0;bottom:0;width:2px;z-index:2;pointer-events:none}.roadmap-marker.today{background:#f97316}.roadmap-marker.deadline{background:#d33d4d}.roadmap-row.header .roadmap-marker::before{position:absolute;top:1px;left:4px;font-size:.55rem;font-weight:800;white-space:nowrap}.roadmap-row.header .roadmap-marker.today::before{content:"Today";color:#c8570b}.roadmap-row.header .roadmap-marker.deadline::before{content:"Deadline";top:28px;color:#b32d3b}
+  .roadmap-dependency{color:#71858c}.roadmap-dependency.blocked{color:#b33b49}
+  @media(max-width:900px){.roadmap-metrics{grid-template-columns:repeat(2,minmax(140px,1fr))}}
+
   .planning-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .planning-header h2{margin:0;color:var(--brand-dark);font-size:1.3rem;font-weight:800}
   .planning-count,.planning-hours{font-size:.85rem;font-weight:700;color:var(--brand-dark);background:#eef5fb;padding:4px 10px;border-radius:999px}
@@ -940,6 +970,7 @@
   <div class="air-nav-section">
     <div class="air-nav-label">Insights</div>
     <nav class="air-side-nav" aria-label="Insights and help">
+      <button class="air-nav-item" type="button" data-air-tab="roadmap"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18M3 12h18M3 19h18"/><path d="M7 3v4M14 10v4M18 17v4"/></svg></span><span>Roadmap</span></button>
       <button class="air-nav-item" type="button" data-air-tab="burndown"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="5,6 10,9 13,14 20,17"/></svg></span><span>Burndown</span></button>
       <button class="air-nav-item" type="button" data-air-tab="stats"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M3 20h18"/></svg></span><span>Stats</span></button>
       <button class="air-nav-item" type="button" data-air-tab="vacation"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span><span>Vacation</span></button>
@@ -977,6 +1008,7 @@
 </header>
 
 <nav class="tabs" id="tabs">
+  <button data-tab="roadmap">Roadmap</button>
   <button data-tab="burndown">Burndown</button>
   <button data-tab="daily" class="active">Daily Scrum</button>
   <button data-tab="capacity">1. Capacity</button>
@@ -1017,6 +1049,23 @@
         <button type="submit" id="searchSendBtn" disabled>Send</button>
       </form>
       <div class="search-results" id="searchResults"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-roadmap">
+    <div class="card empty-state" id="roadmapEmptyState">
+      <span class="big-emoji">🗺️</span>
+      <div id="roadmapEmptyCopy">Complete the Product Goal setup to generate the Roadmap.</div>
+      <div><a href="#" class="cta" id="openPlanningFromRoadmap">Open Sprint Planning</a> · <a href="#" class="cta" id="openSettingsFromRoadmap">Open Board Settings</a></div>
+    </div>
+    <div class="card hidden" id="roadmapCard">
+      <div class="roadmap-header">
+        <div><h2>🗺️ Product Roadmap</h2><p class="muted" id="roadmapGoal"></p></div>
+        <span class="roadmap-status" id="roadmapStatus"></span>
+      </div>
+      <div class="roadmap-metrics" id="roadmapMetrics"></div>
+      <div class="section-note muted" id="roadmapNote"></div>
+      <div class="roadmap-scroll" id="roadmapScroll"><div class="roadmap-board" id="roadmapBoard"></div></div>
     </div>
   </section>
 
@@ -1654,7 +1703,7 @@
   const LEGACY_PROJECT_KEYS = ["settings", "ui.activeTab", "ui.retroTab", "dailyScrum.session",
     "stats.dailyScrumHistory", "planningTimer.session", "stats.planningTimerHistory",
     "reviewTimer.session", "stats.reviewTimerHistory", "retroTimer.session",
-    "stats.retroTimerHistory", "capacity", "vacation", "planning", "sprintHistory",
+    "stats.retroTimerHistory", "capacity", "vacation", "planning", "roadmap", "sprintHistory",
     "retro", "retro.wentWell", "retro.wentNotWell", "decisionLog", "knowledgeBase",
     "definitions", "ui.definitionTab"];
 
@@ -1807,6 +1856,7 @@
     // The chart is sized from its container's clientWidth, which is 0 while the panel is hidden
     // (e.g. on first load) - redraw once the panel actually becomes visible so it never gets stuck
     // using a stale fallback width.
+    if(name === "roadmap") renderRoadmap();
     if(name === "burndown") renderBurndown();
     if(name === "vacation") renderVacation();
     if(name === "history") renderSprintHistory();
@@ -4350,6 +4400,256 @@
   });
   document.getElementById("openCapacityFromPlanning").addEventListener("click", e => { e.preventDefault(); activateTab("capacity"); });
 
+  // --- Product Roadmap ---
+  let roadmapData = Store.get("roadmap", null) || { assignments: {} };
+  if(!roadmapData.assignments || typeof roadmapData.assignments !== "object") roadmapData.assignments = {};
+  function saveRoadmap(){ Store.set("roadmap", roadmapData); }
+
+  const roadmapEmptyState = document.getElementById("roadmapEmptyState");
+  const roadmapEmptyCopy = document.getElementById("roadmapEmptyCopy");
+  const roadmapCard = document.getElementById("roadmapCard");
+  const roadmapGoalEl = document.getElementById("roadmapGoal");
+  const roadmapStatusEl = document.getElementById("roadmapStatus");
+  const roadmapMetricsEl = document.getElementById("roadmapMetrics");
+  const roadmapNoteEl = document.getElementById("roadmapNote");
+  const roadmapBoardEl = document.getElementById("roadmapBoard");
+  const ROADMAP_DAY_WIDTH = 28;
+
+  function roadmapDevelopers(){ return settings.team.filter(member => member.active && member.role === "DEV"); }
+  function roadmapOrderedItems(){
+    const ordered = []; const visited = new Set();
+    const visit = item => {
+      if(!item || visited.has(item.id)) return;
+      visited.add(item.id);
+      if(isSprintItemType(item.type)) ordered.push(item);
+      planningData.productItems.filter(candidate => candidate.parentId === item.id).forEach(visit);
+    };
+    planningData.productItems.filter(item => !item.parentId || !productItem(item.parentId)).forEach(visit);
+    planningData.productItems.forEach(visit);
+    return ordered;
+  }
+  function roadmapDateDiff(from, to){
+    const a = Date.UTC(from.getFullYear(), from.getMonth(), from.getDate());
+    const b = Date.UTC(to.getFullYear(), to.getMonth(), to.getDate());
+    return Math.round((b - a) / 86400000);
+  }
+  function roadmapStartOfDay(value){ const date = new Date(value); date.setHours(0, 0, 0, 0); return date; }
+  function roadmapMaxDate(...dates){ return dates.filter(Boolean).reduce((max, date) => !max || date > max ? date : max, null); }
+  function roadmapDailyCapacity(member, date, developerCount){
+    const day = date.getDay();
+    if(day === 0 || day === 6) return 0;
+    const dateStr = toISODate(date);
+    if(isPublicHoliday(dateStr)) return 0;
+    const halves = getHalves(member.id, dateStr);
+    const availableFraction = ((halves[0] ? 1 : 0) + (halves[1] ? 1 : 0)) / 2;
+    if(!availableFraction) return 0;
+    const gross = (settings.workHoursPerDay || 8) * availableFraction;
+    const sprintDays = Math.max(5, (settings.sprintLengthWeeks || 1) * 5);
+    const timeboxes = settings.timeboxes || {};
+    const ceremonyPerDay = ((Number(timeboxes.sprintPlanningMinutes) || 0) + (Number(timeboxes.sprintReviewMinutes) || 0) + (Number(timeboxes.sprintRetroMinutes) || 0)) / 60 / sprintDays;
+    const refinementTeamHours = Math.min(developerCount, Math.max(1, Number(settings.refinementParticipants) || 1)) * (settings.sprintLengthWeeks || 1) * (Number(timeboxes.backlogRefinementMinutes) || 0) / 60;
+    const refinementPerDeveloperDay = developerCount ? refinementTeamHours / developerCount / sprintDays : 0;
+    const recurring = ((Number(timeboxes.dailyScrumMinutes) || 0) / 60 + ceremonyPerDay + refinementPerDeveloperDay) * availableFraction;
+    return Math.max(0, roundHours(gross * (1 - (Number(settings.engineeringOverheadPercent) || 0) / 100) - recurring));
+  }
+  function roadmapActionableDescendants(item){
+    if(!item) return [];
+    if(isSprintItemType(item.type)) return [item];
+    return itemDescendants(item.id).filter(descendant => isSprintItemType(descendant.type));
+  }
+  function roadmapDependencyIds(item, openIds){
+    const dependencies = new Set();
+    const lineage = [];
+    let current = item;
+    while(current){ lineage.push(current); current = current.parentId ? productItem(current.parentId) : null; }
+    lineage.forEach(source => {
+      if(!source.dependency) return;
+      const target = productItem(source.dependency.targetId);
+      roadmapActionableDescendants(target).forEach(candidate => {
+        if(candidate.id !== item.id && openIds.has(candidate.id)) dependencies.add(candidate.id);
+      });
+    });
+    return [...dependencies];
+  }
+  function roadmapAllocate(member, earliestDate, hours, usage, developerCount, apply){
+    let remaining = hours; let cursor = roadmapStartOfDay(earliestDate); let start = null; let end = null;
+    for(let guard = 0; guard < 1095 && remaining > 0.0001; guard++, cursor = addDays(cursor, 1)){
+      const capacity = roadmapDailyCapacity(member, cursor, developerCount);
+      if(!capacity) continue;
+      const key = `${member.id}:${toISODate(cursor)}`;
+      const available = Math.max(0, capacity - (usage[key] || 0));
+      if(!available) continue;
+      const consumed = Math.min(available, remaining);
+      if(apply) usage[key] = roundHours((usage[key] || 0) + consumed);
+      if(!start) start = new Date(cursor);
+      end = new Date(cursor);
+      remaining = roundHours(remaining - consumed);
+    }
+    return remaining > 0.0001 ? null : { start, end, memberId: member.id };
+  }
+  function buildRoadmapForecast(items, developers, today){
+    const openItems = items.filter(item => !item.done);
+    const openIds = new Set(openItems.map(item => item.id));
+    const usage = {}; const scheduled = new Map(); const unresolved = new Set(openItems.map(item => item.id));
+    const hoursById = new Map(openItems.map(item => [item.id, Math.max(0, storyForecastHours(item))]));
+    const dependenciesById = new Map(openItems.map(item => [item.id, roadmapDependencyIds(item, openIds)]));
+    let progressed = true;
+    while(progressed && unresolved.size){
+      progressed = false;
+      openItems.forEach(item => {
+        if(!unresolved.has(item.id)) return;
+        const hours = hoursById.get(item.id);
+        if(!hours) return;
+        const dependencies = dependenciesById.get(item.id) || [];
+        if(dependencies.some(id => unresolved.has(id))) return;
+        if(dependencies.some(id => !scheduled.has(id))) return;
+        const dependencyEnd = roadmapMaxDate(...dependencies.map(id => scheduled.get(id)?.end));
+        const earliest = dependencyEnd ? addDays(dependencyEnd, 1) : today;
+        const storedAssignment = roadmapData.assignments[item.id] || "auto";
+        const manual = developers.find(member => member.id === storedAssignment);
+        const candidates = manual ? [manual] : developers;
+        let best = null; let bestMember = null;
+        candidates.forEach(member => {
+          const candidate = roadmapAllocate(member, earliest, hours, usage, developers.length, false);
+          if(candidate && (!best || candidate.end < best.end || (candidate.end.getTime() === best.end.getTime() && candidate.start < best.start))){ best = candidate; bestMember = member; }
+        });
+        if(!best || !bestMember) return;
+        const applied = roadmapAllocate(bestMember, earliest, hours, usage, developers.length, true);
+        scheduled.set(item.id, Object.assign(applied, { hours, dependencies }));
+        unresolved.delete(item.id); progressed = true;
+      });
+    }
+    return { scheduled, unresolved, hoursById, dependenciesById, usage };
+  }
+  function roadmapMarker(className, date, startDate, displayDays){
+    if(!date) return "";
+    const index = Math.max(0, Math.min(displayDays - 1, roadmapDateDiff(startDate, date)));
+    return `<span class="roadmap-marker ${className}" style="left:${index * ROADMAP_DAY_WIDTH + 13}px"></span>`;
+  }
+  function roadmapOwnerSelect(item, developers, scheduled){
+    const stored = developers.some(member => member.id === roadmapData.assignments[item.id]) ? roadmapData.assignments[item.id] : "auto";
+    const autoMember = scheduled?.memberId ? developers.find(member => member.id === scheduled.memberId) : null;
+    return `<select class="roadmap-owner-select" data-roadmap-assignment="${item.id}" aria-label="Assign ${escapeHtml(item.referenceId)}">` +
+      `<option value="auto"${stored === "auto" ? " selected" : ""}>Auto${autoMember ? ` · ${escapeHtml(autoMember.name)}` : ""}</option>` +
+      developers.map(member => `<option value="${member.id}"${stored === member.id ? " selected" : ""}>${escapeHtml(member.name)}</option>`).join("") + `</select>`;
+  }
+  function renderRoadmap(){
+    if(!roadmapEmptyState || !roadmapCard) return;
+    const developers = roadmapDevelopers();
+    const items = roadmapOrderedItems();
+    const missing = [];
+    if(!planningData.productGoal.trim()) missing.push("a Product Goal");
+    if(!planningData.productGoalDeadline) missing.push("a Product Goal deadline");
+    if(!developers.length) missing.push("at least one active Developer");
+    if(!items.length) missing.push("at least one Story, Bug, or Test in the Product Backlog");
+    roadmapEmptyState.classList.toggle("hidden", !missing.length);
+    roadmapCard.classList.toggle("hidden", !!missing.length);
+    if(missing.length){
+      roadmapEmptyCopy.textContent = `Roadmap needs ${missing.join(", ")}.`;
+      return;
+    }
+    const validItemIds = new Set(items.map(item => item.id));
+    Object.keys(roadmapData.assignments).forEach(id => { if(!validItemIds.has(id)) delete roadmapData.assignments[id]; });
+    saveRoadmap();
+    const today = roadmapStartOfDay(new Date());
+    const deadline = parseISODate(planningData.productGoalDeadline);
+    const forecast = buildRoadmapForecast(items, developers, today);
+    const openItems = items.filter(item => !item.done);
+    const missingEstimate = openItems.filter(item => !(forecast.hoursById.get(item.id) > 0));
+    const unresolvedEstimated = openItems.filter(item => forecast.hoursById.get(item.id) > 0 && !forecast.scheduled.has(item.id));
+    const projectedEnd = roadmapMaxDate(...[...forecast.scheduled.values()].map(entry => entry.end));
+    const allDone = !openItems.length;
+    const forecastIncomplete = missingEstimate.length > 0 || unresolvedEstimated.length > 0;
+    const deadlinePassed = !allDone && deadline < today;
+    const behind = !allDone && !!projectedEnd && projectedEnd > deadline;
+    const statusClass = deadlinePassed ? "behind" : forecastIncomplete ? "at-risk" : behind ? "behind" : "on-track";
+    const statusText = allDone ? "Goal completed" : deadlinePassed ? "Deadline passed" : forecastIncomplete ? "Forecast incomplete" : behind ? "Deadline at risk" : "On track";
+    roadmapStatusEl.className = `roadmap-status ${statusClass}`;
+    roadmapStatusEl.textContent = statusText;
+    roadmapGoalEl.textContent = planningData.productGoal;
+    const totalHours = roundHours(openItems.reduce((sum, item) => sum + (forecast.hoursById.get(item.id) || 0), 0));
+    let capacityUntilDeadline = 0;
+    for(let date = new Date(today), guard = 0; date <= deadline && guard < 1095; date = addDays(date, 1), guard++) developers.forEach(member => { capacityUntilDeadline += roadmapDailyCapacity(member, date, developers.length); });
+    capacityUntilDeadline = roundHours(capacityUntilDeadline);
+    const perDeveloperCapacity = developers.length ? capacityUntilDeadline / developers.length : 0;
+    const additionalDevelopers = perDeveloperCapacity > 0 ? Math.max(0, Math.ceil(totalHours / perDeveloperCapacity) - developers.length) : 0;
+    const projectedText = allDone ? "Completed" : projectedEnd ? formatHistoryDate(toISODate(projectedEnd)) : "Not forecastable";
+    roadmapMetricsEl.innerHTML = [
+      ["Goal deadline", formatHistoryDate(planningData.productGoalDeadline)],
+      ["Projected finish", projectedText],
+      ["Remaining forecast", `${formatHours(totalHours)}h · ${openItems.length} item${openItems.length === 1 ? "" : "s"}`],
+      ["Delivery capacity", `${formatHours(capacityUntilDeadline)}h · ${developers.length} Developer${developers.length === 1 ? "" : "s"}`]
+    ].map(([label, value]) => `<div class="roadmap-metric"><span class="roadmap-metric-label">${label}</span><span class="roadmap-metric-value">${escapeHtml(value)}</span></div>`).join("");
+    if(allDone) roadmapNoteEl.textContent = "All Product Goal work currently represented in the backlog is complete.";
+    else if(deadlinePassed) roadmapNoteEl.textContent = projectedEnd
+      ? `The Product Goal deadline has passed. Move it to at least ${projectedText}, after resolving any missing estimates or dependencies shown below.`
+      : "The Product Goal deadline has passed. Complete the missing estimates and dependencies below before choosing a new target date.";
+    else if(forecastIncomplete) roadmapNoteEl.textContent = `${missingEstimate.length} item${missingEstimate.length === 1 ? " needs" : "s need"} an estimate${unresolvedEstimated.length ? `; ${unresolvedEstimated.length} more cannot be scheduled because of dependencies or unavailable capacity` : ""}. Complete these inputs before treating the forecast as a commitment.`;
+    else if(behind) roadmapNoteEl.textContent = `At the current plan, move the deadline to ${projectedText}${additionalDevelopers ? ` or add approximately ${additionalDevelopers} Developer${additionalDevelopers === 1 ? "" : "s"}` : "; dependency sequencing or manual assignments are the limiting factor"}.`;
+    else roadmapNoteEl.textContent = `The current plan reaches the Product Goal by the deadline with approximately ${formatHours(Math.max(0, capacityUntilDeadline - totalHours))}h of capacity remaining.`;
+
+    const horizonEnd = roadmapMaxDate(deadline, projectedEnd, addDays(today, 20));
+    // Keep one full week after the last deadline/forecast marker so its label never gets clipped.
+    const displayDays = Math.max(28, roadmapDateDiff(today, horizonEnd) + 8);
+    const timelineWidth = Math.max(720, displayDays * ROADMAP_DAY_WIDTH);
+    const todayMarker = roadmapMarker("today", today, today, displayDays);
+    const deadlineMarker = roadmapMarker("deadline", deadline, today, displayDays);
+    let ruler = "";
+    let weekendShading = "";
+    let monthBoundaries = "";
+    for(let index = 0; index < displayDays; index++){
+      const date = addDays(today, index);
+      if(date.getDay() === 0 || date.getDay() === 6) weekendShading += `<span class="roadmap-weekend" style="left:${index * ROADMAP_DAY_WIDTH}px"></span>`;
+      const startsMonth = index === 0 || date.getDate() === 1;
+      const monthBoundaryNearby = [-3, -2, -1, 0, 1, 2, 3].some(offset => {
+        const candidateIndex = index + offset;
+        return candidateIndex >= 0 && candidateIndex < displayDays && addDays(today, candidateIndex).getDate() === 1;
+      });
+      const startsWeek = date.getDay() === 1 && (!monthBoundaryNearby || startsMonth);
+      if(startsMonth || startsWeek){
+        const monthLabel = startsMonth ? date.toLocaleDateString("en-GB", { month: "short", year: "numeric" }) : "";
+        const weekLabel = startsWeek ? `W${isoWeekNumber(date)}` : "";
+        ruler += `<span class="roadmap-week-label${startsMonth ? " month" : ""}" style="left:${index * ROADMAP_DAY_WIDTH + 4}px">${escapeHtml([monthLabel, weekLabel].filter(Boolean).join(" · "))}</span>`;
+      }
+      ruler += `<span class="roadmap-day-number" style="left:${index * ROADMAP_DAY_WIDTH}px">${date.getDate()}</span>`;
+      if(index > 0 && date.getDate() === 1) monthBoundaries += `<span class="roadmap-month-boundary" style="left:${index * ROADMAP_DAY_WIDTH - 1}px"></span>`;
+    }
+    const header = `<div class="roadmap-row header"><div class="roadmap-task-cell">Backlog item</div><div class="roadmap-owner-cell">Developer</div><div class="roadmap-timeline">${weekendShading}${monthBoundaries}${ruler}${todayMarker}${deadlineMarker}</div></div>`;
+    const rows = items.map(item => {
+      const schedule = forecast.scheduled.get(item.id);
+      const hours = item.done ? storyForecastHours(item) : (forecast.hoursById.get(item.id) || 0);
+      const directTarget = dependencyTarget(item);
+      const parent = item.parentId ? productItem(item.parentId) : null;
+      const dependencyMeta = directTarget ? `<span class="roadmap-dependency${item.dependency?.relation === "blocked_by" ? " blocked" : ""}">${item.dependency?.relation === "blocked_by" ? "Blocked by" : "After"} ${escapeHtml(directTarget.referenceId)}</span>` : "";
+      let bar = "";
+      if(item.done){
+        const completed = item.completedDate ? parseISODate(item.completedDate) : today;
+        const left = Math.max(0, Math.min(displayDays - 1, roadmapDateDiff(today, completed))) * ROADMAP_DAY_WIDTH + 2;
+        bar = `<span class="roadmap-bar done" style="left:${left}px;width:${ROADMAP_DAY_WIDTH - 4}px" title="Completed ${escapeHtml(formatHistoryDate(item.completedDate))}">✓</span>`;
+      }else if(schedule){
+        const startIndex = Math.max(0, roadmapDateDiff(today, schedule.start));
+        const endIndex = Math.min(displayDays - 1, roadmapDateDiff(today, schedule.end));
+        const width = Math.max(8, (endIndex - startIndex + 1) * ROADMAP_DAY_WIDTH - 4);
+        const member = developers.find(candidate => candidate.id === schedule.memberId);
+        bar = `<span class="roadmap-bar ${item.type}" style="left:${startIndex * ROADMAP_DAY_WIDTH + 2}px;width:${width}px" title="${escapeHtml(`${formatHistoryDate(toISODate(schedule.start))} – ${formatHistoryDate(toISODate(schedule.end))} · ${formatHours(hours)}h`)}">${formatHours(hours)}h${member ? ` · ${escapeHtml(member.name)}` : ""}</span>`;
+      }else{
+        const reason = !hours ? "Needs estimate" : "Waiting on dependency";
+        bar = `<span class="roadmap-unscheduled">${reason}</span>`;
+      }
+      return `<div class="roadmap-row"><div class="roadmap-task-cell"><div class="roadmap-task-copy"><span class="backlog-type ${item.type}">${escapeHtml(item.referenceId)}</span><div class="roadmap-task-title">${escapeHtml(item.title)}</div><div class="roadmap-task-meta">${formatHours(hours)}h${parent ? ` · ${escapeHtml(parent.referenceId)}` : ""}${dependencyMeta ? ` · ${dependencyMeta}` : ""}</div></div></div><div class="roadmap-owner-cell">${roadmapOwnerSelect(item, developers, schedule)}</div><div class="roadmap-timeline">${weekendShading}${monthBoundaries}${bar}${todayMarker}${deadlineMarker}</div></div>`;
+    }).join("");
+    roadmapBoardEl.style.setProperty("--roadmap-width", `${timelineWidth}px`);
+    roadmapBoardEl.innerHTML = header + rows;
+  }
+  roadmapBoardEl.addEventListener("change", e => {
+    const select = e.target.closest("[data-roadmap-assignment]");
+    if(!select) return;
+    roadmapData.assignments[select.dataset.roadmapAssignment] = select.value;
+    saveRoadmap(); renderRoadmap();
+  });
+  document.getElementById("openPlanningFromRoadmap").addEventListener("click", e => { e.preventDefault(); activateTab("planning"); });
+  document.getElementById("openSettingsFromRoadmap").addEventListener("click", e => { e.preventDefault(); openSettings(); });
+
   // --- Burndown ---
   const burndownEmptyState = document.getElementById("burndownEmptyState");
   const burndownCard = document.getElementById("burndownCard");
@@ -5624,6 +5924,7 @@
   renderMeeting();
   renderCapacity();
   renderVacation();
+  renderRoadmap();
   renderRetro();
   renderStats();
   renderSprintHistory();
@@ -5666,6 +5967,11 @@
       label: "Burndown",
       eyebrow: "Sprint insight",
       description: "Compare the Sprint commitment, scope changes, and remaining work across working days."
+    },
+    roadmap: {
+      label: "Roadmap",
+      eyebrow: "Product forecast",
+      description: "Forecast the Product Goal against dependencies, team availability, and its target deadline."
     },
     stats: {
       label: "Stats",
