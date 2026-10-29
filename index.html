@@ -1094,7 +1094,7 @@
     <div class="card" id="reviewCard">
       <div class="daily-header">
         <h2>🔍 Sprint Review</h2>
-        <button class="btn-ghost btn-sm" id="btnReviewHints">💡 Hints</button>
+        <button class="btn-ghost btn-sm active" id="btnReviewHints" aria-expanded="true">💡 Hints</button>
       </div>
       <div class="daily-controls-row">
         <div class="control-panel">
@@ -1110,7 +1110,7 @@
         </div>
       </div>
       <div class="section-note muted">Use the timer to track and record how long your review takes.</div>
-      <div class="guiding-questions hidden" id="reviewHints">
+      <div class="guiding-questions" id="reviewHints">
         <p><strong>Before you start, align on:</strong></p>
         <ul>
           <li>What are we going to showcase?</li>
@@ -1145,7 +1145,7 @@
     <div class="card" id="retroCard">
       <div class="planning-header">
         <h2>🔁 Sprint Retro</h2>
-        <button class="btn-ghost btn-sm" id="btnRetroHints" style="margin-left:auto">💡 Hints</button>
+        <button class="btn-ghost btn-sm active" id="btnRetroHints" style="margin-left:auto" aria-expanded="true">💡 Hints</button>
       </div>
       <div class="daily-controls-row">
         <div class="control-panel">
@@ -1160,7 +1160,7 @@
           </div>
         </div>
       </div>
-      <div class="guiding-questions hidden" id="retroHints">
+      <div class="guiding-questions" id="retroHints">
         <p data-retrotab="wentwell">1️⃣ What went well?</p>
         <p data-retrotab="wentnotwell">2️⃣ What didn't go so well?</p>
         <p data-retrotab="current">3️⃣ What should we start/continue doing? (Current Retro)</p>
@@ -3987,6 +3987,7 @@
   btnReviewHints.addEventListener("click", () => {
     const isHidden = reviewHintsEl.classList.toggle("hidden");
     btnReviewHints.classList.toggle("active", !isHidden);
+    btnReviewHints.setAttribute("aria-expanded", String(!isHidden));
   });
 
   const reviewTimer = createCeremonyTimer(
@@ -4037,6 +4038,7 @@
   btnRetroHints.addEventListener("click", () => {
     const isHidden = retroHintsEl.classList.toggle("hidden");
     btnRetroHints.classList.toggle("active", !isHidden);
+    btnRetroHints.setAttribute("aria-expanded", String(!isHidden));
   });
   retroHintsEl.addEventListener("click", e => {
     const hint = e.target.closest("p[data-retrotab]");
