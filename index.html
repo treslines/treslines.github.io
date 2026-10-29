@@ -280,16 +280,16 @@
   .roadmap-task-cell{left:0}.roadmap-owner-cell{left:260px;z-index:2}.roadmap-row.header .roadmap-task-cell,.roadmap-row.header .roadmap-owner-cell{z-index:7;background:#eaf4f4;color:var(--brand-dark);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
   .roadmap-task-copy{min-width:0}.roadmap-task-title{margin-top:4px;color:var(--ink);font-size:.73rem;line-height:1.3;overflow-wrap:anywhere}.roadmap-task-meta{margin-top:3px;color:var(--muted);font-size:.62rem}
   .roadmap-owner-select{width:100%;height:30px;padding:0 25px 0 8px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:.69rem}
-  .roadmap-timeline{position:relative;min-height:58px;background-image:repeating-linear-gradient(to right,transparent 0,transparent 27px,rgba(87,126,133,.12) 27px,rgba(87,126,133,.12) 28px)}
+  .roadmap-timeline{position:relative;isolation:isolate;min-height:58px;background-image:repeating-linear-gradient(to right,transparent 0,transparent 27px,rgba(87,126,133,.12) 27px,rgba(87,126,133,.12) 28px)}
   .roadmap-row.header .roadmap-timeline{min-height:48px;background:#eaf4f4;overflow:hidden}
-  .roadmap-weekend{position:absolute;top:0;bottom:0;width:28px;background:rgba(93,119,125,.07);pointer-events:none}
-  .roadmap-week-label{position:absolute;top:7px;color:#57727a;font-size:.59rem;font-weight:800;white-space:nowrap}.roadmap-week-label.month{color:var(--brand-dark)}
-  .roadmap-day-number{position:absolute;bottom:6px;width:28px;color:#789097;font-size:.57rem;font-weight:650;text-align:center;white-space:nowrap}
+  .roadmap-weekend{position:absolute;top:0;bottom:0;z-index:0;width:28px;background:rgba(93,119,125,.07);pointer-events:none}
+  .roadmap-week-label{position:absolute;top:7px;z-index:2;color:#57727a;font-size:.59rem;font-weight:800;white-space:nowrap}.roadmap-week-label.month{color:var(--brand-dark)}
+  .roadmap-day-number{position:absolute;bottom:6px;z-index:2;width:28px;color:#789097;font-size:.57rem;font-weight:650;text-align:center;white-space:nowrap}
   .roadmap-month-boundary{position:absolute;top:0;bottom:0;width:3px;z-index:1;background:#a9b7bb;pointer-events:none}
-  .roadmap-bar{position:absolute;top:17px;height:24px;min-width:8px;border-radius:6px;background:#198493;color:#fff;box-shadow:0 1px 2px rgba(5,49,59,.18);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 7px;font-size:.61rem;font-weight:800;line-height:14px}
+  .roadmap-bar{position:absolute;top:17px;z-index:2;height:24px;min-width:8px;border-radius:6px;background:#198493;color:#fff;box-shadow:0 1px 2px rgba(5,49,59,.18);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 7px;font-size:.61rem;font-weight:800;line-height:14px}
   .roadmap-bar.bug{background:#c43d4d}.roadmap-bar.test{background:#e56717}.roadmap-bar.done{background:#38a965}.roadmap-bar.blocked{background:#9daeb3;color:#fff}
-  .roadmap-unscheduled{position:absolute;top:17px;left:10px;height:24px;padding:5px 8px;border:1px dashed #9daeb3;border-radius:6px;background:#f1f4f4;color:#647b83;font-size:.61rem;font-weight:750;line-height:12px}
-  .roadmap-marker{position:absolute;top:0;bottom:0;width:2px;z-index:2;pointer-events:none}.roadmap-marker.today{background:#f97316}.roadmap-marker.deadline{background:#d33d4d}.roadmap-row.header .roadmap-marker::before{position:absolute;top:1px;left:4px;font-size:.55rem;font-weight:800;white-space:nowrap}.roadmap-row.header .roadmap-marker.today::before{content:"Today";color:#c8570b}.roadmap-row.header .roadmap-marker.deadline::before{content:"Deadline";top:28px;color:#b32d3b}
+  .roadmap-unscheduled{position:absolute;top:17px;left:10px;z-index:2;height:24px;padding:5px 8px;border:1px dashed #9daeb3;border-radius:6px;background:#f1f4f4;color:#647b83;font-size:.61rem;font-weight:750;line-height:12px}
+  .roadmap-marker{position:absolute;top:0;bottom:0;width:2px;z-index:1;pointer-events:none}.roadmap-marker.today{background:#f97316}.roadmap-marker.deadline{background:#d33d4d}.roadmap-row.header .roadmap-marker::before{position:absolute;top:1px;left:4px;font-size:.55rem;font-weight:800;white-space:nowrap}.roadmap-row.header .roadmap-marker.today::before{content:"Today";color:#c8570b}.roadmap-row.header .roadmap-marker.deadline::before{content:"Deadline";top:1px;right:4px;left:auto;color:#b32d3b}
   .roadmap-dependency{color:#71858c}.roadmap-dependency.blocked{color:#b33b49}
   @media(max-width:900px){.roadmap-metrics{grid-template-columns:repeat(2,minmax(140px,1fr))}}
 
