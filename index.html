@@ -295,6 +295,13 @@
   .backlog-column-header h3{margin:0;color:var(--brand-dark);font-size:1.04rem;letter-spacing:-.01em}
   .backlog-column-header p{margin:4px 0 0;font-size:.72rem;line-height:1.35;color:var(--muted)}
   .backlog-column-header>div{min-width:0;flex:1}
+  .backlog-heading-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:30px}
+  .backlog-date-range{display:inline-flex;align-items:center;min-height:25px;padding:3px 8px;border-radius:999px;background:#f2f7f7;color:#5b737c;font-size:.64rem;font-weight:750;white-space:nowrap}
+  .product-goal-editor{display:flex;align-items:center;gap:7px;margin-top:5px;color:var(--muted);font-size:.7rem;line-height:1.4}
+  .product-goal-input{flex:1;min-width:90px;font:inherit;font-size:.72rem;padding:3px 5px;border:1px solid transparent;border-radius:5px;color:var(--muted);background:transparent}
+  .product-goal-input:focus{border-color:var(--brand);outline:none;background:#fff}
+  .product-goal-deadline{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:.64rem;font-weight:700;white-space:nowrap}
+  .product-goal-deadline input{width:116px;height:27px;padding:2px 6px;border:1px solid var(--border);border-radius:7px;background:#fff;color:var(--ink);font:inherit;font-size:.66rem}
   .sprint-goal-editor{display:flex;align-items:flex-start;gap:7px;margin-top:5px;color:var(--muted);font-size:.7rem;line-height:1.4}
   .sprint-goal-label{flex:0 0 auto;padding:3px 7px;border-radius:999px;background:#e8f5f4;color:var(--brand-dark);font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
   .backlog-counter{flex-shrink:0;padding:4px 9px;border-radius:999px;background:#e8f5f4;color:var(--brand-dark);font-size:.66rem;font-weight:800}
@@ -318,6 +325,11 @@
   .backlog-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:5px;color:var(--muted);font-size:.67rem;line-height:1.35}
   .backlog-actions{display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
   .backlog-icon-btn{height:28px;min-width:28px;padding:0 6px;border:0;border-radius:7px;background:transparent;color:#476774;font:inherit;font-size:.69rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+  .dependency-select{height:26px;max-width:112px;padding:0 22px 0 7px;border:0;border-radius:7px;background:#f5f9f9;color:#476774;font:inherit;font-size:.64rem;cursor:pointer}
+  .dependency-select:hover,.dependency-select:focus{background:#e8f5f4;outline:none}
+  .dependency-select.blocked{background:#fff0f1;color:#b33b49}
+  .dependency-hint{display:inline-flex;align-items:center;gap:4px;color:#71858c;font-size:.64rem;font-weight:650}
+  .dependency-hint.blocked{color:#b33b49}
   .backlog-icon-btn svg,.backlog-toggle svg,.work-action svg{width:15px;height:15px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .backlog-icon-btn:hover:not(:disabled){background:#e5f2f2;color:var(--brand-dark)}.backlog-icon-btn:disabled{opacity:.28;cursor:default}
   .backlog-icon-btn.text-action{padding:0 8px;color:var(--brand-dark);font-weight:700}.backlog-icon-btn.danger:hover{background:#fff0f0;color:var(--bad)}
@@ -328,8 +340,10 @@
   .product-subtask-list{margin:12px 0 0 33px;display:flex;flex-direction:column;gap:7px}
   .product-subtask-list::before{content:"Sub-tasks";color:#627b84;font-size:.61rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
   .product-subtask{padding:9px 10px;border:1px solid var(--border);border-radius:8px;background:#f7fbfb}
-  .product-subtask-head{display:flex;align-items:center;gap:6px;min-width:0}
-  .product-subtask-title{min-width:0;flex:1;color:var(--ink);font-size:.75rem;font-weight:600;overflow-wrap:anywhere}
+  .product-subtask-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:0;min-width:0}
+  .product-subtask-identity{grid-column:1;grid-row:1;display:flex;align-items:center;gap:6px;min-width:0}
+  .product-subtask-actions{grid-column:2;grid-row:1;display:flex;align-items:center;gap:2px}
+  .product-subtask-title{grid-column:1/3;grid-row:2;min-width:0;margin:6px 0 0 30px;color:var(--ink);font-size:.75rem;font-weight:500;overflow-wrap:anywhere}
   .product-subtask-hours{color:var(--muted);font-size:.67rem;font-weight:700;white-space:nowrap}
   .product-subtask-details{margin:7px 0 0 30px;color:var(--muted);font-size:.69rem;line-height:1.4}
   .product-subtask-details ul{margin:3px 0 0;padding-left:17px}
@@ -344,23 +358,36 @@
   .work-stepper-value{min-width:38px;text-align:center;font-size:.74rem;font-weight:800;font-variant-numeric:tabular-nums}
   .work-action{width:27px;height:30px;padding:0;border:0;background:transparent;color:#3b6772;display:grid;place-items:center;cursor:pointer}
   .work-action:hover{background:#e8f5f4;color:var(--brand-dark)}.work-action+.work-stepper-value,.work-stepper-value+.work-action{border-left:1px solid #d8e5e7}
-  .work-done{width:auto;height:30px;padding:0 8px;border:1px solid #b9d2d6;border-radius:8px;background:#fff;color:#56808a;display:inline-flex;align-items:center;justify-content:center;gap:4px;font:inherit;font-size:.62rem;font-weight:800;cursor:pointer}
+  .work-done{flex:0 0 27px;width:27px;height:27px;padding:0;border:1px solid #b9d2d6;border-radius:50%;background:#fff;color:#56808a;display:inline-grid;place-items:center;font:inherit;cursor:pointer}
+  .work-done svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .work-done:hover{border-color:var(--good);background:#e9f8ef;color:#148243}
   .work-estimate.is-done .work-stepper{grid-template-columns:auto;border-color:#83cda0;background:#dff5e7;color:#126e38}.work-estimate.is-done .work-stepper-value{padding:0 10px;text-decoration:line-through}.work-estimate.is-done .work-done{border-color:#38a965;background:#38a965;color:#fff}
+  .product-pbi>.backlog-item-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start}
+  .product-pbi-identity{grid-column:1;grid-row:1;display:flex;align-items:center;gap:6px;min-width:0;min-height:30px}
+  .product-pbi>.backlog-item-head>.backlog-actions{grid-column:2;grid-row:1;margin:0;justify-content:flex-end}
+  .product-pbi>.backlog-item-head>.backlog-title-wrap{grid-column:1/3;grid-row:2;margin:7px 0 0 33px}
   .sprint-story>.backlog-item-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:start}
   .sprint-story-identity{grid-column:1;grid-row:1;display:flex;align-items:center;gap:6px;min-height:30px}
   .sprint-story-identity .backlog-toggle{flex-basis:24px}
   .sprint-story>.backlog-item-head>.backlog-actions{grid-column:2;grid-row:1;margin:0;justify-content:flex-end}
   .sprint-story>.backlog-item-head>.work-estimate{grid-column:3;grid-row:1}
-  .sprint-story>.backlog-item-head>.backlog-title-wrap{grid-column:1/4;grid-row:2;margin-top:8px}
-  .done-story-summary{display:flex;align-items:center;gap:6px;min-height:30px}
+  .sprint-story>.backlog-item-head>.backlog-title-wrap{grid-column:1/4;grid-row:2;margin:7px 0 0 33px}
+  .done-story-summary{display:grid;grid-template-columns:1fr;align-items:start;min-height:30px}
+  .done-story-summary>.backlog-title{margin:7px 0 0 33px}
   .backlog-item[data-task-id]>.backlog-item-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:start}
   .subtask-identity{grid-column:1;grid-row:1;display:flex;align-items:center;gap:6px;min-height:30px}
   .backlog-item[data-task-id]>.backlog-item-head>.backlog-actions{grid-column:2;grid-row:1;margin:0;justify-content:flex-end}
   .backlog-item[data-task-id]>.backlog-item-head>.work-estimate{grid-column:3;grid-row:1}
   .backlog-item[data-task-id]>.backlog-item-head>.backlog-title-wrap{grid-column:1/4;grid-row:2;margin-top:7px}
-  .planning-commitment{display:flex;align-items:flex-start;gap:7px;margin:0 2px 10px;color:var(--muted);font-size:.69rem;line-height:1.4}.planning-commitment strong{color:var(--ink)}
+  .planning-commitment{display:flex;align-items:center;gap:8px;margin:0 2px 10px;color:var(--muted);font-size:.69rem;line-height:1.4;flex-wrap:wrap}.planning-commitment strong{color:var(--ink)}
   .commitment-state{flex:0 0 auto;display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#fff0c7;color:#805600;font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.commitment-state.committed{background:#dff5e7;color:#126e38}
+  .commitment-action{height:29px;padding:0 11px;border:1px solid var(--brand);border-radius:8px;background:var(--brand);color:#fff;font:inherit;font-size:.69rem;font-weight:800;cursor:pointer}
+  .commitment-action:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+  .commitment-action.committed{border-color:#b8dfc7;background:#e4f6eb;color:#126e38;cursor:default}
+  .commitment-warning-list{margin:12px 0 0;padding:10px 12px 10px 28px;border-radius:9px;background:#fff8e5;color:#805600;font-size:.76rem;line-height:1.45}
+  .history-change-list{margin:6px 0 14px;padding-left:19px;color:var(--muted);font-size:.74rem;line-height:1.5}
+  .history-change-delta{font-weight:800;color:var(--ink)}
+  .history-product-goal{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 12px}
   .backlog-modal-card{max-width:720px;max-height:90vh;overflow:auto}
   .backlog-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.backlog-form-grid .field-row{margin:0}.backlog-form-grid .span-2{grid-column:1/-1}
   .backlog-form-grid textarea,.backlog-form-grid select{font:inherit;padding:8px 10px;border:1px solid var(--border);border-radius:8px;color:var(--ink);background:#fff;resize:vertical}
@@ -1114,11 +1141,11 @@
       <div class="poker-reference hidden" id="pokerReference"></div>
       <div class="planning-board">
         <section class="backlog-column" id="productBacklogColumn" data-dropzone="product">
-          <div class="backlog-column-header"><div><h3>Product Backlog</h3><p>Ordered by the Product Owner.</p></div><span class="backlog-counter" id="productBacklogCount"></span></div>
+          <div class="backlog-column-header"><div><div class="backlog-heading-row"><h3>Product Backlog</h3><label class="product-goal-deadline">Deadline <input type="date" id="productGoalDeadline" aria-label="Product Goal deadline"></label></div><div class="product-goal-editor"><span class="sprint-goal-label">Product Goal</span><input type="text" class="product-goal-input" id="productGoalInput" placeholder="Specify the Product Goal..." maxlength="500"></div><p>Ordered by the Product Owner.</p></div><span class="backlog-counter" id="productBacklogCount"></span></div>
           <div class="backlog-list" id="productBacklogList"></div>
         </section>
         <section class="backlog-column" id="sprintBacklogColumn" data-dropzone="sprint">
-          <div class="backlog-column-header"><div><h3>Sprint Backlog</h3><div class="sprint-goal-editor"><span class="sprint-goal-label">Sprint Goal</span><div class="sprint-goals" id="sprintGoalsList"></div></div></div><span class="backlog-counter" id="sprintBacklogCount"></span></div>
+          <div class="backlog-column-header"><div><div class="backlog-heading-row"><h3>Sprint Backlog</h3><span class="backlog-date-range" id="sprintBacklogRange"></span></div><div class="sprint-goal-editor"><span class="sprint-goal-label">Sprint Goal</span><div class="sprint-goals" id="sprintGoalsList"></div></div></div><span class="backlog-counter" id="sprintBacklogCount"></span></div>
           <div class="planning-commitment" id="planningCommitment"></div>
           <div class="backlog-list" id="sprintBacklogList"></div>
         </section>
@@ -1523,7 +1550,7 @@
 
 <div class="summary-overlay hidden" id="appConfirmOverlay">
   <div class="summary-card">
-    <h2>⚠️ Please Confirm</h2>
+    <h2 id="appConfirmTitle">⚠️ Please Confirm</h2>
     <p class="muted" id="appConfirmMessage"></p>
     <div class="retro-modal-actions">
       <button class="btn-ghost" id="appConfirmCancel">Cancel</button>
@@ -1586,6 +1613,18 @@
     </div>
     <div class="form-error" id="subtaskError"></div>
     <div class="retro-modal-actions"><button class="btn-ghost" id="subtaskCancel">Cancel</button><button class="btn-primary" id="subtaskSave">Create Sub-task</button></div>
+  </div>
+</div>
+
+<div class="summary-overlay hidden" id="commitmentOverlay">
+  <div class="summary-card">
+    <h2>Give Sprint Commitment?</h2>
+    <p class="muted">The team is committing to the Sprint Goal and the selected Sprint Backlog. Confirming creates an immutable baseline used to track work added, removed, or re-estimated during the Sprint.</p>
+    <div id="commitmentWarnings"></div>
+    <div class="retro-modal-actions">
+      <button class="btn-ghost" id="commitmentCancel">Cancel</button>
+      <button class="btn-primary" id="commitmentConfirm">Give Commitment</button>
+    </div>
   </div>
 </div>
 
@@ -1682,14 +1721,28 @@
 
   // Custom confirm modal (used instead of the native confirm() dialog for all destructive actions).
   const appConfirmOverlay = document.getElementById("appConfirmOverlay");
+  const appConfirmTitle = document.getElementById("appConfirmTitle");
   const appConfirmMessage = document.getElementById("appConfirmMessage");
   const appConfirmOk = document.getElementById("appConfirmOk");
   const appConfirmCancel = document.getElementById("appConfirmCancel");
   let appConfirmResolve = null;
 
   function showConfirm(message, confirmLabel){
+    appConfirmTitle.textContent = "⚠️ Please Confirm";
     appConfirmMessage.textContent = message;
     appConfirmOk.textContent = confirmLabel || "Confirm";
+    appConfirmCancel.classList.remove("hidden");
+    appConfirmOk.className = "btn-danger-solid";
+    appConfirmOverlay.classList.remove("hidden");
+    return new Promise(resolve => { appConfirmResolve = resolve; });
+  }
+
+  function showNotice(message, title){
+    appConfirmTitle.textContent = title || "Please review";
+    appConfirmMessage.textContent = message;
+    appConfirmOk.textContent = "OK";
+    appConfirmCancel.classList.add("hidden");
+    appConfirmOk.className = "btn-primary";
     appConfirmOverlay.classList.remove("hidden");
     return new Promise(resolve => { appConfirmResolve = resolve; });
   }
@@ -2035,7 +2088,7 @@
   sprintStartDateEl.addEventListener("change", () => {
     const value = sprintStartDateEl.value;
     if(value && value < toISODate(new Date())){
-      alert("Sprint Start Date cannot be in the past.");
+      showNotice("Sprint Start Date cannot be in the past.", "Invalid Sprint date");
       sprintStartDateEl.value = settings.sprintStartDate || "";
       return;
     }
@@ -2171,7 +2224,7 @@
         renderCapacity();
         renderVacation();
       } catch(err){
-        alert("Could not import file: " + err.message);
+        showNotice("Could not import file: " + err.message, "Import failed");
       } finally {
         importFileEl.value = "";
       }
@@ -3174,12 +3227,12 @@
   newSprintConfirmBtn.addEventListener("click", () => {
     const value = newSprintDateEl.value;
     if(value && value < toISODate(new Date())){
-      alert("Sprint Start Date cannot be in the past.");
+      showNotice("Sprint Start Date cannot be in the past.", "Invalid Sprint date");
       return;
     }
     const previousSprintStart = settings.sprintStartDate;
     const stories = sprintStories();
-    if(stories.length){
+    if(stories.length || planningData.commitment){
       const completedStories = stories.filter(story => story.done);
       archiveCurrentSprint(previousSprintStart, stories);
 
@@ -3191,6 +3244,7 @@
     planningData.sprintStoryIds = [];
     planningData.commitment = null;
     planningData.scopeTimeline = [];
+    planningData.scopeChanges = [];
     planningData.goals = [""];
     savePlanning();
 
@@ -3460,6 +3514,9 @@
   const productBacklogCountEl = document.getElementById("productBacklogCount");
   const sprintBacklogCountEl = document.getElementById("sprintBacklogCount");
   const planningCommitmentEl = document.getElementById("planningCommitment");
+  const productGoalInputEl = document.getElementById("productGoalInput");
+  const productGoalDeadlineEl = document.getElementById("productGoalDeadline");
+  const sprintBacklogRangeEl = document.getElementById("sprintBacklogRange");
   const btnAddTicket = document.getElementById("btnAddTicket");
   const btnRemoveAllTickets = document.getElementById("btnRemoveAllTickets");
   const btnPlanningStart = document.getElementById("btnPlanningStart");
@@ -3483,12 +3540,17 @@
       fill: document.getElementById("planningTimerFill"), text: document.getElementById("planningTimerText") }
   );
 
+  const PBI_TYPE_PREFIX = { epic: "EPIC", feature: "FEAT", story: "STORY", bug: "BUG", test: "TEST" };
   function emptyPlanningData(){
-    return { productItems: [], sprintStoryIds: [], subtasksByStory: {}, goals: [""], commitment: null, scopeTimeline: [] };
+    return {
+      productItems: [], sprintStoryIds: [], subtasksByStory: {}, goals: [""],
+      productGoal: "", productGoalDeadline: "", idCounters: {},
+      commitment: null, scopeTimeline: [], scopeChanges: []
+    };
   }
   function normalizePbi(item){
     return Object.assign({
-      id: uuid(), type: "story", parentId: null, title: "", context: "", acceptanceCriteria: [],
+      id: uuid(), referenceId: "", type: "story", parentId: null, dependency: null, title: "", context: "", acceptanceCriteria: [],
       outOfScope: "", outOfScopeNA: false, refinementNotes: "", refinementNotesNA: false,
       estimateHours: 0, externalUrl: "", reviewedByTechLead: false, collapsed: true,
       done: false, actualHours: null, completedDate: null
@@ -3521,6 +3583,44 @@
     planningData.goals = Array.isArray(planningData.goals) && planningData.goals.length ? planningData.goals : [""];
     planningData.scopeTimeline = Array.isArray(planningData.scopeTimeline) ? planningData.scopeTimeline : [];
   }
+  planningData.productGoal = String(planningData.productGoal || "");
+  planningData.productGoalDeadline = String(planningData.productGoalDeadline || "");
+  planningData.scopeChanges = Array.isArray(planningData.scopeChanges) ? planningData.scopeChanges : [];
+  planningData.idCounters = planningData.idCounters && typeof planningData.idCounters === "object" ? planningData.idCounters : {};
+
+  function ensurePlanningIdentifiers(){
+    const used = new Set();
+    Object.keys(PBI_TYPE_PREFIX).forEach(type => { planningData.idCounters[type] = Math.max(0, Number(planningData.idCounters[type]) || 0); });
+    planningData.productItems.forEach(item => {
+      const prefix = PBI_TYPE_PREFIX[item.type] || "STORY";
+      if(item.type === "feature" && /^FEATURE-\d+$/.test(String(item.referenceId || ""))) item.referenceId = item.referenceId.replace(/^FEATURE-/, "FEAT-");
+      const match = String(item.referenceId || "").match(/^([A-Z]+)-(\d+)$/);
+      if(!match || match[1] !== prefix || used.has(item.referenceId)){
+        item.referenceId = "";
+        return;
+      }
+      used.add(item.referenceId);
+      planningData.idCounters[item.type] = Math.max(planningData.idCounters[item.type], Number(match[2]) || 0);
+    });
+    planningData.productItems.forEach(item => {
+      if(item.referenceId) return;
+      const type = PBI_TYPE_PREFIX[item.type] ? item.type : "story";
+      planningData.idCounters[type]++;
+      item.referenceId = `${PBI_TYPE_PREFIX[type]}-${String(planningData.idCounters[type]).padStart(2, "0")}`;
+      used.add(item.referenceId);
+    });
+    const itemIds = new Set(planningData.productItems.map(item => item.id));
+    planningData.productItems.forEach(item => {
+      const dependency = item.dependency;
+      if(!dependency || !["depends_on", "blocked_by"].includes(dependency.relation) || !itemIds.has(dependency.targetId) || dependency.targetId === item.id) item.dependency = null;
+    });
+  }
+  function nextPbiReference(type){
+    const normalizedType = PBI_TYPE_PREFIX[type] ? type : "story";
+    planningData.idCounters[normalizedType] = Math.max(0, Number(planningData.idCounters[normalizedType]) || 0) + 1;
+    return `${PBI_TYPE_PREFIX[normalizedType]}-${String(planningData.idCounters[normalizedType]).padStart(2, "0")}`;
+  }
+  ensurePlanningIdentifiers();
   if(planningData.compactDefaultsVersion !== 1){
     planningData.productItems.forEach(item => { item.collapsed = true; });
     planningData.compactDefaultsVersion = 1;
@@ -3573,6 +3673,28 @@
     if(tasks.length) return roundHours(tasks.reduce((sum, task) => sum + (task.actualHours ?? (task.done ? task.hours : 0)), 0));
     return roundHours(story.actualHours ?? (story.done ? storyForecastHours(story) : 0));
   }
+  function commitmentItemSnapshot(story){
+    return {
+      id: story.id,
+      referenceId: story.referenceId,
+      type: story.type,
+      title: story.title,
+      forecastHours: storyForecastHours(story),
+      estimateHours: story.estimateHours,
+      context: story.context || "",
+      acceptanceCriteria: acceptanceLines(story.acceptanceCriteria),
+      outOfScope: story.outOfScope || "",
+      outOfScopeNA: !!story.outOfScopeNA,
+      refinementNotes: story.refinementNotes || "",
+      refinementNotesNA: !!story.refinementNotesNA,
+      externalUrl: story.externalUrl || "",
+      dependency: story.dependency ? Object.assign({}, story.dependency) : null,
+      subtasks: storySubtasks(story.id).map(task => ({
+        id: task.id, title: task.title, description: task.description || "", hours: task.hours,
+        externalUrl: task.externalUrl || ""
+      }))
+    };
+  }
   function recordPlanningSnapshot(dateStr, reason){
     if(!planningData.commitment) return;
     const snapshot = { date: dateStr || toISODate(new Date()), scopeHours: totalPlannedHours(), remainingHours: totalRemainingHours(), reason: reason || "Updated" };
@@ -3580,12 +3702,36 @@
     if(existing === -1) planningData.scopeTimeline.push(snapshot); else planningData.scopeTimeline[existing] = snapshot;
     planningData.scopeTimeline.sort((a, b) => a.date.localeCompare(b.date));
   }
+  function recordScopeChange(kind, item, detail, deltaHours = 0){
+    if(!planningData.commitment) return;
+    planningData.scopeChanges.push({
+      id: uuid(),
+      timestamp: new Date().toISOString(),
+      date: toISODate(new Date()),
+      kind,
+      itemId: item?.id || null,
+      referenceId: item?.referenceId || null,
+      title: item?.title || "",
+      detail: detail || "Sprint scope updated",
+      deltaHours: roundHours(Number(deltaHours) || 0)
+    });
+    recordPlanningSnapshot(toISODate(new Date()), detail || "Sprint scope updated");
+  }
   function capturePlanningCommitment(){
-    if(planningData.commitment){ recordPlanningSnapshot(toISODate(new Date()), "Planning revisited"); return; }
+    if(planningData.commitment) return;
+    const items = sprintStories().map(commitmentItemSnapshot);
     const storyHours = {};
-    sprintStories().forEach(story => { storyHours[story.id] = storyForecastHours(story); });
-    planningData.commitment = { date: toISODate(new Date()), totalHours: totalPlannedHours(), storyHours };
+    items.forEach(item => { storyHours[item.id] = item.forecastHours; });
+    const timestamp = new Date().toISOString();
+    planningData.commitment = {
+      date: toISODate(new Date()), timestamp, totalHours: totalPlannedHours(), storyHours,
+      itemIds: items.map(item => item.id), items,
+      goals: planningData.goals.map(goal => String(goal || "").trim()).filter(Boolean),
+      productGoal: planningData.productGoal,
+      productGoalDeadline: planningData.productGoalDeadline
+    };
     planningData.scopeTimeline = [];
+    planningData.scopeChanges = [];
     recordPlanningSnapshot(planningData.commitment.date, "Sprint commitment");
   }
   function safeExternalUrl(value){
@@ -3596,6 +3742,52 @@
   function itemChildren(parentId){ return planningData.productItems.filter(item => item.parentId === parentId); }
   function itemDescendants(id){ const direct = itemChildren(id); return direct.concat(direct.flatMap(child => itemDescendants(child.id))); }
   function siblingItems(item){ return planningData.productItems.filter(candidate => candidate.parentId === item.parentId); }
+  function dependencyTarget(item){ return item?.dependency ? productItem(item.dependency.targetId) : null; }
+  function dependencyWouldCycle(itemId, targetId){
+    const visited = new Set();
+    let currentId = targetId;
+    while(currentId){
+      if(currentId === itemId) return true;
+      if(visited.has(currentId)) return true;
+      visited.add(currentId);
+      currentId = productItem(currentId)?.dependency?.targetId || null;
+    }
+    return false;
+  }
+  function renderDependencySelect(item){
+    const current = item.dependency ? `${item.dependency.relation}:${item.dependency.targetId}` : "";
+    const targets = planningData.productItems.filter(candidate => candidate.id !== item.id);
+    const options = relation => targets.map(target => {
+      const value = `${relation}:${target.id}`;
+      return `<option value="${value}"${value === current ? " selected" : ""}>${escapeHtml(target.referenceId)}</option>`;
+    }).join("");
+    const relationLabel = item.dependency?.relation === "blocked_by" ? "Blocked by" : item.dependency ? "Depends on" : "No dependency";
+    return `<select class="dependency-select${item.dependency?.relation === "blocked_by" ? " blocked" : ""}" data-dependency-item="${item.id}" aria-label="Dependency for ${escapeHtml(item.referenceId)}" title="${escapeHtml(relationLabel)}">` +
+      `<option value=""${current ? "" : " selected"}>No dependency</option>` +
+      (targets.length ? `<optgroup label="Depends on">${options("depends_on")}</optgroup><optgroup label="Blocked by">${options("blocked_by")}</optgroup>` : "") +
+      `</select>`;
+  }
+  function renderDependencyHint(item){
+    const target = dependencyTarget(item);
+    if(!target) return "";
+    const blocked = item.dependency.relation === "blocked_by";
+    return `<span class="dependency-hint${blocked ? " blocked" : ""}">${blocked ? "Blocked by" : "Depends on"} ${escapeHtml(target.referenceId)}</span>`;
+  }
+  function updateItemDependency(itemId, value){
+    const item = productItem(itemId);
+    if(!item) return false;
+    if(!value){ item.dependency = null; return true; }
+    const separator = value.indexOf(":");
+    const relation = value.slice(0, separator);
+    const targetId = value.slice(separator + 1);
+    if(!["depends_on", "blocked_by"].includes(relation) || !productItem(targetId) || targetId === itemId) return false;
+    if(dependencyWouldCycle(itemId, targetId)){
+      showNotice("This dependency would create a circular relationship.", "Dependency not allowed");
+      return false;
+    }
+    item.dependency = { relation, targetId };
+    return true;
+  }
   function moveBacklogItem(id, direction){
     const item = productItem(id); if(!item) return;
     const siblings = siblingItems(item).filter(candidate => !(isSprintItemType(candidate.type) && planningData.sprintStoryIds.includes(candidate.id)));
@@ -3636,11 +3828,10 @@
   function renderProductSubtask(task){
     const ready = isSubtaskReady(task); const expanded = !task.collapsed; const link = renderExternalLink(task.externalUrl);
     return `<article class="product-subtask${ready ? " ready" : ""}${task.done ? " done" : ""}" data-product-task-id="${task.id}">` +
-      `<div class="product-subtask-head"><button class="backlog-toggle" data-action="product-task-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
-      `<span class="backlog-type">Sub-task</span><span class="product-subtask-title">${escapeHtml(task.title)}</span>` +
-      `<span class="backlog-status">${task.done ? "Done" : ready ? "Ready" : "Needs details"}</span><span class="product-subtask-hours">${formatHours(task.hours)}h</span>` +
+      `<div class="product-subtask-head"><div class="product-subtask-identity"><button class="backlog-toggle" data-action="product-task-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
+      `<span class="backlog-type">Sub-task</span><span class="backlog-status">${task.done ? "Done" : ready ? "Ready" : "Needs details"}</span><span class="product-subtask-hours">${formatHours(task.hours)}h</span></div><div class="product-subtask-actions">` +
       `<button class="backlog-icon-btn text-action" data-action="product-task-edit" title="Edit Sub-task">${planningIcon("edit")}<span>Edit</span></button>` +
-      `<button class="backlog-icon-btn danger" data-action="product-task-delete" title="Delete Sub-task" aria-label="Delete Sub-task">${planningIcon("trash")}</button></div>` +
+      `<button class="backlog-icon-btn danger" data-action="product-task-delete" title="Delete Sub-task" aria-label="Delete Sub-task">${planningIcon("trash")}</button></div><span class="product-subtask-title">${escapeHtml(task.title)}</span></div>` +
       (expanded ? `<div class="product-subtask-details">${task.description ? renderDetailLines("Description", task.description, false) : ""}${link ? `<p>${link}</p>` : ""}</div>` : "") + `</article>`;
   }
   function renderProductItem(item){
@@ -3651,18 +3842,18 @@
     const siblingIndex = siblings.findIndex(candidate => candidate.id === item.id);
     const ready = isPbiReady(item); const expanded = !item.collapsed;
     return `<article class="backlog-item product-pbi${ready ? " ready" : ""}" data-pbi-id="${item.id}" data-type="${item.type}"${isSprintItemType(item.type) ? ` draggable="true"` : ""}>` +
-      `<div class="backlog-item-head"><button class="backlog-toggle" data-action="toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
-      `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-type ${item.type}">${item.type}</span><span class="backlog-title">${escapeHtml(item.title)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}${!expanded && productSubtasks.length ? `<span class="backlog-counter">${productSubtasks.length} Sub-task${productSubtasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
-      `<div class="backlog-meta"><span>${isSprintItemType(item.type) ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div>` +
+      `<div class="backlog-item-head"><div class="product-pbi-identity"><button class="backlog-toggle" data-action="toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
+      `<span class="backlog-type ${item.type}">${escapeHtml(item.referenceId)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}${!expanded && productSubtasks.length ? `<span class="backlog-counter">${productSubtasks.length} Sub-task${productSubtasks.length === 1 ? "" : "s"}</span>` : ""}${renderDependencySelect(item)}</div>` +
       `<div class="backlog-actions">${siblings.length > 1 ? `<button class="backlog-icon-btn" data-action="moveup" title="Move up" aria-label="Move up"${siblingIndex <= 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="movedown" title="Move down" aria-label="Move down"${siblingIndex === siblings.length - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}` +
-      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${isSprintItemType(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div></div>` +
+      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${isSprintItemType(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div>` +
+      `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-title">${escapeHtml(item.title)}</span></div><div class="backlog-meta"><span>${isSprintItemType(item.type) ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div></div>` +
       (expanded ? renderPbiDetails(item) + (productSubtasks.length ? `<div class="product-subtask-list">${productSubtasks.map(renderProductSubtask).join("")}</div>` : "") + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
   }
   function renderHourBox(kind, storyId, task){
     const item = task || productItem(storyId); const hours = task ? task.hours : item.estimateHours;
     const data = `data-kind="${kind}" data-story-id="${storyId}"${task ? ` data-task-id="${task.id}"` : ""}`;
     return `<div class="work-estimate${item.done ? " is-done" : ""}">` +
-      `<button class="work-done" data-hour-action="done" ${data} title="${item.done ? "View completion or reopen" : "Mark Done"}" aria-label="${item.done ? "View completion or reopen" : "Mark Done"}">${planningIcon("check")}<span>Done</span></button>` +
+      `<button class="work-done" data-hour-action="done" ${data} title="${item.done ? "View completion or reopen" : "Mark Done"}" aria-label="${item.done ? "View completion or reopen" : "Mark Done"}">${planningIcon("check")}</button>` +
       `<div class="work-stepper">` +
       (!item.done ? `<button class="work-action" data-hour-action="minus" ${data} title="Decrease estimate" aria-label="Decrease estimate">${planningIcon("minus")}</button>` : "") +
       `<span class="work-stepper-value">${formatHours(hours)}h</span>` +
@@ -3683,11 +3874,11 @@
     const allTasksDone = tasks.length > 0 && tasks.every(task => task.done); const expanded = !story.collapsed;
     const articleStart = `<article class="backlog-item sprint-story${ready ? " ready" : ""}${story.done ? " done" : ""}${allTasksDone && !story.done ? " completion-ready ready-to-close" : ""}" data-story-id="${story.id}" draggable="true">`;
     if(story.done && !tasks.length && !expanded){
-      return articleStart + `<div class="done-story-summary"><button class="backlog-toggle" data-action="sprint-toggle" title="Expand" aria-label="Expand">${planningIcon("chevronRight")}</button><span class="backlog-type ${story.type}">${itemTypeLabel(story)}</span><span class="backlog-title">${escapeHtml(story.title)}</span></div></article>`;
+      return articleStart + `<div class="done-story-summary"><div class="sprint-story-identity"><button class="backlog-toggle" data-action="sprint-toggle" title="Expand" aria-label="Expand">${planningIcon("chevronRight")}</button><span class="backlog-type ${story.type}">${escapeHtml(story.referenceId)}</span>${renderDependencySelect(story)}</div><span class="backlog-title">${escapeHtml(story.title)}</span></div></article>`;
     }
     return articleStart +
-      `<div class="backlog-item-head"><div class="sprint-story-identity"><button class="backlog-toggle" data-action="sprint-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button><span class="backlog-type ${story.type}">${itemTypeLabel(story)}</span>${!expanded && tasks.length ? `<span class="backlog-counter">${tasks.length} Sub-task${tasks.length === 1 ? "" : "s"}</span>` : ""}</div>` +
-      `<div class="backlog-actions">${total > 1 ? `<button class="backlog-icon-btn" data-action="sprint-up" title="Move up" aria-label="Move up"${index === 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="sprint-down" title="Move down" aria-label="Move down"${index === total - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}<button class="backlog-icon-btn text-action" data-action="edit-story">${planningIcon("edit")}<span>Edit</span></button><button class="backlog-icon-btn text-action" data-action="return-product">${planningIcon("arrowLeft")}<span>Product</span></button><button class="backlog-icon-btn text-action" data-action="add-subtask">${planningIcon("plus")}<span>Sub-task</span></button></div>` +
+      `<div class="backlog-item-head"><div class="sprint-story-identity"><button class="backlog-toggle" data-action="sprint-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button><span class="backlog-type ${story.type}">${escapeHtml(story.referenceId)}</span>${!expanded && tasks.length ? `<span class="backlog-counter">${tasks.length} Sub-task${tasks.length === 1 ? "" : "s"}</span>` : ""}${renderDependencySelect(story)}</div>` +
+      `<div class="backlog-actions">${total > 1 ? `<button class="backlog-icon-btn" data-action="sprint-up" title="Move up" aria-label="Move up"${index === 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="sprint-down" title="Move down" aria-label="Move down"${index === total - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}<button class="backlog-icon-btn text-action" data-action="edit-story">${planningIcon("edit")}<span>Edit</span></button><button class="backlog-icon-btn text-action" data-action="return-product">${planningIcon("arrowLeft")}<span>Back</span></button><button class="backlog-icon-btn text-action" data-action="add-subtask">${planningIcon("plus")}<span>Task</span></button></div>` +
       renderHourBox("story", story.id) + `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-title">${escapeHtml(story.title)}</span></div></div></div>` +
       (expanded ? renderPbiDetails(story) + (tasks.length ? `<div class="subtask-list">${tasks.map((task, taskIndex) => renderSubtask(task, story.id, taskIndex, tasks.length)).join("")}</div>` : "") : "") + `</article>`;
   }
@@ -3700,15 +3891,36 @@
     if(e.target.closest(".sprint-goal-add")){ planningData.goals.push(""); savePlanning(); renderSprintGoals(); return; }
     const trash = e.target.closest(".sprint-goal-trash");
     if(trash){
+      const removedGoal = planningData.goals[Number(trash.closest(".sprint-goal-row").dataset.index)] || "";
       planningData.goals.splice(Number(trash.closest(".sprint-goal-row").dataset.index), 1);
       if(!planningData.goals.length) planningData.goals.push("");
+      if(removedGoal.trim()) recordScopeChange("goal_removed", null, `Sprint Goal removed: ${removedGoal.trim()}`, 0);
       savePlanning(); renderSprintGoals();
     }
   });
   planningGoalsListEl.addEventListener("change", e => {
     if(!e.target.classList.contains("sprint-goal-input")) return;
-    planningData.goals[Number(e.target.closest(".sprint-goal-row").dataset.index)] = e.target.value; savePlanning(); renderSprintGoals();
+    const index = Number(e.target.closest(".sprint-goal-row").dataset.index);
+    const previous = planningData.goals[index] || "";
+    planningData.goals[index] = e.target.value;
+    if(previous.trim() !== e.target.value.trim()){
+      const before = previous.trim(); const after = e.target.value.trim();
+      recordScopeChange("goal_changed", null, before ? `Sprint Goal changed from \"${before}\" to \"${after}\"` : `Sprint Goal added: ${after}`, 0);
+    }
+    savePlanning(); renderSprintGoals();
   });
+
+  function sprintBacklogRange(){
+    const days = sprintWeeks().flat();
+    if(!days.length) return "Configure Sprint dates";
+    const first = days[0]; const last = days[days.length - 1];
+    const sameYear = first.getFullYear() === last.getFullYear();
+    const sameMonth = sameYear && first.getMonth() === last.getMonth();
+    const firstText = first.toLocaleDateString("en-GB", { day: "numeric", ...(sameMonth ? {} : { month: "short" }), ...(sameYear ? {} : { year: "numeric" }) });
+    const lastText = last.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+    const firstWeek = isoWeekNumber(first); const lastWeek = isoWeekNumber(last);
+    return `${firstText}\u2013${lastText} \u00b7 W${firstWeek}${lastWeek === firstWeek ? "" : `\u2013W${lastWeek}`}`;
+  }
 
   function renderPlanning(){
     const ready = planningReady(); planningEmptyState.classList.add("hidden"); planningCard.classList.remove("hidden"); btnPlanningStart.disabled = !ready;
@@ -3725,15 +3937,59 @@
     const productVisibleCount = planningData.productItems.filter(item => !(isSprintItemType(item.type) && planningData.sprintStoryIds.includes(item.id))).length;
     productBacklogCountEl.textContent = `${productVisibleCount} item${productVisibleCount === 1 ? "" : "s"}`;
     sprintBacklogCountEl.textContent = `${count} Item${count === 1 ? "" : "s"}`;
+    productGoalInputEl.value = planningData.productGoal;
+    productGoalDeadlineEl.value = planningData.productGoalDeadline;
+    sprintBacklogRangeEl.textContent = sprintBacklogRange();
     productBacklogListEl.innerHTML = roots.map(renderProductItem).join("") || `<div class="backlog-empty">No Product Backlog items yet. Use + Ticket to create one.</div>`;
     sprintBacklogListEl.innerHTML = stories.map((story, index) => renderSprintStory(story, index, stories.length)).join("") || `<div class="backlog-empty">Drag a ready Story, Bug, or Test here, or use its “→ Sprint” button.</div>`;
     if(planningData.commitment){
-      planningCommitmentEl.innerHTML = `<span class="commitment-state committed">Ready</span><span>Sprint planning complete.</span>`;
+      const committedAt = planningData.commitment.timestamp ? new Date(planningData.commitment.timestamp).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : "";
+      planningCommitmentEl.innerHTML = `<button class="commitment-action committed" type="button" disabled>Commitment Given</button><span>${committedAt ? `Baseline locked ${escapeHtml(committedAt)}.` : "Sprint baseline is locked."}</span>`;
     }else{
-      planningCommitmentEl.innerHTML = `<span class="commitment-state">Forecast open</span><span>Finish Planning to lock sprint commitment.</span>`;
+      planningCommitmentEl.innerHTML = `<button class="commitment-action" id="btnGiveCommitment" type="button">Give Commitment</button><span>Lock the Sprint Goal and selected work as the baseline.</span>`;
     }
     renderSprintGoals(); renderBurndown();
   }
+
+  productGoalInputEl.addEventListener("change", () => {
+    planningData.productGoal = productGoalInputEl.value.trim();
+    savePlanning();
+  });
+  productGoalDeadlineEl.addEventListener("change", () => {
+    planningData.productGoalDeadline = productGoalDeadlineEl.value;
+    savePlanning();
+  });
+
+  const commitmentOverlay = document.getElementById("commitmentOverlay");
+  const commitmentWarningsEl = document.getElementById("commitmentWarnings");
+  const commitmentCancelBtn = document.getElementById("commitmentCancel");
+  const commitmentConfirmBtn = document.getElementById("commitmentConfirm");
+  function openCommitmentDialog(){
+    if(planningData.commitment) return;
+    const goals = planningData.goals.map(goal => String(goal || "").trim()).filter(Boolean);
+    const stories = sprintStories();
+    if(!goals.length){ showNotice("Specify at least one Sprint Goal before giving commitment.", "Sprint Goal required"); return; }
+    if(!stories.length){ showNotice("Select at least one Sprint item before giving commitment.", "Sprint work required"); return; }
+    const warnings = [];
+    const unready = stories.filter(story => !isPbiReady(story));
+    const incompleteBreakdowns = stories.filter(story => storySubtasks(story.id).length && !breakdownComplete(story.id));
+    const capacity = effectiveCapacityHours(capacityMembers(), sprintWeeks());
+    if(unready.length) warnings.push(`${unready.length} Sprint item${unready.length === 1 ? " does" : "s do"} not meet the Definition of Ready.`);
+    if(incompleteBreakdowns.length) warnings.push(`${incompleteBreakdowns.length} item${incompleteBreakdowns.length === 1 ? " has" : "s have"} an incomplete Sub-task breakdown.`);
+    if(totalPlannedHours() > capacity) warnings.push(`The forecast exceeds effective capacity by ${formatHours(totalPlannedHours() - capacity)}h.`);
+    commitmentWarningsEl.innerHTML = warnings.length
+      ? `<div class="commitment-warning-list"><strong>Review before confirming:</strong><ul>${warnings.map(warning => `<li>${escapeHtml(warning)}</li>`).join("")}</ul><p>You may still continue if the team accepts these risks.</p></div>`
+      : `<p class="muted">The Sprint Goal and selected work are ready to be captured as the baseline.</p>`;
+    commitmentOverlay.classList.remove("hidden");
+  }
+  planningCommitmentEl.addEventListener("click", e => { if(e.target.closest("#btnGiveCommitment")) openCommitmentDialog(); });
+  commitmentCancelBtn.addEventListener("click", () => commitmentOverlay.classList.add("hidden"));
+  commitmentConfirmBtn.addEventListener("click", () => {
+    capturePlanningCommitment();
+    savePlanning();
+    commitmentOverlay.classList.add("hidden");
+    renderPlanning();
+  });
 
   // Product Backlog Item dialog.
   const pbiOverlay = document.getElementById("pbiOverlay");
@@ -3779,7 +4035,7 @@
     const parentTypes = type === "feature" ? ["epic"] : type === "story" ? ["feature"] : ["bug", "test"].includes(type) ? ["epic", "feature", "story"] : [];
     const options = planningData.productItems.filter(item => parentTypes.includes(item.type) && item.id !== editingPbiId);
     pbiParentRow.classList.toggle("hidden", !options.length);
-    pbiParentEl.innerHTML = `<option value="">No parent</option>` + options.map(item => `<option value="${item.id}">${escapeHtml(item.type[0].toUpperCase() + item.type.slice(1))} · ${escapeHtml(item.title)}</option>`).join("");
+    pbiParentEl.innerHTML = `<option value="">No parent</option>` + options.map(item => `<option value="${item.id}">${escapeHtml(item.referenceId)} · ${escapeHtml(item.title)}</option>`).join("");
     pbiParentEl.value = options.some(item => item.id === selectedId) ? selectedId : "";
   }
   function syncNotApplicableFields(){
@@ -3811,8 +4067,18 @@
       context: pbiContextEl.value.trim(), acceptanceCriteria: criteria, outOfScope: pbiOutOfScopeEl.value.trim(), outOfScopeNA: pbiOutOfScopeNAEl.checked,
       refinementNotes: pbiRefinementEl.value.trim(), refinementNotesNA: pbiRefinementNAEl.checked, estimateHours: Math.max(0, Number(pbiHoursEl.value) || 0),
       externalUrl: safeExternalUrl(rawUrl), reviewedByTechLead: pbiTechReviewedEl.checked };
-    if(editingPbiId) Object.assign(productItem(editingPbiId), values); else planningData.productItems.push(normalizePbi(Object.assign({ id: uuid() }, values)));
-    recordPlanningSnapshot(toISODate(new Date()), "Backlog item updated"); savePlanning(); pbiOverlay.classList.add("hidden"); renderPlanning();
+    if(editingPbiId){
+      const item = productItem(editingPbiId);
+      const inSprint = planningData.sprintStoryIds.includes(editingPbiId);
+      const beforeHours = inSprint ? storyForecastHours(item) : 0;
+      const beforeEstimate = item.estimateHours;
+      Object.assign(item, values);
+      const afterHours = inSprint ? storyForecastHours(item) : 0;
+      if(inSprint && (beforeEstimate !== item.estimateHours || beforeHours !== afterHours)) recordScopeChange("item_reestimated", item, `${item.referenceId} re-estimated from ${formatHours(beforeHours)}h to ${formatHours(afterHours)}h`, afterHours - beforeHours);
+    }else{
+      planningData.productItems.push(normalizePbi(Object.assign({ id: uuid(), referenceId: nextPbiReference(values.type) }, values)));
+    }
+    savePlanning(); pbiOverlay.classList.add("hidden"); renderPlanning();
   });
   btnAddTicket.addEventListener("click", () => openPbiModal());
 
@@ -3849,29 +4115,47 @@
     if(!title){ subtaskReadinessGuidance = true; refreshSubtaskReadinessHighlights(); subtaskErrorEl.textContent = "Title is required."; return; }
     if(rawUrl && !safeExternalUrl(rawUrl)){ subtaskErrorEl.textContent = "Use a valid external ticket link."; return; }
     const values = { title, description: subtaskDescriptionEl.value.trim(), hours: Math.max(0, Number(subtaskHoursEl.value) || 0), externalUrl: safeExternalUrl(rawUrl) };
+    const story = productItem(editingSubtask.storyId);
+    const inSprint = planningData.sprintStoryIds.includes(editingSubtask.storyId);
+    const beforeHours = inSprint ? storyForecastHours(story) : 0;
     const tasks = storySubtasks(editingSubtask.storyId); const task = editingSubtask.taskId ? tasks.find(item => item.id === editingSubtask.taskId) : null;
     if(task) Object.assign(task, values); else tasks.push(normalizeSubtask(Object.assign({ id: uuid() }, values)));
-    recordPlanningSnapshot(toISODate(new Date()), "Technical breakdown updated"); savePlanning(); subtaskOverlay.classList.add("hidden"); renderPlanning();
+    const afterHours = inSprint ? storyForecastHours(story) : 0;
+    if(inSprint){
+      const kind = task ? "subtask_reestimated" : "subtask_added";
+      const detail = task ? `Sub-task \"${title}\" updated in ${story.referenceId}` : `Sub-task \"${title}\" added to ${story.referenceId}`;
+      recordScopeChange(kind, story, detail, afterHours - beforeHours);
+    }
+    savePlanning(); subtaskOverlay.classList.add("hidden"); renderPlanning();
   });
 
   async function addStoryToSprint(id){
     const story = productItem(id); if(!story || !isSprintItemType(story.type) || planningData.sprintStoryIds.includes(id)) return;
-    if(!planningReady()){ alert("Configure an active Sprint and team capacity before selecting Sprint work."); return; }
+    if(!planningReady()){ showNotice("Configure an active Sprint and team capacity before selecting Sprint work.", "Sprint setup required"); return; }
     if(!isPbiReady(story) && !(await showConfirm(`This ${itemTypeLabel(story)} does not yet meet its Definition of Ready. Add it to the Sprint anyway?`, "Add Anyway"))) return;
     story.collapsed = true;
     planningData.sprintStoryIds.push(id);
-    if(planningData.commitment) planningData.commitment.storyHours[id] = storyForecastHours(story);
-    recordPlanningSnapshot(toISODate(new Date()), `${itemTypeLabel(story)} added to Sprint`); savePlanning(); renderPlanning();
+    recordScopeChange("item_added", story, `${story.referenceId} added to the Sprint after commitment`, storyForecastHours(story));
+    savePlanning(); renderPlanning();
   }
   async function returnStoryToProduct(id){
     const story = productItem(id); if(!story) return;
+    const removedHours = storyForecastHours(story);
     if(story.done){
       if(!(await showConfirm(`Returning this completed ${itemTypeLabel(story)} will reopen it and remove its completion from this Sprint. Continue?`, "Return & Reopen"))) return;
       story.done = false; story.actualHours = null; story.completedDate = null;
     }
     planningData.sprintStoryIds = planningData.sprintStoryIds.filter(storyId => storyId !== id);
-    recordPlanningSnapshot(toISODate(new Date()), `${itemTypeLabel(story)} returned to Product Backlog`); savePlanning(); renderPlanning();
+    recordScopeChange("item_removed", story, `${story.referenceId} returned to the Product Backlog after commitment`, -removedHours);
+    savePlanning(); renderPlanning();
   }
+
+  productBacklogListEl.addEventListener("change", e => {
+    const select = e.target.closest(".dependency-select");
+    if(!select) return;
+    updateItemDependency(select.dataset.dependencyItem, select.value);
+    savePlanning(); renderPlanning();
+  });
 
   productBacklogListEl.addEventListener("click", async e => {
     const itemEl = e.target.closest("[data-pbi-id]");
@@ -3901,7 +4185,7 @@
       const descendants = itemDescendants(id);
       const sprintDescendant = [item, ...descendants].some(candidate => planningData.sprintStoryIds.includes(candidate.id));
       if(sprintDescendant){
-        alert("Return every affected item from the Sprint Backlog before deleting this item.");
+        showNotice("Return every affected item from the Sprint Backlog before deleting this item.", "Item is part of the Sprint");
         return;
       }
       const nestedTaskCount = [item, ...descendants]
@@ -3909,9 +4193,12 @@
         .reduce((sum, story) => sum + storySubtasks(story.id).length, 0);
       const nestedCount = descendants.length + nestedTaskCount;
       const childCopy = nestedCount ? ` This will also delete ${nestedCount} nested item${nestedCount === 1 ? "" : "s"}.` : "";
-      if(!(await showConfirm(`Delete \"${item.title}\"?${childCopy}`, "Delete"))) return;
       const deleteIds = new Set([id, ...descendants.map(child => child.id)]);
+      const dependencyCount = planningData.productItems.filter(candidate => candidate.dependency && deleteIds.has(candidate.dependency.targetId) && !deleteIds.has(candidate.id)).length;
+      const dependencyCopy = dependencyCount ? ` ${dependencyCount} dependency reference${dependencyCount === 1 ? "" : "s"} will also be cleared.` : "";
+      if(!(await showConfirm(`Delete \"${item.title}\"?${childCopy}${dependencyCopy}`, "Delete"))) return;
       planningData.productItems = planningData.productItems.filter(candidate => !deleteIds.has(candidate.id));
+      planningData.productItems.forEach(candidate => { if(candidate.dependency && deleteIds.has(candidate.dependency.targetId)) candidate.dependency = null; });
       deleteIds.forEach(deleteId => delete planningData.subtasksByStory[deleteId]);
     }else return;
     savePlanning(); renderPlanning();
@@ -3982,10 +4269,14 @@
       const item = kind === "story" ? story : storySubtasks(storyId).find(task => task.id === taskId);
       if(!item) return;
       if(hourActionEl.dataset.hourAction === "done") return openWorkDoneModal(kind, storyId, taskId);
+      const beforeHours = storyForecastHours(story);
       const key = kind === "story" ? "estimateHours" : "hours";
       const increment = Math.max(0.5, Number(settings.ticketIncrementHours) || 1);
       item[key] = roundHours(hourActionEl.dataset.hourAction === "plus" ? item[key] + increment : Math.max(0, item[key] - increment));
-      recordPlanningSnapshot(toISODate(new Date()), "Estimate updated"); savePlanning(); renderPlanning(); return;
+      const afterHours = storyForecastHours(story);
+      recordScopeChange(kind === "story" ? "item_reestimated" : "subtask_reestimated", story,
+        `${kind === "story" ? story.referenceId : `Sub-task \"${item.title}\"`} re-estimated from ${formatHours(beforeHours)}h to ${formatHours(afterHours)}h`, afterHours - beforeHours);
+      savePlanning(); renderPlanning(); return;
     }
     const action = e.target.closest("button[data-action]")?.dataset.action;
     if(!action || !story) return;
@@ -4005,12 +4296,21 @@
     else if(action === "task-delete"){
       const task = storySubtasks(storyId).find(candidate => candidate.id === taskId);
       if(!task || !(await showConfirm(`Delete Sub-task \"${task.title}\"?`, "Delete"))) return;
+      const beforeHours = storyForecastHours(story);
       planningData.subtasksByStory[storyId] = storySubtasks(storyId).filter(candidate => candidate.id !== taskId);
-      recordPlanningSnapshot(toISODate(new Date()), "Sub-task deleted");
+      const afterHours = storyForecastHours(story);
+      recordScopeChange("subtask_removed", story, `Sub-task \"${task.title}\" removed from ${story.referenceId}`, afterHours - beforeHours);
     }else if(action === "task-up" || action === "task-down"){
       const tasks = storySubtasks(storyId); const index = tasks.findIndex(task => task.id === taskId); const next = index + (action === "task-up" ? -1 : 1);
       if(index >= 0 && next >= 0 && next < tasks.length) [tasks[index], tasks[next]] = [tasks[next], tasks[index]];
     }else return;
+    savePlanning(); renderPlanning();
+  });
+
+  sprintBacklogListEl.addEventListener("change", e => {
+    const select = e.target.closest(".dependency-select");
+    if(!select) return;
+    updateItemDependency(select.dataset.dependencyItem, select.value);
     savePlanning(); renderPlanning();
   });
 
@@ -4044,12 +4344,9 @@
     planningData.sprintStoryIds = [];
     planningData.commitment = null;
     planningData.scopeTimeline = [];
+    planningData.scopeChanges = [];
     planningData.goals = [""];
     savePlanning(); renderPlanning(); renderStats(); renderSprintHistory();
-  });
-  btnPlanningFinish.addEventListener("click", () => {
-    if(!sprintStories().length) return;
-    capturePlanningCommitment(); savePlanning(); renderPlanning();
   });
   document.getElementById("openCapacityFromPlanning").addEventListener("click", e => { e.preventDefault(); activateTab("capacity"); });
 
@@ -4066,7 +4363,7 @@
   function saveSprintHistory(){ Store.set("sprintHistory", sprintHistory); }
 
   function archiveCurrentSprint(sprintStartDate, stories){
-    if(!stories.length) return;
+    if(!stories.length && !planningData.commitment) return;
     const completedStories = stories.filter(story => story.done);
     const wasCommitted = !!planningData.commitment;
     const committedHours = planningData.commitment?.storyHours || {};
@@ -4079,6 +4376,7 @@
     const lastSprintDay = sprintDays[sprintDays.length - 1];
     const archivedStories = stories.map(story => ({
       id: story.id,
+      referenceId: story.referenceId || "",
       type: story.type || "story",
       title: story.title,
       done: !!story.done,
@@ -4094,6 +4392,7 @@
       refinementNotes: story.refinementNotes || "",
       refinementNotesNA: !!story.refinementNotesNA,
       externalUrl: story.externalUrl || "",
+      dependency: story.dependency ? Object.assign({}, story.dependency) : null,
       subtasks: storySubtasks(story.id).map(task => ({
         id: task.id,
         title: task.title,
@@ -4105,6 +4404,33 @@
         externalUrl: task.externalUrl || ""
       }))
     }));
+    const archivedIds = new Set(archivedStories.map(story => story.id));
+    const baselineItems = Array.isArray(planningData.commitment?.items) ? planningData.commitment.items : [];
+    baselineItems.forEach(item => {
+      if(archivedIds.has(item.id)) return;
+      archivedStories.push({
+        id: item.id,
+        referenceId: item.referenceId || "",
+        type: item.type || "story",
+        title: item.title || "Untitled Item",
+        done: false,
+        removedAfterCommitment: true,
+        completedDate: null,
+        estimateHours: item.estimateHours ?? item.forecastHours ?? 0,
+        committedHours: item.forecastHours ?? committedHours[item.id] ?? null,
+        forecastHours: 0,
+        actualHours: 0,
+        context: item.context || "",
+        acceptanceCriteria: acceptanceLines(item.acceptanceCriteria),
+        outOfScope: item.outOfScope || "",
+        outOfScopeNA: !!item.outOfScopeNA,
+        refinementNotes: item.refinementNotes || "",
+        refinementNotesNA: !!item.refinementNotesNA,
+        externalUrl: item.externalUrl || "",
+        dependency: item.dependency ? Object.assign({}, item.dependency) : null,
+        subtasks: Array.isArray(item.subtasks) ? item.subtasks.map(task => Object.assign({ done: false, actualHours: null, completedDate: null }, task)) : []
+      });
+    });
 
     sprintHistory.push({
       id: uuid(),
@@ -4112,6 +4438,9 @@
       sprintStartDate,
       sprintEndDate: lastSprintDay ? toISODate(lastSprintDay) : null,
       goals: planningData.goals.map(goal => String(goal || "").trim()).filter(Boolean),
+      committedGoals: Array.isArray(planningData.commitment?.goals) ? planningData.commitment.goals.slice() : [],
+      productGoal: planningData.productGoal,
+      productGoalDeadline: planningData.productGoalDeadline,
       committed: wasCommitted,
       plannedHours,
       completedHours,
@@ -4119,9 +4448,10 @@
       finalForecastHours: totalPlannedHours(),
       forecastVarianceHours: roundHours(totalPlannedHours() - plannedHours),
       commitmentReliabilityPct: plannedHours ? Math.round((completedHours / plannedHours) * 1000) / 10 : null,
-      plannedTicketsCount: stories.length,
+      plannedTicketsCount: planningData.commitment?.itemIds?.length ?? stories.length,
       completedTicketsCount: completedStories.length,
       scopeTimeline: planningData.scopeTimeline.map(entry => Object.assign({}, entry)),
+      scopeChanges: planningData.scopeChanges.map(entry => Object.assign({}, entry)),
       stories: archivedStories
     });
     saveSprintHistory();
@@ -4133,7 +4463,7 @@
     catch(e){ return dateStr; }
   }
 
-  function renderHistoryStory(story){
+  function renderHistoryStory(story, allStories){
     const type = isSprintItemType(story.type) ? story.type : "story";
     const link = renderExternalLink(story.externalUrl);
     const subtasks = Array.isArray(story.subtasks) ? story.subtasks : [];
@@ -4143,9 +4473,12 @@
       (story.refinementNotesNA ? `<p><strong>Refinement:</strong> Not applicable</p>` : renderDetailLines("Refinement", story.refinementNotes, false)) +
       (link ? `<p>${link}</p>` : "") +
       (subtasks.length ? `<ul class="history-subtasks">${subtasks.map(task => `<li><strong>${escapeHtml(task.title)}</strong> · ${task.done ? "Done" : "Open"} · ${formatHours(task.actualHours ?? task.hours)}h${task.description ? `<div>${escapeHtml(task.description)}</div>` : ""}</li>`).join("")}</ul>` : "");
+    const dependencyTargetStory = story.dependency ? allStories.find(candidate => candidate.id === story.dependency.targetId) : null;
+    const dependencyText = dependencyTargetStory ? `${story.dependency.relation === "blocked_by" ? "Blocked by" : "Depends on"} ${dependencyTargetStory.referenceId || dependencyTargetStory.title}` : "";
+    const state = story.removedAfterCommitment ? "Removed after commitment" : story.done ? "Completed" : "Incomplete";
     return `<details class="history-story"><summary class="history-story-head">` +
-      `<span class="backlog-type ${type}">${escapeHtml(type)}</span><span class="history-story-title">${escapeHtml(story.title || "Untitled Item")}</span>` +
-      `<span class="history-story-state${story.done ? " done" : ""}">${story.done ? "Completed" : "Incomplete"}</span>` +
+      `<span class="backlog-type ${type}">${escapeHtml(story.referenceId || type)}</span><span class="history-story-title">${escapeHtml(story.title || "Untitled Item")}</span>` +
+      `<span class="history-story-state${story.done ? " done" : ""}">${escapeHtml(state)}</span>${dependencyText ? `<span class="dependency-hint${story.dependency.relation === "blocked_by" ? " blocked" : ""}">${escapeHtml(dependencyText)}</span>` : ""}` +
       `<span class="history-story-hours">${formatHours(story.forecastHours ?? story.estimateHours ?? 0)}h forecast · ${formatHours(story.actualHours ?? 0)}h actual</span>` +
       `</summary>${details ? `<div class="history-story-details">${details}</div>` : ""}</details>`;
   }
@@ -4160,8 +4493,10 @@
       const sequence = sprintHistory.length - reverseIndex;
       const range = entry.sprintEndDate ? `${formatHistoryDate(entry.sprintStartDate)} – ${formatHistoryDate(entry.sprintEndDate)}` : formatHistoryDate(entry.sprintStartDate);
       const goals = Array.isArray(entry.goals) ? entry.goals.filter(Boolean) : [];
+      const committedGoals = Array.isArray(entry.committedGoals) ? entry.committedGoals.filter(Boolean) : [];
       const stories = Array.isArray(entry.stories) ? entry.stories : [];
       const scope = Array.isArray(entry.scopeTimeline) ? entry.scopeTimeline : [];
+      const changes = Array.isArray(entry.scopeChanges) ? entry.scopeChanges : [];
       const reliability = entry.commitmentReliabilityPct == null ? "—" : `${entry.commitmentReliabilityPct}%`;
       return `<details class="history-sprint"${reverseIndex === 0 ? " open" : ""}>` +
         `<summary><span class="history-sprint-title">Sprint ${sequence}</span><span class="history-sprint-meta">${escapeHtml(range)}</span></summary>` +
@@ -4172,11 +4507,14 @@
             `<div class="history-metric"><span class="history-metric-label">Actual completed</span><span class="history-metric-value">${formatHours(entry.actualHours ?? 0)}h</span></div>` +
             `<div class="history-metric"><span class="history-metric-label">Items completed</span><span class="history-metric-value">${entry.completedTicketsCount ?? 0}/${entry.plannedTicketsCount ?? 0}</span></div>` +
             `<div class="history-metric"><span class="history-metric-label">Commitment reliability</span><span class="history-metric-value">${reliability}</span></div>` +
-            `<div class="history-metric"><span class="history-metric-label">Scope updates</span><span class="history-metric-value">${scope.length}</span></div>` +
+            `<div class="history-metric"><span class="history-metric-label">Scope changes</span><span class="history-metric-value">${changes.length}</span></div>` +
           `</div>` +
-          (goals.length ? `<span class="sprint-goal-label">Sprint Goal${goals.length === 1 ? "" : "s"}</span><ul class="history-goals">${goals.map(goal => `<li>${escapeHtml(goal)}</li>`).join("")}</ul>` : "") +
+          (entry.productGoal ? `<div class="history-product-goal"><span class="sprint-goal-label">Product Goal</span><span class="history-story-title">${escapeHtml(entry.productGoal)}</span>${entry.productGoalDeadline ? `<span class="backlog-date-range">Deadline ${escapeHtml(formatHistoryDate(entry.productGoalDeadline))}</span>` : ""}</div>` : "") +
+          (committedGoals.length ? `<span class="sprint-goal-label">Committed Sprint Goal${committedGoals.length === 1 ? "" : "s"}</span><ul class="history-goals">${committedGoals.map(goal => `<li>${escapeHtml(goal)}</li>`).join("")}</ul>` : "") +
+          (goals.length && JSON.stringify(goals) !== JSON.stringify(committedGoals) ? `<span class="sprint-goal-label">Final Sprint Goal${goals.length === 1 ? "" : "s"}</span><ul class="history-goals">${goals.map(goal => `<li>${escapeHtml(goal)}</li>`).join("")}</ul>` : "") +
+          (changes.length ? `<strong>Changes after commitment</strong><ul class="history-change-list">${changes.map(change => { const delta = Number(change.deltaHours) || 0; const when = change.timestamp ? new Date(change.timestamp).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : formatHistoryDate(change.date); return `<li>${escapeHtml(when)} · ${escapeHtml(change.detail || change.kind || "Sprint updated")}${delta ? ` · <span class="history-change-delta">${delta > 0 ? "+" : ""}${formatHours(delta)}h</span>` : ""}</li>`; }).join("")}</ul>` : "") +
           (scope.length ? `<strong>Scope timeline</strong><ul class="history-scope">${scope.map(point => `<li>${escapeHtml(formatHistoryDate(point.date))}: ${formatHours(point.scopeHours ?? 0)}h scope, ${formatHours(point.remainingHours ?? 0)}h remaining${point.reason ? ` · ${escapeHtml(point.reason)}` : ""}</li>`).join("")}</ul>` : "") +
-          (stories.length ? `<div class="history-story-list">${stories.map(renderHistoryStory).join("")}</div>` : `<p class="muted">This older record contains summary metrics only.</p>`) +
+          (stories.length ? `<div class="history-story-list">${stories.map(story => renderHistoryStory(story, stories)).join("")}</div>` : `<p class="muted">This older record contains summary metrics only.</p>`) +
         `</div></details>`;
     }).join("");
   }
