@@ -353,9 +353,24 @@
   .backlog-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:5px;color:var(--muted);font-size:.67rem;line-height:1.35}
   .backlog-actions{display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
   .backlog-icon-btn{height:28px;min-width:28px;padding:0 6px;border:0;border-radius:7px;background:transparent;color:#476774;font:inherit;font-size:.69rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
-  .dependency-select{height:26px;max-width:112px;padding:0 22px 0 7px;border:0;border-radius:7px;background:#f5f9f9;color:#476774;font:inherit;font-size:.64rem;cursor:pointer}
+  .dependency-select{height:26px;max-width:112px;padding:0 7px;border:0;border-radius:7px;background:#f5f9f9;color:#476774;font:inherit;font-size:.64rem;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+  .dependency-select>span{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .dependency-select svg{flex:0 0 auto;width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .dependency-select:hover,.dependency-select:focus{background:#e8f5f4;outline:none}
   .dependency-select.blocked{background:#fff0f1;color:#b33b49}
+  .dependency-picker{position:fixed;z-index:120;width:340px;max-height:min(390px,calc(100vh - 24px));padding:10px;border:1px solid var(--border);border-radius:12px;background:#fff;box-shadow:0 18px 48px rgba(7,59,76,.2);color:var(--ink);display:flex;flex-direction:column;overflow:hidden}
+  .dependency-picker-relations{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+  .dependency-picker-relation{height:30px;border:1px solid var(--border);border-radius:8px;background:#f7fbfb;color:#526f78;font:inherit;font-size:.7rem;font-weight:750;cursor:pointer}
+  .dependency-picker-relation.active{border-color:var(--brand);background:#e5f3f2;color:var(--brand-dark)}
+  .dependency-picker-search{width:100%;height:34px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:.74rem}
+  .dependency-picker-search:focus{border-color:var(--brand);outline:3px solid rgba(14,132,147,.12)}
+  .dependency-picker-results{flex:1;min-height:0;max-height:250px;margin-top:8px;overflow:auto;border-top:1px solid var(--border);padding-top:6px}
+  .dependency-picker-option{width:100%;display:flex;align-items:center;gap:7px;padding:7px 6px;border:0;border-radius:7px;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+  .dependency-picker-option:hover,.dependency-picker-option:focus{background:#eaf5f4;outline:none}
+  .dependency-picker-option.selected{background:#e5f3f2;box-shadow:inset 3px 0 0 var(--brand)}
+  .dependency-picker-option.none{color:var(--muted);font-size:.73rem;font-weight:700}
+  .dependency-picker-option-title{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.7rem}
+  .dependency-picker-empty{padding:14px 7px;color:var(--muted);font-size:.7rem;text-align:center}
   .dependency-hint{display:inline-flex;align-items:center;gap:4px;color:#71858c;font-size:.64rem;font-weight:650}
   .dependency-hint.blocked{color:#b33b49}
   .backlog-icon-btn svg,.backlog-toggle svg,.work-action svg{width:15px;height:15px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -3806,18 +3821,16 @@
     }
     return false;
   }
+  let dependencyPicker = null;
+  let dependencyPickerTrigger = null;
+  let dependencyPickerItemId = null;
+  let dependencyPickerRelation = "depends_on";
   function renderDependencySelect(item){
-    const current = item.dependency ? `${item.dependency.relation}:${item.dependency.targetId}` : "";
-    const targets = planningData.productItems.filter(candidate => candidate.id !== item.id);
-    const options = relation => targets.map(target => {
-      const value = `${relation}:${target.id}`;
-      return `<option value="${value}"${value === current ? " selected" : ""}>${escapeHtml(target.referenceId)}</option>`;
-    }).join("");
-    const relationLabel = item.dependency?.relation === "blocked_by" ? "Blocked by" : item.dependency ? "Depends on" : "No dependency";
-    return `<select class="dependency-select${item.dependency?.relation === "blocked_by" ? " blocked" : ""}" data-dependency-item="${item.id}" aria-label="Dependency for ${escapeHtml(item.referenceId)}" title="${escapeHtml(relationLabel)}">` +
-      `<option value=""${current ? "" : " selected"}>No dependency</option>` +
-      (targets.length ? `<optgroup label="Depends on">${options("depends_on")}</optgroup><optgroup label="Blocked by">${options("blocked_by")}</optgroup>` : "") +
-      `</select>`;
+    const target = dependencyTarget(item);
+    const relationLabel = item.dependency?.relation === "blocked_by" ? "Blocked by" : item.dependency ? "Depends on" : "None";
+    const label = target ? target.referenceId : "None";
+    const title = target ? `${relationLabel} ${target.referenceId} — ${target.title}` : "No dependency";
+    return `<button type="button" class="dependency-select${item.dependency?.relation === "blocked_by" ? " blocked" : ""}" data-dependency-item="${item.id}" aria-label="Dependency for ${escapeHtml(item.referenceId)}: ${escapeHtml(title)}" aria-haspopup="dialog" aria-expanded="false" title="${escapeHtml(title)}"><span>${escapeHtml(label)}</span>${planningIcon("chevronDown")}</button>`;
   }
   function renderDependencyHint(item){
     const target = dependencyTarget(item);
@@ -3840,6 +3853,109 @@
     item.dependency = { relation, targetId };
     return true;
   }
+  function ensureDependencyPicker(){
+    if(dependencyPicker) return dependencyPicker;
+    dependencyPicker = document.createElement("div");
+    dependencyPicker.className = "dependency-picker hidden";
+    dependencyPicker.setAttribute("role", "dialog");
+    dependencyPicker.setAttribute("aria-label", "Select dependency");
+    dependencyPicker.innerHTML = `<div class="dependency-picker-relations" role="group" aria-label="Dependency relationship">` +
+      `<button type="button" class="dependency-picker-relation" data-dependency-relation="depends_on">Depends on</button>` +
+      `<button type="button" class="dependency-picker-relation" data-dependency-relation="blocked_by">Blocked by</button></div>` +
+      `<input type="search" class="dependency-picker-search" placeholder="Search ID, type, or title..." autocomplete="off" aria-label="Search backlog items">` +
+      `<div class="dependency-picker-results" role="listbox"></div>`;
+    document.body.appendChild(dependencyPicker);
+    dependencyPicker.querySelector(".dependency-picker-search").addEventListener("input", renderDependencyPickerResults);
+    dependencyPicker.addEventListener("click", e => {
+      const relationButton = e.target.closest("[data-dependency-relation]");
+      if(relationButton){
+        dependencyPickerRelation = relationButton.dataset.dependencyRelation;
+        renderDependencyPickerResults();
+        return;
+      }
+      const option = e.target.closest("[data-dependency-target], [data-dependency-clear]");
+      if(!option) return;
+      const value = option.hasAttribute("data-dependency-clear") ? "" : `${dependencyPickerRelation}:${option.dataset.dependencyTarget}`;
+      if(updateItemDependency(dependencyPickerItemId, value)){
+        closeDependencyPicker();
+        savePlanning();
+        renderPlanning();
+      }
+    });
+    dependencyPicker.addEventListener("keydown", e => {
+      if(e.key === "Escape"){
+        const trigger = dependencyPickerTrigger;
+        closeDependencyPicker();
+        trigger?.focus();
+      }
+    });
+    return dependencyPicker;
+  }
+  function renderDependencyPickerResults(){
+    if(!dependencyPicker || !dependencyPickerItemId) return;
+    const item = productItem(dependencyPickerItemId);
+    if(!item) return closeDependencyPicker();
+    dependencyPicker.querySelectorAll("[data-dependency-relation]").forEach(button => {
+      const active = button.dataset.dependencyRelation === dependencyPickerRelation;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    const query = dependencyPicker.querySelector(".dependency-picker-search").value.trim().toLowerCase();
+    const targets = planningData.productItems.filter(candidate => candidate.id !== item.id && !dependencyWouldCycle(item.id, candidate.id));
+    const matches = targets.filter(target => `${target.referenceId} ${itemTypeLabel(target)} ${target.title}`.toLowerCase().includes(query));
+    const visible = matches.slice(0, 60);
+    const results = dependencyPicker.querySelector(".dependency-picker-results");
+    const noDependency = !item.dependency;
+    results.innerHTML = `<button type="button" class="dependency-picker-option none${noDependency ? " selected" : ""}" data-dependency-clear role="option" aria-selected="${noDependency}">None</button>` +
+      visible.map(target => {
+        const selected = item.dependency?.relation === dependencyPickerRelation && item.dependency?.targetId === target.id;
+        return `<button type="button" class="dependency-picker-option${selected ? " selected" : ""}" data-dependency-target="${target.id}" role="option" aria-selected="${selected}" title="${escapeHtml(target.title)}"><span class="backlog-type ${target.type}">${escapeHtml(target.referenceId)}</span><span class="dependency-picker-option-title">${escapeHtml(target.title)}</span></button>`;
+      }).join("") +
+      (!matches.length ? `<div class="dependency-picker-empty">No matching backlog items.</div>` : matches.length > visible.length ? `<div class="dependency-picker-empty">${matches.length - visible.length} more items — refine your search.</div>` : "");
+  }
+  function positionDependencyPicker(trigger){
+    const picker = ensureDependencyPicker();
+    const rect = trigger.getBoundingClientRect();
+    const width = Math.min(340, window.innerWidth - 24);
+    picker.style.width = `${width}px`;
+    picker.style.visibility = "hidden";
+    picker.classList.remove("hidden");
+    const height = picker.offsetHeight;
+    const left = Math.max(12, Math.min(rect.left, window.innerWidth - width - 12));
+    const below = rect.bottom + 6;
+    const top = below + height <= window.innerHeight - 12 || rect.top < height + 18 ? below : Math.max(12, rect.top - height - 6);
+    picker.style.left = `${left}px`;
+    picker.style.top = `${top}px`;
+    picker.style.visibility = "";
+  }
+  function openDependencyPicker(trigger){
+    if(dependencyPickerTrigger === trigger && dependencyPicker && !dependencyPicker.classList.contains("hidden")) return closeDependencyPicker();
+    closeDependencyPicker();
+    const item = productItem(trigger.dataset.dependencyItem);
+    if(!item) return;
+    dependencyPickerTrigger = trigger;
+    dependencyPickerItemId = item.id;
+    dependencyPickerRelation = item.dependency?.relation || "depends_on";
+    const picker = ensureDependencyPicker();
+    picker.querySelector(".dependency-picker-search").value = "";
+    trigger.setAttribute("aria-expanded", "true");
+    renderDependencyPickerResults();
+    positionDependencyPicker(trigger);
+    picker.querySelector(".dependency-picker-search").focus();
+  }
+  function closeDependencyPicker(){
+    if(dependencyPickerTrigger) dependencyPickerTrigger.setAttribute("aria-expanded", "false");
+    dependencyPicker?.classList.add("hidden");
+    dependencyPickerTrigger = null;
+    dependencyPickerItemId = null;
+  }
+  document.addEventListener("click", e => {
+    const trigger = e.target.closest(".dependency-select");
+    if(trigger){ e.preventDefault(); openDependencyPicker(trigger); return; }
+    if(dependencyPicker && !dependencyPicker.contains(e.target)) closeDependencyPicker();
+  });
+  window.addEventListener("resize", closeDependencyPicker);
+  document.addEventListener("scroll", e => { if(dependencyPicker && !dependencyPicker.contains(e.target)) closeDependencyPicker(); }, true);
   function moveBacklogItem(id, direction){
     const item = productItem(id); if(!item) return;
     const siblings = siblingItems(item).filter(candidate => !(isSprintItemType(candidate.type) && planningData.sprintStoryIds.includes(candidate.id)));
@@ -3897,7 +4013,7 @@
       `<div class="backlog-item-head"><div class="product-pbi-identity"><button class="backlog-toggle" data-action="toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
       `${renderDependencySelect(item)}</div>` +
       `<div class="backlog-actions">${siblings.length > 1 ? `<button class="backlog-icon-btn" data-action="moveup" title="Move up" aria-label="Move up"${siblingIndex <= 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="movedown" title="Move down" aria-label="Move down"${siblingIndex === siblings.length - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}` +
-      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${isSprintItemType(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div>` +
+      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${isSprintItemType(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}${["epic", "feature", "story"].includes(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-child" title="Add a child ticket">${planningIcon("plus")}<span>Ticket</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div>` +
       `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-type ${item.type}">${escapeHtml(item.referenceId)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}${!expanded && productSubtasks.length ? `<span class="backlog-counter">${productSubtasks.length} Sub-task${productSubtasks.length === 1 ? "" : "s"}</span>` : ""}<span class="backlog-title">${escapeHtml(item.title)}</span></div><div class="backlog-meta"><span>${isSprintItemType(item.type) ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div></div>` +
       (expanded ? renderPbiDetails(item) + (productSubtasks.length ? `<div class="product-subtask-list">${productSubtasks.map(renderProductSubtask).join("")}</div>` : "") + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
   }
@@ -3975,6 +4091,7 @@
   }
 
   function renderPlanning(){
+    closeDependencyPicker();
     const ready = planningReady(); planningEmptyState.classList.add("hidden"); planningCard.classList.remove("hidden"); btnPlanningStart.disabled = !ready;
     const stories = sprintStories(); const count = stories.length;
     planningCountEl.textContent = `${count} Sprint Item${count === 1 ? "" : "s"}`;
@@ -4060,6 +4177,7 @@
   const pbiTechReviewedEl = document.getElementById("pbiTechReviewed");
   const pbiErrorEl = document.getElementById("pbiError");
   let editingPbiId = null;
+  let suggestedPbiParentId = null;
   let pbiReadinessGuidance = false;
 
   function setReadinessAttention(control, needsAttention){
@@ -4082,6 +4200,12 @@
   }
 
   function selectedPbiType(){ return pbiTypeInputs.find(input => input.checked)?.value || "story"; }
+  function suggestedChildType(parent){
+    if(parent?.type === "epic") return "feature";
+    if(parent?.type === "feature") return "story";
+    if(parent?.type === "story") return "bug";
+    return "story";
+  }
   function updateParentOptions(selectedId){
     const type = selectedPbiType();
     const parentTypes = type === "feature" ? ["epic"] : type === "story" ? ["feature"] : ["bug", "test"].includes(type) ? ["epic", "feature", "story"] : [];
@@ -4094,19 +4218,21 @@
     pbiOutOfScopeEl.disabled = pbiOutOfScopeNAEl.checked; pbiRefinementEl.disabled = pbiRefinementNAEl.checked;
     refreshPbiReadinessHighlights();
   }
-  function openPbiModal(id){
+  function openPbiModal(id, parentId){
     editingPbiId = id || null; const item = id ? productItem(id) : null;
+    const suggestedParent = !item && parentId ? productItem(parentId) : null;
+    suggestedPbiParentId = suggestedParent?.id || null;
     document.getElementById("pbiModalTitle").textContent = item ? "Edit Product Backlog Item" : "Create a Product Backlog Item";
     document.getElementById("pbiSave").textContent = item ? "Save Changes" : "Create Item";
-    pbiTypeInputs.forEach(input => { input.checked = input.value === (item?.type || "story"); input.disabled = !!item; });
+    pbiTypeInputs.forEach(input => { input.checked = input.value === (item?.type || suggestedChildType(suggestedParent)); input.disabled = !!item; });
     pbiTitleEl.value = item?.title || ""; pbiContextEl.value = item?.context || ""; pbiAcceptanceEl.value = acceptanceLines(item?.acceptanceCriteria).join("\n");
     pbiOutOfScopeEl.value = item?.outOfScope || ""; pbiOutOfScopeNAEl.checked = !!item?.outOfScopeNA;
     pbiRefinementEl.value = item?.refinementNotes || ""; pbiRefinementNAEl.checked = !!item?.refinementNotesNA;
     pbiHoursEl.value = item?.estimateHours ?? 0; pbiUrlEl.value = item?.externalUrl || ""; pbiTechReviewedEl.checked = !!item?.reviewedByTechLead;
     pbiReadinessGuidance = !!item && !isPbiReady(item);
-    pbiErrorEl.textContent = ""; updateParentOptions(item?.parentId || ""); syncNotApplicableFields(); refreshPbiReadinessHighlights(); pbiOverlay.classList.remove("hidden"); pbiTitleEl.focus();
+    pbiErrorEl.textContent = ""; updateParentOptions(item?.parentId || suggestedPbiParentId || ""); syncNotApplicableFields(); refreshPbiReadinessHighlights(); pbiOverlay.classList.remove("hidden"); pbiTitleEl.focus();
   }
-  pbiTypeInputs.forEach(input => input.addEventListener("change", () => updateParentOptions("")));
+  pbiTypeInputs.forEach(input => input.addEventListener("change", () => updateParentOptions(suggestedPbiParentId || "")));
   pbiOutOfScopeNAEl.addEventListener("change", syncNotApplicableFields); pbiRefinementNAEl.addEventListener("change", syncNotApplicableFields);
   [pbiTitleEl, pbiContextEl, pbiAcceptanceEl, pbiOutOfScopeEl, pbiRefinementEl, pbiHoursEl].forEach(control => control.addEventListener("input", refreshPbiReadinessHighlights));
   pbiTechReviewedEl.addEventListener("change", refreshPbiReadinessHighlights);
@@ -4202,13 +4328,6 @@
     savePlanning(); renderPlanning();
   }
 
-  productBacklogListEl.addEventListener("change", e => {
-    const select = e.target.closest(".dependency-select");
-    if(!select) return;
-    updateItemDependency(select.dataset.dependencyItem, select.value);
-    savePlanning(); renderPlanning();
-  });
-
   productBacklogListEl.addEventListener("click", async e => {
     const itemEl = e.target.closest("[data-pbi-id]");
     const action = e.target.closest("button[data-action]")?.dataset.action;
@@ -4232,6 +4351,7 @@
     else if(action === "moveup") moveBacklogItem(id, -1);
     else if(action === "movedown") moveBacklogItem(id, 1);
     else if(action === "edit") return openPbiModal(id);
+    else if(action === "add-child") return openPbiModal(null, id);
     else if(action === "add-sprint") return addStoryToSprint(id);
     else if(action === "delete"){
       const descendants = itemDescendants(id);
@@ -4356,13 +4476,6 @@
       const tasks = storySubtasks(storyId); const index = tasks.findIndex(task => task.id === taskId); const next = index + (action === "task-up" ? -1 : 1);
       if(index >= 0 && next >= 0 && next < tasks.length) [tasks[index], tasks[next]] = [tasks[next], tasks[index]];
     }else return;
-    savePlanning(); renderPlanning();
-  });
-
-  sprintBacklogListEl.addEventListener("change", e => {
-    const select = e.target.closest(".dependency-select");
-    if(!select) return;
-    updateItemDependency(select.dataset.dependencyItem, select.value);
     savePlanning(); renderPlanning();
   });
 
@@ -5574,13 +5687,26 @@
   // --- Definition of Done / Definition of Ready ---
   const LEGACY_DEFAULT_DOR_ITEM = "A ticket cannot enter Sprint Planning unless it has a clear PO Value, at least 2 Acceptance Criteria, what is eventually out of scope, and has been reviewed by tech lead.";
   const DEFAULT_DOR_ITEM = "A ticket cannot enter Sprint Planning unless it has a clear PO Value, at least 1 Acceptance Criterion, what is eventually out of scope, and has been reviewed by tech lead.";
+  const DEFAULT_DOD_ITEMS = [
+    "Acceptance Criteria are met.",
+    "Work has been reviewed by another team member.",
+    "Relevant tests pass and the build is green.",
+    "The Increment is integrated and deployable.",
+    "No known critical defects remain."
+  ];
+  const defaultDodEntries = () => DEFAULT_DOD_ITEMS.map(text => ({ id: uuid(), text }));
   let definitionsData = Store.get("definitions", null);
   if(!definitionsData){
     definitionsData = {
-      dod: [],
-      dor: [{ id: uuid(), text: DEFAULT_DOR_ITEM }]
+      dod: defaultDodEntries(),
+      dor: [{ id: uuid(), text: DEFAULT_DOR_ITEM }],
+      dodDefaultsVersion: 1
     };
     Store.set("definitions", definitionsData);
+  }else if(!definitionsData.dodDefaultsVersion){
+    const hasCustomDod = Array.isArray(definitionsData.dod) && definitionsData.dod.some(item => String(typeof item === "string" ? item : item?.text || "").trim());
+    if(!hasCustomDod) definitionsData.dod = defaultDodEntries();
+    definitionsData.dodDefaultsVersion = 1;
   }
   ["dod", "dor"].forEach(type => {
     if(!Array.isArray(definitionsData[type])) definitionsData[type] = [];
