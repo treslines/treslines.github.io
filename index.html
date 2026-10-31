@@ -4387,6 +4387,10 @@
   async function openWorkDoneModal(kind, storyId, taskId){
     const item = kind === "story" ? productItem(storyId) : storySubtasks(storyId).find(task => task.id === taskId);
     if(!item) return;
+    if(!item.done && !planningData.commitment){
+      await showNotice("Before completing any item, start the Sprint by pressing “Give Commitment”. This locks the baseline so Burndown and scope changes can be tracked correctly.", "Give Commitment first");
+      return;
+    }
     if(kind === "story" && !item.done){
       const openTasks = storySubtasks(storyId).filter(task => !task.done);
       if(openTasks.length && !(await showConfirm(`This ${itemTypeLabel(item)} still has ${openTasks.length} open Sub-task${openTasks.length === 1 ? "" : "s"}. Close it anyway?`, "Continue"))) return;
