@@ -323,6 +323,8 @@
   .backlog-column-header h3{margin:0;color:var(--brand-dark);font-size:1.04rem;letter-spacing:-.01em}
   .backlog-column-header p{margin:4px 0 0;font-size:.72rem;line-height:1.35;color:var(--muted)}
   .backlog-column-header>div{min-width:0;flex:1}
+  .backlog-column-header>.product-backlog-header-actions{flex:0 0 auto;display:flex;align-items:center;gap:7px}
+  .product-backlog-header-actions .btn-primary{height:28px;padding:0 10px;font-size:.7rem;white-space:nowrap}
   .backlog-heading-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:30px}
   .backlog-date-range{display:inline-flex;align-items:center;min-height:25px;padding:3px 8px;border-radius:999px;background:#f2f7f7;color:#5b737c;font-size:.64rem;font-weight:750;white-space:nowrap}
   .product-goal-editor{display:flex;align-items:center;gap:7px;margin-top:5px;color:var(--muted);font-size:.7rem;line-height:1.4}
@@ -380,17 +382,6 @@
   .backlog-details p{margin:4px 0;overflow-wrap:anywhere}.backlog-details strong{color:var(--ink)}.backlog-details a{color:var(--brand);font-weight:700}
   .backlog-details ul{margin:3px 0 6px 17px;padding:0}.backlog-details li{margin:1px 0;padding-left:1px}
   .backlog-children{margin:10px 0 0 24px;display:flex;flex-direction:column;gap:8px}
-  .product-subtask-list{margin:12px 0 0 33px;display:flex;flex-direction:column;gap:7px}
-  .product-subtask-list::before{content:"Sub-tasks";color:#627b84;font-size:.61rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-  .product-subtask{padding:9px 10px;border:1px solid var(--border);border-radius:8px;background:#f7fbfb}
-  .product-subtask-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:0;min-width:0}
-  .product-subtask-identity{grid-column:1;grid-row:1;display:flex;align-items:center;gap:6px;min-width:0}
-  .product-subtask-actions{grid-column:2;grid-row:1;display:flex;align-items:center;gap:2px}
-  .product-subtask-title{grid-column:1/3;grid-row:2;display:flex;align-items:center;gap:6px;min-width:0;margin:6px 0 0 30px;color:var(--ink);font-size:.75rem;font-weight:500;overflow-wrap:anywhere}
-  .product-subtask-hours{color:var(--muted);font-size:.67rem;font-weight:700;white-space:nowrap}
-  .product-subtask-details{margin:7px 0 0 30px;color:var(--muted);font-size:.69rem;line-height:1.4}
-  .product-subtask-details ul{margin:3px 0 0;padding-left:17px}
-  .product-subtask.ready .backlog-status,.product-subtask.done .backlog-status{background:#e1f4e8;color:#14723a}
   .sprint-story{background:#fff}.sprint-story.ready-to-close{border-color:#72c996;background:#e9f8ef}
   .story-forecast{font-weight:800;color:var(--brand-dark)}.story-forecast.warning{color:#9a6700}
   .subtask-list{margin:12px 0 0 33px;display:flex;flex-direction:column;gap:0}
@@ -1182,7 +1173,6 @@
         <div class="planning-actions">
           <button class="btn-ghost btn-sm" id="btnPlanningPoker">🃏 Planning Poker</button>
           <button class="btn-ghost btn-sm btn-danger" id="btnRemoveAllTickets">Reset Sprint</button>
-          <button class="btn-primary btn-sm" id="btnAddTicket">+ Ticket</button>
         </div>
       </div>
       <div class="section-note muted">Order the Product Backlog, then move ready Stories into the Sprint Backlog.</div>
@@ -1202,7 +1192,7 @@
       <div class="poker-reference hidden" id="pokerReference"></div>
       <div class="planning-board">
         <section class="backlog-column" id="productBacklogColumn" data-dropzone="product">
-          <div class="backlog-column-header"><div><div class="backlog-heading-row"><h3>Product Backlog</h3><label class="product-goal-deadline">Deadline <input type="date" id="productGoalDeadline" aria-label="Product Goal deadline"></label></div><div class="product-goal-editor"><span class="sprint-goal-label">Product Goal</span><input type="text" class="product-goal-input" id="productGoalInput" placeholder="Specify the Product Goal..." maxlength="500"></div><p>Ordered by the Product Owner.</p></div><span class="backlog-counter" id="productBacklogCount"></span></div>
+          <div class="backlog-column-header"><div><div class="backlog-heading-row"><h3>Product Backlog</h3><label class="product-goal-deadline">Deadline <input type="date" id="productGoalDeadline" aria-label="Product Goal deadline"></label></div><div class="product-goal-editor"><span class="sprint-goal-label">Product Goal</span><input type="text" class="product-goal-input" id="productGoalInput" placeholder="Specify the Product Goal..." maxlength="500"></div><p>Ordered by the Product Owner.</p></div><div class="product-backlog-header-actions"><span class="backlog-counter" id="productBacklogCount"></span><button class="btn-primary btn-sm" id="btnAddTicket">+ Ticket</button></div></div>
           <div class="backlog-list" id="productBacklogList"></div>
         </section>
         <section class="backlog-column" id="sprintBacklogColumn" data-dropzone="sprint">
@@ -3993,15 +3983,6 @@
       ((item.refinementNotes || item.refinementNotesNA) ? (item.refinementNotesNA ? `<p><strong>Refinement:</strong> Not applicable</p>` : renderDetailLines("Refinement", item.refinementNotes, false)) : "") +
       (link ? `<p>${link}</p>` : "") + `</div>`;
   }
-  function renderProductSubtask(task){
-    const ready = isSubtaskReady(task); const expanded = !task.collapsed; const link = renderExternalLink(task.externalUrl);
-    return `<article class="product-subtask${ready ? " ready" : ""}${task.done ? " done" : ""}" data-product-task-id="${task.id}">` +
-      `<div class="product-subtask-head"><div class="product-subtask-identity"><button class="backlog-toggle" data-action="product-task-toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
-      `</div><div class="product-subtask-actions">` +
-      `<button class="backlog-icon-btn text-action" data-action="product-task-edit" title="Edit Sub-task">${planningIcon("edit")}<span>Edit</span></button>` +
-      `<button class="backlog-icon-btn danger" data-action="product-task-delete" title="Delete Sub-task" aria-label="Delete Sub-task">${planningIcon("trash")}</button></div><span class="product-subtask-title"><span class="backlog-type">Sub-task</span><span>${escapeHtml(task.title)}</span><span class="backlog-status">${task.done ? "Done" : ready ? "Ready" : "Needs details"}</span><span class="product-subtask-hours">${formatHours(task.hours)}h</span></span></div>` +
-      (expanded ? `<div class="product-subtask-details">${task.description ? renderDetailLines("Description", task.description, false) : ""}${link ? `<p>${link}</p>` : ""}</div>` : "") + `</article>`;
-  }
   function renderProductItem(item){
     if(isSprintItemType(item.type) && planningData.sprintStoryIds.includes(item.id)) return "";
     const children = itemChildren(item.id).filter(child => !(isSprintItemType(child.type) && planningData.sprintStoryIds.includes(child.id)));
@@ -4013,9 +3994,9 @@
       `<div class="backlog-item-head"><div class="product-pbi-identity"><button class="backlog-toggle" data-action="toggle" title="${expanded ? "Collapse" : "Expand"}" aria-label="${expanded ? "Collapse" : "Expand"}">${planningIcon(expanded ? "chevronDown" : "chevronRight")}</button>` +
       `${renderDependencySelect(item)}</div>` +
       `<div class="backlog-actions">${siblings.length > 1 ? `<button class="backlog-icon-btn" data-action="moveup" title="Move up" aria-label="Move up"${siblingIndex <= 0 ? " disabled" : ""}>${planningIcon("up")}</button><button class="backlog-icon-btn" data-action="movedown" title="Move down" aria-label="Move down"${siblingIndex === siblings.length - 1 ? " disabled" : ""}>${planningIcon("down")}</button>` : ""}` +
-      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${isSprintItemType(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button>` : ""}${["epic", "feature", "story"].includes(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-child" title="Add a child ticket">${planningIcon("plus")}<span>Ticket</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div>` +
+      `<button class="backlog-icon-btn text-action" data-action="edit" title="Edit">${planningIcon("edit")}<span>Edit</span></button>${isSprintItemType(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-sprint" title="Add to Sprint">${planningIcon("arrowRight")}<span>Sprint</span></button><button class="backlog-icon-btn text-action" data-action="add-task" title="Add a Sub-task">${planningIcon("plus")}<span>Task</span></button>` : ""}${["epic", "feature"].includes(item.type) ? `<button class="backlog-icon-btn text-action" data-action="add-child" title="Add a child ticket">${planningIcon("plus")}<span>Ticket</span></button>` : ""}<button class="backlog-icon-btn danger" data-action="delete" title="Delete" aria-label="Delete">${planningIcon("trash")}</button></div>` +
       `<div class="backlog-title-wrap"><div class="backlog-title-line"><span class="backlog-type ${item.type}">${escapeHtml(item.referenceId)}</span>${!expanded && children.length ? `<span class="backlog-counter">${children.length}</span>` : ""}${!expanded && productSubtasks.length ? `<span class="backlog-counter">${productSubtasks.length} Sub-task${productSubtasks.length === 1 ? "" : "s"}</span>` : ""}<span class="backlog-title">${escapeHtml(item.title)}</span></div><div class="backlog-meta"><span>${isSprintItemType(item.type) ? `${formatHours(item.estimateHours)}h estimate` : `${formatHours(rollupEstimate(item))}h rollup`}</span><span>·</span><span class="backlog-status">${ready ? "Ready" : "Needs refinement"}</span></div></div></div>` +
-      (expanded ? renderPbiDetails(item) + (productSubtasks.length ? `<div class="product-subtask-list">${productSubtasks.map(renderProductSubtask).join("")}</div>` : "") + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
+      (expanded ? renderPbiDetails(item) + (productSubtasks.length ? `<div class="subtask-list">${productSubtasks.map((task, index) => renderSubtask(task, item.id, index, productSubtasks.length)).join("")}</div>` : "") + (children.length ? `<div class="backlog-children">${children.map(renderProductItem).join("")}</div>` : "") : "") + `</article>`;
   }
   function renderHourBox(kind, storyId, task){
     const item = task || productItem(storyId); const hours = task ? task.hours : item.estimateHours;
@@ -4330,28 +4311,43 @@
 
   productBacklogListEl.addEventListener("click", async e => {
     const itemEl = e.target.closest("[data-pbi-id]");
-    const action = e.target.closest("button[data-action]")?.dataset.action;
-    if(!itemEl || !action) return;
+    if(!itemEl) return;
     const id = itemEl.dataset.pbiId;
     const item = productItem(id);
     if(!item) return;
-    const productTaskId = e.target.closest("[data-product-task-id]")?.dataset.productTaskId;
-    if(action === "product-task-toggle"){
-      const task = storySubtasks(id).find(candidate => candidate.id === productTaskId);
+    const taskId = e.target.closest("[data-task-id]")?.dataset.taskId;
+    const hourActionEl = e.target.closest("button[data-hour-action]");
+    if(hourActionEl){
+      const task = storySubtasks(id).find(candidate => candidate.id === taskId);
+      if(!task) return;
+      if(hourActionEl.dataset.hourAction === "done") return openWorkDoneModal("subtask", id, taskId);
+      const increment = Math.max(0.5, Number(settings.ticketIncrementHours) || 1);
+      task.hours = roundHours(hourActionEl.dataset.hourAction === "plus" ? task.hours + increment : Math.max(0, task.hours - increment));
+      savePlanning(); renderPlanning(); return;
+    }
+    const action = e.target.closest("button[data-action]")?.dataset.action;
+    if(!action) return;
+    if(action === "task-toggle"){
+      const task = storySubtasks(id).find(candidate => candidate.id === taskId);
       if(!task) return;
       task.collapsed = !task.collapsed;
     }
-    else if(action === "product-task-edit") return openSubtaskModal(id, productTaskId);
-    else if(action === "product-task-delete"){
-      const task = storySubtasks(id).find(candidate => candidate.id === productTaskId);
+    else if(action === "task-edit") return openSubtaskModal(id, taskId);
+    else if(action === "task-delete"){
+      const task = storySubtasks(id).find(candidate => candidate.id === taskId);
       if(!task || !(await showConfirm(`Delete Sub-task \"${task.title}\"?`, "Delete"))) return;
-      planningData.subtasksByStory[id] = storySubtasks(id).filter(candidate => candidate.id !== productTaskId);
+      planningData.subtasksByStory[id] = storySubtasks(id).filter(candidate => candidate.id !== taskId);
+    }
+    else if(action === "task-up" || action === "task-down"){
+      const tasks = storySubtasks(id); const index = tasks.findIndex(task => task.id === taskId); const next = index + (action === "task-up" ? -1 : 1);
+      if(index >= 0 && next >= 0 && next < tasks.length) [tasks[index], tasks[next]] = [tasks[next], tasks[index]];
     }
     else if(action === "toggle") item.collapsed = !item.collapsed;
     else if(action === "moveup") moveBacklogItem(id, -1);
     else if(action === "movedown") moveBacklogItem(id, 1);
     else if(action === "edit") return openPbiModal(id);
     else if(action === "add-child") return openPbiModal(null, id);
+    else if(action === "add-task") return openSubtaskModal(id);
     else if(action === "add-sprint") return addStoryToSprint(id);
     else if(action === "delete"){
       const descendants = itemDescendants(id);
