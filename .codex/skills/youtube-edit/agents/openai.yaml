@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube Edit"
+  short_description: "Create concise, editable product promo videos"
+  default_prompt: "Use $youtube-edit to create or revise a short product video with the local-first editable Kdenlive workflow."

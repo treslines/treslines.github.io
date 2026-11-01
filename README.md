@@ -15,9 +15,9 @@ I have seen Scrum work in practice, but I have also seen it fail far too often s
 - Simple but powerful settings let you configure your team, sprint length, ticket sizes, stats, and more.
 - Best of all, the entire project works offline. No internet connection and no database are required — only you, your team, and a tool designed to improve productivity and make Scrum work better.
 
-Give it a try: [**ScrumPulse**](https://treslines.github.io/)
+Give it a try: [**ScrumPulse**](https://treslines.github.io/app.html)
 
-Learn more: [Free offline Scrum board](https://treslines.github.io/about.html) · [Quadro Scrum gratuito](https://treslines.github.io/pt/)
+Learn more: [Free offline Scrum board](https://treslines.github.io/) · [Quadro Scrum gratuito](https://treslines.github.io/pt/)
 
 ## ScrumPulse in action
 

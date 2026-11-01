@@ -34,6 +34,8 @@ h1{margin:0;font-size:clamp(2.5rem,6vw,4.8rem);line-height:.98;letter-spacing:-.
 .hero-visual{position:relative}
 .hero-visual::before{content:"";position:absolute;inset:-18px;border-radius:30px;background:linear-gradient(135deg,#d8f0ed,#fff1e7);transform:rotate(-2deg)}
 .hero-visual img{position:relative;display:block;border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow)}
+.video-shell{position:relative;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--border);border-radius:20px;background:#071f28;box-shadow:var(--shadow)}
+.video-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .section{width:min(1180px,calc(100% - 32px));margin:auto;padding:72px 0}
 .section-heading{max-width:760px;margin-bottom:32px}
 .section h2{margin:0;font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;letter-spacing:-.035em}
