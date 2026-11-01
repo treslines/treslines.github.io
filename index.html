@@ -39,6 +39,14 @@
     "applicationSubCategory": "Project Management",
     "operatingSystem": "Any operating system with a modern web browser",
     "isAccessibleForFree": true,
+    "featureList": [
+      "Daily Scrum facilitation and timeboxes",
+      "Capacity, vacation and public holiday planning",
+      "Product and Sprint Backlogs with goals and dependencies",
+      "Product Roadmap, Burndown and Sprint History",
+      "Sprint Review and Retrospective guidance",
+      "Offline Scrum guidance, Ownership, DoD and DoR"
+    ],
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Ricardo Ferreira", "url": "https://github.com/treslines" },
     "image": "https://treslines.github.io/assets/promo-overview.png",
@@ -93,11 +101,11 @@
       </div>
       <div class="feature-grid">
         <article class="feature-card"><h3>Daily Scrum</h3><p>Keep the event inside 15 minutes with speaker timing, focused prompts, and visible participation.</p></article>
-        <article class="feature-card"><h3>Capacity and availability</h3><p>Account for absences, public holidays, Scrum events and delivery overhead before selecting work.</p></article>
-        <article class="feature-card"><h3>Sprint Planning</h3><p>Order the Product Backlog, check Definition of Ready, build the Sprint Backlog and lock the initial forecast.</p></article>
-        <article class="feature-card"><h3>Review and Retrospective</h3><p>Use clear facilitation guidance, timeboxes and accountable improvement actions.</p></article>
-        <article class="feature-card"><h3>Burndown and statistics</h3><p>Compare the initial commitment, evolving forecast, actual work and recent team trends.</p></article>
-        <article class="feature-card"><h3>Scrum knowledge</h3><p>Search practical Scrum guidance offline and make ownership, DoD and DoR explicit.</p></article>
+        <article class="feature-card"><h3>Capacity and vacation</h3><p>Account for absences, public holidays, Scrum events and delivery overhead before selecting work.</p></article>
+        <article class="feature-card"><h3>Product and Sprint Planning</h3><p>Order the Product Backlog, define goals and dependencies, build the Sprint Backlog and lock the commitment baseline.</p></article>
+        <article class="feature-card"><h3>Roadmap and Burndown</h3><p>Forecast the Product Goal against capacity and its deadline, then track commitment, scope changes and remaining work.</p></article>
+        <article class="feature-card"><h3>Review, Retro and History</h3><p>Use clear facilitation guidance, timeboxes, accountable improvements and read-only Sprint snapshots.</p></article>
+        <article class="feature-card"><h3>Team knowledge and standards</h3><p>Keep decisions and references nearby, search Scrum guidance offline, and make ownership, DoD and DoR explicit.</p></article>
       </div>
     </section>
 
@@ -107,12 +115,12 @@
         <article><h3>Know the capacity</h3><p>Start with who is available and subtract the time the team genuinely cannot spend on delivery.</p></article>
         <article><h3>Build the forecast</h3><p>Move ready Stories, Bugs and Tests into the Sprint and refine the technical breakdown.</p></article>
         <article><h3>Facilitate the work</h3><p>Use event timeboxes, Sprint Goals, decisions and improvement actions to keep alignment visible.</p></article>
-        <article><h3>Inspect the outcome</h3><p>Archive the Sprint and use Burndown, velocity and history to improve the next forecast.</p></article>
+        <article><h3>Inspect the outcome</h3><p>Archive the Sprint and use the baseline, scope changes, Burndown and history to improve the next forecast.</p></article>
       </div>
     </section>
 
     <section class="section split">
-      <article class="info-panel"><p class="eyebrow">Private by design</p><h2>Your Scrum data stays in your browser.</h2><p>ScrumPulse does not require an account, hosted database or external service. The local-first design keeps setup small and makes the board useful even without an internet connection.</p></article>
+      <article class="info-panel"><p class="eyebrow">Private by design</p><h2>Your Scrum data stays in your browser.</h2><p>The core ScrumPulse app does not require an account, hosted database or synchronization service. The local-first design keeps setup small and makes the board useful without an internet connection.</p></article>
       <article class="info-panel"><p class="eyebrow">Facilitator-focused</p><h2>A working aid, not another system to administer.</h2><p>The board is designed for the person facilitating Planning, Daily Scrum, Review and Retrospective. External Jira or ticket links can still be attached when the team needs them.</p></article>
     </section>
 
@@ -121,7 +129,9 @@
       <div class="faq">
         <details><summary>Is ScrumPulse really free?</summary><p>Yes. The web app is free to use and its source code is available under the Apache License 2.0.</p></details>
         <details><summary>Does it require an account or database?</summary><p>No. ScrumPulse runs in the browser and stores the workspace locally. You can export a JSON backup whenever you need to move or protect the data.</p></details>
-        <details><summary>Does ScrumPulse work offline?</summary><p>Yes. The application is designed for offline use and has no runtime dependency on a hosted backend.</p></details>
+        <details><summary>Does ScrumPulse work offline?</summary><p>Yes. The core application has no runtime dependency on a hosted backend and stores its workspace locally. The product tour, GitHub pages and any external ticket links require an internet connection.</p></details>
+        <details><summary>Can several people edit the same board live?</summary><p>No. ScrumPulse is a facilitator-focused local workspace, not a synchronized multiuser system. Teams can follow the facilitator through screen sharing, and a JSON backup can be transferred when another person needs to continue the workspace.</p></details>
+        <details><summary>Can I move or back up my workspace?</summary><p>Yes. Export the workspace as JSON to protect it or move it to another browser or device, then import it to continue.</p></details>
         <details><summary>Can it replace Jira?</summary><p>ScrumPulse is a focused facilitation and planning workspace, not a full issue tracker. Product Backlog items and Sub-tasks can link to external ticketing systems such as Jira.</p></details>
         <details><summary>Who is ScrumPulse for?</summary><p>It is especially useful for Scrum Masters, Product Owners, Developers, Agile coaches and team facilitators who want a simple board for Scrum events and Sprint evidence.</p></details>
       </div>
@@ -129,7 +139,7 @@
 
     <section class="section cta">
       <h2>Open the board and plan your next Sprint.</h2>
-      <p>No installation, account or database. ScrumPulse opens directly in your browser and is ready for your team.</p>
+      <p>No installation, account or database. ScrumPulse opens directly in your browser and is ready for your next facilitated session.</p>
       <a class="button" href="app.html">Use ScrumPulse for free</a>
     </section>
   </main>

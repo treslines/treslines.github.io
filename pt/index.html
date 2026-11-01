@@ -40,6 +40,14 @@
     "operatingSystem": "Qualquer sistema operacional com navegador moderno",
     "inLanguage": "pt-BR",
     "isAccessibleForFree": true,
+    "featureList": [
+      "Facilitação e timebox do Daily Scrum",
+      "Planejamento de capacidade, férias e feriados",
+      "Product e Sprint Backlogs com objetivos e dependências",
+      "Product Roadmap, Burndown e histórico de Sprints",
+      "Orientações para Sprint Review e Retrospectiva",
+      "Orientação Scrum offline, Ownership, DoD e DoR"
+    ],
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Ricardo Ferreira", "url": "https://github.com/treslines" },
     "image": "https://treslines.github.io/assets/promo-overview.png",
@@ -94,11 +102,11 @@
       </div>
       <div class="feature-grid">
         <article class="feature-card"><h3>Daily Scrum</h3><p>Mantenha o evento dentro de 15 minutos com tempo por participante, perguntas focadas e participação visível.</p></article>
-        <article class="feature-card"><h3>Capacidade e disponibilidade</h3><p>Considere ausências, feriados, eventos Scrum e overhead antes de selecionar o trabalho.</p></article>
-        <article class="feature-card"><h3>Sprint Planning</h3><p>Ordene o Product Backlog, confira a Definition of Ready, monte o Sprint Backlog e registre a previsão inicial.</p></article>
-        <article class="feature-card"><h3>Review e Retrospectiva</h3><p>Utilize orientações claras, timeboxes e ações de melhoria com responsáveis e prazos.</p></article>
-        <article class="feature-card"><h3>Burndown e estatísticas</h3><p>Compare compromisso inicial, previsão atualizada, trabalho real e tendências recentes da equipe.</p></article>
-        <article class="feature-card"><h3>Conhecimento Scrum</h3><p>Consulte orientações offline e deixe ownership, Definition of Done e Definition of Ready explícitos.</p></article>
+        <article class="feature-card"><h3>Capacidade e férias</h3><p>Considere ausências, feriados, eventos Scrum e overhead antes de selecionar o trabalho.</p></article>
+        <article class="feature-card"><h3>Product e Sprint Planning</h3><p>Ordene o Product Backlog, defina objetivos e dependências, monte o Sprint Backlog e registre o compromisso inicial.</p></article>
+        <article class="feature-card"><h3>Roadmap e Burndown</h3><p>Projete o Product Goal considerando capacidade e prazo, depois acompanhe compromisso, mudanças de escopo e trabalho restante.</p></article>
+        <article class="feature-card"><h3>Review, Retro e histórico</h3><p>Use orientações claras, timeboxes, melhorias responsáveis e snapshots somente leitura dos Sprints.</p></article>
+        <article class="feature-card"><h3>Conhecimento e padrões</h3><p>Mantenha decisões e referências próximas, consulte orientações offline e deixe ownership, DoD e DoR explícitos.</p></article>
       </div>
     </section>
 
@@ -108,12 +116,12 @@
         <article><h3>Conheça a capacidade</h3><p>Comece por quem está disponível e desconte o tempo que realmente não poderá ser usado na entrega.</p></article>
         <article><h3>Construa a previsão</h3><p>Mova Stories, Bugs e Tests prontos para o Sprint e detalhe o plano técnico.</p></article>
         <article><h3>Facilite o trabalho</h3><p>Use timeboxes, Sprint Goals, decisões e melhorias para manter o alinhamento visível.</p></article>
-        <article><h3>Inspecione o resultado</h3><p>Arquive o Sprint e use Burndown, velocidade e histórico para melhorar a próxima previsão.</p></article>
+        <article><h3>Inspecione o resultado</h3><p>Arquive o Sprint e use baseline, mudanças de escopo, Burndown e histórico para melhorar a próxima previsão.</p></article>
       </div>
     </section>
 
     <section class="section split">
-      <article class="info-panel"><p class="eyebrow">Privacidade por padrão</p><h2>Seus dados Scrum permanecem no navegador.</h2><p>O ScrumPulse não exige conta, banco de dados hospedado ou serviço externo. O funcionamento local reduz a configuração e mantém o quadro útil mesmo sem internet.</p></article>
+      <article class="info-panel"><p class="eyebrow">Privacidade por padrão</p><h2>Seus dados Scrum permanecem no navegador.</h2><p>O aplicativo principal não exige conta, banco de dados hospedado ou serviço de sincronização. O funcionamento local reduz a configuração e mantém o quadro útil mesmo sem internet.</p></article>
       <article class="info-panel"><p class="eyebrow">Foco no facilitador</p><h2>Um auxílio de trabalho, não outro sistema para administrar.</h2><p>O quadro foi criado para quem facilita Planning, Daily Scrum, Review e Retrospectiva. Quando necessário, os itens podem apontar para tickets externos, como Jira.</p></article>
     </section>
 
@@ -122,7 +130,9 @@
       <div class="faq">
         <details><summary>O ScrumPulse é realmente gratuito?</summary><p>Sim. O aplicativo web é gratuito e seu código-fonte está disponível sob a licença Apache 2.0.</p></details>
         <details><summary>Precisa criar conta ou configurar banco de dados?</summary><p>Não. O ScrumPulse funciona no navegador e armazena o workspace localmente. Você pode exportar um backup JSON quando quiser proteger ou transferir os dados.</p></details>
-        <details><summary>O ScrumPulse funciona sem internet?</summary><p>Sim. O aplicativo foi projetado para uso offline e não depende de um backend hospedado durante a execução.</p></details>
+        <details><summary>O ScrumPulse funciona sem internet?</summary><p>Sim. O aplicativo principal não depende de um backend hospedado e armazena o workspace localmente. O vídeo demonstrativo, as páginas do GitHub e links para tickets externos exigem internet.</p></details>
+        <details><summary>Várias pessoas podem editar o mesmo quadro ao vivo?</summary><p>Não. O ScrumPulse é um workspace local focado no facilitador, não um sistema multiusuário sincronizado. A equipe pode acompanhar por compartilhamento de tela, e um backup JSON pode ser transferido quando outra pessoa precisar continuar o workspace.</p></details>
+        <details><summary>Posso transferir ou fazer backup do workspace?</summary><p>Sim. Exporte o workspace como JSON para protegê-lo ou movê-lo para outro navegador ou dispositivo; depois, basta importá-lo para continuar.</p></details>
         <details><summary>Ele substitui o Jira?</summary><p>O ScrumPulse é um workspace focado em facilitação e planejamento, não um sistema completo de tickets. Itens do backlog e Sub-tasks podem conter links para ferramentas externas, como Jira.</p></details>
         <details><summary>Para quem o ScrumPulse foi criado?</summary><p>Ele é especialmente útil para Scrum Masters, Product Owners, Developers, Agile coaches e facilitadores que desejam simplicidade nos eventos e evidências do Sprint.</p></details>
       </div>
@@ -130,7 +140,7 @@
 
     <section class="section cta">
       <h2>Abra o quadro e planeje seu próximo Sprint.</h2>
-      <p>Sem instalação, cadastro ou banco de dados. O ScrumPulse abre diretamente no navegador e está pronto para sua equipe.</p>
+      <p>Sem instalação, cadastro ou banco de dados. O ScrumPulse abre diretamente no navegador e está pronto para sua próxima sessão facilitada.</p>
       <a class="button" href="../app.html">Usar ScrumPulse gratuitamente</a>
     </section>
   </main>
