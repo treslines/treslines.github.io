@@ -21,25 +21,9 @@ Learn more: [Free offline Scrum board](https://treslines.github.io/) · [Quadro 
 
 ## ScrumPulse in action
 
-![ScrumPulse overview — a beautiful, fully offline Scrum workspace](assets/promo-overview.png)
+Watch the ScrumPulse 1min. viceo clip product tour:
 
-![Daily Scrum — focused prompts, visible timeboxes, and speaker countdowns](assets/promo-daily.png)
-
-![Capacity Planning — team availability and real Sprint capacity](assets/promo-capacity.png)
-
-![Sprint Planning — Planning Poker, ticket sizing, and available capacity](assets/promo-planning.png)
-
-![Sprint Review — practical guidance, timing, and focused hints](assets/promo-review.png)
-
-![Sprint Retrospective — accountable improvements with owners and due dates](assets/promo-retro.png)
-
-![Burndown — transparent Sprint progress and velocity](assets/promo-burndown.png)
-
-![Stats — clear ceremony and delivery trends](assets/promo-stats.png)
-
-![Scrum Search — natural-language Scrum guidance available offline](assets/promo-search.png)
-
-![Board Settings — simple, adaptable team and Sprint configuration](assets/promo-settings.png)
+[![Watch the ScrumPulse product tour on YouTube](https://img.youtube.com/vi/9TYZB-j29Ro/maxresdefault.jpg)](https://youtu.be/9TYZB-j29Ro)
 
 ## Did you like it?
 
