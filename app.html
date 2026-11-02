@@ -266,6 +266,42 @@
   .roadmap-header h2{margin:0;color:var(--brand-dark);font-size:1.3rem}.roadmap-header p{margin:5px 0 0;max-width:760px;font-size:.78rem}
   .roadmap-status{display:inline-flex;align-items:center;min-height:30px;padding:0 11px;border-radius:999px;background:#eef4f5;color:#536d76;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
   .roadmap-status.on-track{background:#e1f4e8;color:#14723a}.roadmap-status.at-risk{background:#fff0c7;color:#805600}.roadmap-status.behind{background:#fde7e9;color:#a92939}
+
+  /* Budget panel + Product Backlog early-warning badge share this status pill */
+  .budget-status{display:inline-flex;align-items:center;min-height:30px;padding:0 11px;border-radius:999px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;background:#eef4f5;color:#536d76;white-space:nowrap}
+  .budget-status.on-track{background:#e1f4e8;color:#14723a}
+  .budget-status.caution{background:#fff8d6;color:#8a6d00}
+  .budget-status.at-risk{background:#fff0c7;color:#805600}
+  .budget-status.critical{background:#fde7e9;color:#a92939}
+  .budget-status.over{background:#1f2937;color:#fff}
+  .budget-bar{position:relative;width:100%;height:14px;margin-top:18px;border-radius:999px;background:#eef3f3;overflow:hidden}
+  .budget-bar-fill{position:absolute;top:0;left:0;bottom:0;width:0;border-radius:999px;background:var(--good);transition:width .25s ease,background .25s ease}
+  .budget-bar-fill.caution{background:var(--warn)}
+  .budget-bar-fill.at-risk{background:#f97316}
+  .budget-bar-fill.critical{background:var(--bad)}
+  .budget-bar-fill.over{background:#1f2937}
+  .budget-header-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+  .budget-thresholds{margin:12px 0 0;padding:12px;border:1px solid var(--border);border-radius:10px;background:#f8fbfb}
+  .budget-thresholds-row{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+  .budget-thresholds-row .field-row{max-width:120px}
+  .budget-thresholds-row .field-row.budget-thresholds-reset-field{max-width:none;flex:0 0 auto}
+  #budgetThresholdsReset{white-space:nowrap}
+  .budget-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+  .budget-legend-item{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:.78rem}
+  .budget-legend-item .budget-dot{margin:0}
+  .budget-threshold-label{display:inline-flex;align-items:center}
+  .budget-thresholds-note{margin:10px 0 0;font-size:.78rem}
+  .budget-additions{margin-top:10px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#f8fbfb}
+  .budget-additions-group+.budget-additions-group{margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+  .budget-additions-label{margin:0 0 6px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .budget-addition-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--border)}
+  .budget-addition-row:last-child{border-bottom:0}
+  .budget-addition-amount{flex:0 0 auto;min-width:48px;color:var(--good);font-weight:800}
+  .budget-addition-amount.first{color:#2563eb}
+  .budget-addition-note{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.85rem}
+  .budget-addition-date{flex:0 0 auto;color:var(--muted);font-size:.78rem}
+  .budget-addition-remove{flex:0 0 auto;padding:2px 7px;border:0;border-radius:6px;color:var(--muted);background:transparent}
+  .budget-addition-remove:hover{color:var(--bad);background:#fde8e8}
   .roadmap-metrics{display:grid;grid-template-columns:repeat(4,minmax(145px,1fr));gap:10px;margin:16px 0 10px}
   .roadmap-metric{min-width:0;padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:#f8fbfb}
   .roadmap-metric-label{display:block;color:var(--muted);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
@@ -284,7 +320,7 @@
   .roadmap-week-label{position:absolute;top:27px;z-index:2;color:#57727a;font-size:.59rem;font-weight:800;white-space:nowrap}.roadmap-week-label.month{color:var(--brand-dark)}
   .roadmap-day-number{position:absolute;bottom:6px;z-index:2;width:28px;color:#789097;font-size:.57rem;font-weight:650;text-align:center;white-space:nowrap}
   .roadmap-month-boundary{position:absolute;top:0;bottom:0;width:3px;z-index:1;background:#a9b7bb;pointer-events:none}
-  .roadmap-bar{position:absolute;top:17px;z-index:2;height:24px;min-width:8px;border-radius:6px;background:#198493;color:#fff;box-shadow:0 1px 2px rgba(5,49,59,.18);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 7px;font-size:.61rem;font-weight:800;line-height:14px}
+  .roadmap-bar{position:absolute;top:17px;z-index:2;height:24px;min-width:40px;border-radius:6px;background:#198493;color:#fff;box-shadow:0 1px 2px rgba(5,49,59,.18);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 5px;font-size:.61rem;font-weight:800;line-height:14px;text-align:center}
   .roadmap-bar.bug{background:#c43d4d}.roadmap-bar.test{background:#e56717}.roadmap-bar.done{background:#38a965}.roadmap-bar.blocked{background:#9daeb3;color:#fff}
   .roadmap-unscheduled{position:absolute;top:17px;left:10px;z-index:2;height:24px;padding:5px 8px;border:1px dashed #9daeb3;border-radius:6px;background:#f1f4f4;color:#647b83;font-size:.61rem;font-weight:750;line-height:12px}
   .roadmap-marker{position:absolute;top:0;bottom:0;width:2px;z-index:1;pointer-events:none}.roadmap-marker.today{background:#f97316}.roadmap-marker.deadline{background:#d33d4d}.roadmap-row.header .roadmap-marker::before{position:absolute;top:6px;left:4px;font-size:.55rem;font-weight:800;white-space:nowrap}.roadmap-row.header .roadmap-marker.today::before{content:"Today";color:#c8570b}.roadmap-row.header .roadmap-marker.deadline::before{content:"Deadline";top:6px;right:4px;left:auto;color:#b32d3b}
@@ -569,6 +605,8 @@
   .history-sprint[open] summary::before{transform:rotate(90deg)}
   .history-sprint-title{min-width:0;flex:1;font-size:.92rem;font-weight:700;color:var(--brand-dark)}
   .history-sprint-meta{font-size:.7rem;color:var(--muted);white-space:nowrap}
+  .history-sprint-remove{flex:0 0 auto;padding:4px 8px;border:0;border-radius:6px;color:var(--muted);background:transparent;font-size:.85rem}
+  .history-sprint-remove:hover{color:var(--bad);background:#fde8e8}
   .history-sprint-body{padding:0 18px 18px;border-top:1px solid var(--border)}
   .history-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
   .history-metric{padding:10px 12px;border-radius:9px;background:#eef7f7}
@@ -755,6 +793,15 @@
   .air-sidebar-bottom{margin-top:auto;padding-top:22px}
   .air-offline-status{display:flex;align-items:center;gap:8px;margin:13px 10px 0;color:var(--muted);font-size:10px}
   .air-status-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#58d39a;box-shadow:0 0 0 4px rgba(88,211,154,.12)}
+
+  /* Budget nav indicator: dot shows health; label turns red until a budget is set */
+  .budget-dot{display:inline-block;width:7px;height:7px;margin:0 0 0 7px;border-radius:50%;background:#9aa7ad;vertical-align:middle}
+  .budget-dot.on-track{background:var(--good)}
+  .budget-dot.caution{background:var(--warn)}
+  .budget-dot.at-risk{background:#f97316}
+  .budget-dot.critical{background:var(--bad)}
+  .budget-dot.over{background:#1f2937}
+  #airBudgetLabel.budget-label-warn{color:var(--bad)}
 
   /* Compact workspace top bar */
   .air-rebrand header.app-header{
@@ -977,6 +1024,7 @@
   <div class="air-nav-section">
     <div class="air-nav-label">Insights</div>
     <nav class="air-side-nav" aria-label="Insights and help">
+      <button class="air-nav-item" type="button" data-air-tab="budget"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 1 9-9"/><path d="M12 12 17 7"/><path d="M3 12h2M12 3v2M19.1 4.9l-1.4 1.4"/></svg></span><span><span id="airBudgetLabel">Budget</span><span class="budget-dot" id="airBudgetDot" aria-hidden="true"></span></span></button>
       <button class="air-nav-item" type="button" data-air-tab="roadmap"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18M3 12h18M3 19h18"/><path d="M7 3v4M14 10v4M18 17v4"/></svg></span><span>Roadmap</span></button>
       <button class="air-nav-item" type="button" data-air-tab="burndown"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="5,6 10,9 13,14 20,17"/></svg></span><span>Burndown</span></button>
       <button class="air-nav-item" type="button" data-air-tab="stats"><span class="air-nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M3 20h18"/></svg></span><span>Stats</span></button>
@@ -1015,6 +1063,7 @@
 </header>
 
 <nav class="tabs" id="tabs">
+  <button data-tab="budget">Budget</button>
   <button data-tab="roadmap">Roadmap</button>
   <button data-tab="burndown">Burndown</button>
   <button data-tab="daily" class="active">Daily Scrum</button>
@@ -1056,6 +1105,53 @@
         <button type="submit" id="searchSendBtn" disabled>Send</button>
       </form>
       <div class="search-results" id="searchResults"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-budget">
+    <div class="card" id="budgetCard">
+      <div class="roadmap-header">
+        <div><h2>💰 Project Budget</h2><p class="muted">Track delivered hours against the budget you set for this project. Hours are counted once Stories, Bugs, Tests, and their Sub-tasks are marked Done.</p></div>
+        <div class="budget-header-actions">
+          <button class="btn-ghost btn-sm" type="button" id="budgetThresholdsToggle" aria-expanded="false">⚙️ Thresholds</button>
+          <button class="btn-primary btn-sm" type="button" id="budgetAddBtn">+ Budget</button>
+          <span class="budget-status" id="budgetStatusBadge"></span>
+        </div>
+      </div>
+      <div class="budget-thresholds hidden" id="budgetThresholdsPanel">
+        <div class="budget-thresholds-row">
+          <div class="field-row"><label><span class="budget-threshold-label">Caution at (%)<span class="budget-dot caution" aria-hidden="true"></span></span><input type="number" id="budgetThresholdCaution" min="1" max="99" step="1"></label></div>
+          <div class="field-row"><label><span class="budget-threshold-label">At risk at (%)<span class="budget-dot at-risk" aria-hidden="true"></span></span><input type="number" id="budgetThresholdAtRisk" min="1" max="99" step="1"></label></div>
+          <div class="field-row"><label><span class="budget-threshold-label">Critical at (%)<span class="budget-dot critical" aria-hidden="true"></span></span><input type="number" id="budgetThresholdCritical" min="1" max="99" step="1"></label></div>
+          <div class="field-row budget-thresholds-reset-field"><label><span aria-hidden="true">&nbsp;</span><button class="btn-ghost btn-sm" type="button" id="budgetThresholdsReset">Reset to defaults</button></label></div>
+        </div>
+        <div class="budget-legend">
+          <span class="budget-legend-item"><span class="budget-dot on-track" aria-hidden="true"></span>On track</span>
+          <span class="budget-legend-item"><span class="budget-dot caution" aria-hidden="true"></span>Caution</span>
+          <span class="budget-legend-item"><span class="budget-dot at-risk" aria-hidden="true"></span>At risk</span>
+          <span class="budget-legend-item"><span class="budget-dot critical" aria-hidden="true"></span>Critical</span>
+          <span class="budget-legend-item"><span class="budget-dot over" aria-hidden="true"></span>Over budget</span>
+        </div>
+        <p class="muted budget-thresholds-note">Controls when the health dot and status pill switch colors as hours used climb toward the budget. "Over budget" always triggers once used hours pass the budget, regardless of these settings.</p>
+      </div>
+      <div class="budget-additions hidden" id="budgetAdditionsWrap">
+        <div class="budget-additions-group">
+          <div class="budget-additions-label muted">Initial budget</div>
+          <div id="budgetInitialEntry"></div>
+        </div>
+        <div class="budget-additions-group hidden" id="budgetAddedGroup">
+          <div class="budget-additions-label muted">Added to budget</div>
+          <div id="budgetAdditionsList"></div>
+        </div>
+      </div>
+      <div class="roadmap-metrics">
+        <div class="roadmap-metric"><span class="roadmap-metric-label">Hours used</span><span class="roadmap-metric-value" id="budgetUsedHours"></span></div>
+        <div class="roadmap-metric"><span class="roadmap-metric-label">Hours remaining</span><span class="roadmap-metric-value" id="budgetRemainingHours"></span></div>
+        <div class="roadmap-metric"><span class="roadmap-metric-label">% consumed</span><span class="roadmap-metric-value" id="budgetPercentUsed"></span></div>
+        <div class="roadmap-metric"><span class="roadmap-metric-label">Planned ahead</span><span class="roadmap-metric-value" id="budgetPlannedAhead"></span></div>
+      </div>
+      <div class="budget-bar"><div class="budget-bar-fill" id="budgetBarFill"></div></div>
+      <div class="section-note muted" id="budgetNote"></div>
     </div>
   </section>
 
@@ -1192,7 +1288,7 @@
       <div class="poker-reference hidden" id="pokerReference"></div>
       <div class="planning-board">
         <section class="backlog-column" id="productBacklogColumn" data-dropzone="product">
-          <div class="backlog-column-header"><div><div class="backlog-heading-row"><h3>Product Backlog</h3><label class="product-goal-deadline">Deadline <input type="date" id="productGoalDeadline" aria-label="Product Goal deadline"></label></div><div class="product-goal-editor"><span class="sprint-goal-label">Product Goal</span><input type="text" class="product-goal-input" id="productGoalInput" placeholder="Specify the Product Goal..." maxlength="500"></div><p>Ordered by the Product Owner.</p></div><div class="product-backlog-header-actions"><span class="backlog-counter" id="productBacklogCount"></span><button class="btn-primary btn-sm" id="btnAddTicket">+ Ticket</button></div></div>
+          <div class="backlog-column-header"><div><div class="backlog-heading-row"><h3>Product Backlog</h3><label class="product-goal-deadline">Deadline <input type="date" id="productGoalDeadline" aria-label="Product Goal deadline"></label></div><div class="product-goal-editor"><span class="sprint-goal-label">Product Goal</span><input type="text" class="product-goal-input" id="productGoalInput" placeholder="Specify the Product Goal..." maxlength="500"></div><p>Ordered by the Product Owner.</p></div><div class="product-backlog-header-actions"><span class="budget-status hidden" id="productBudgetWarning"></span><span class="backlog-counter" id="productBacklogCount"></span><button class="btn-primary btn-sm" id="btnAddTicket">+ Ticket</button></div></div>
           <div class="backlog-list" id="productBacklogList"></div>
         </section>
         <section class="backlog-column" id="sprintBacklogColumn" data-dropzone="sprint">
@@ -1669,6 +1765,17 @@
   </div>
 </div>
 
+<div class="summary-overlay hidden" id="budgetAddOverlay">
+  <div class="summary-card">
+    <h2 id="budgetAddDialogTitle">+ Add Budget Hours</h2>
+    <p class="muted" id="budgetAddDialogDesc">Add extra hours to the project budget. Each addition is tracked separately so you can see how the budget grew over time, and can be removed later if needed.</p>
+    <div class="field-row"><label><span id="budgetAddHoursLabelText">Additional hours *</span><input type="number" id="budgetAddHoursInput" min="0" step="1" placeholder="e.g. 50"></label></div>
+    <div class="field-row"><label>Reason / note<input type="text" id="budgetAddNoteInput" maxlength="120" placeholder="e.g. Extra scope approved"></label></div>
+    <div class="form-error" id="budgetAddError"></div>
+    <div class="retro-modal-actions"><button class="btn-ghost" id="budgetAddCancel">Cancel</button><button class="btn-primary" id="budgetAddConfirm">Add Hours</button></div>
+  </div>
+</div>
+
 <div class="summary-overlay hidden" id="commitmentOverlay">
   <div class="summary-card">
     <h2>Give Sprint Commitment?</h2>
@@ -1864,6 +1971,7 @@
     if(name === "burndown") renderBurndown();
     if(name === "vacation") renderVacation();
     if(name === "history") renderSprintHistory();
+    if(name === "budget") renderBudget();
   }
   tabButtons.forEach(b => b.addEventListener("click", () => activateTab(b.dataset.tab)));
   window.addEventListener("resize", () => {
@@ -4098,7 +4206,7 @@
     }else{
       planningCommitmentEl.innerHTML = `<button class="commitment-action" id="btnGiveCommitment" type="button">Give Commitment</button><span>Lock the Sprint Goal and selected work as the baseline.</span>`;
     }
-    renderSprintGoals(); renderBurndown();
+    renderSprintGoals(); renderBurndown(); renderBudget();
   }
 
   productGoalInputEl.addEventListener("change", () => {
@@ -4752,7 +4860,8 @@
       }else if(schedule){
         const startIndex = Math.max(0, roadmapDateDiff(today, schedule.start));
         const endIndex = Math.min(displayDays - 1, roadmapDateDiff(today, schedule.end));
-        const width = Math.max(8, (endIndex - startIndex + 1) * ROADMAP_DAY_WIDTH - 4);
+        // Guarantee enough width for the hour label (e.g. "0.5h") even on single-day bars.
+        const width = Math.max(40, (endIndex - startIndex + 1) * ROADMAP_DAY_WIDTH - 4);
         bar = `<span class="roadmap-bar ${item.type}" style="left:${startIndex * ROADMAP_DAY_WIDTH + 2}px;width:${width}px" title="${escapeHtml(`${formatHistoryDate(toISODate(schedule.start))} – ${formatHistoryDate(toISODate(schedule.end))} · ${formatHours(hours)}h`)}">${formatHours(hours)}h</span>`;
       }else{
         const assigned = members.some(member => member.id === roadmapData.assignments[item.id]);
@@ -4783,6 +4892,7 @@
   // Archived once per finished sprint (on "Start New Sprint") to compute a rolling velocity average.
   let sprintHistory = Store.get("sprintHistory", []);
   if(!Array.isArray(sprintHistory)) sprintHistory = [];
+  sprintHistory.forEach(entry => { if(!entry.id) entry.id = uuid(); });
   function saveSprintHistory(){ Store.set("sprintHistory", sprintHistory); }
 
   function archiveCurrentSprint(sprintStartDate, stories){
@@ -4922,7 +5032,7 @@
       const changes = Array.isArray(entry.scopeChanges) ? entry.scopeChanges : [];
       const reliability = entry.commitmentReliabilityPct == null ? "—" : `${entry.commitmentReliabilityPct}%`;
       return `<details class="history-sprint"${reverseIndex === 0 ? " open" : ""}>` +
-        `<summary><span class="history-sprint-title">Sprint ${sequence}</span><span class="history-sprint-meta">${escapeHtml(range)}</span></summary>` +
+        `<summary><span class="history-sprint-title">Sprint ${sequence}</span><span class="history-sprint-meta">${escapeHtml(range)}</span><button type="button" class="history-sprint-remove" data-id="${entry.id}" title="Delete this Sprint from history">\u2715</button></summary>` +
         `<div class="history-sprint-body">` +
           `<div class="history-metrics">` +
             `<div class="history-metric"><span class="history-metric-label">Baseline</span><span class="history-metric-value">${formatHours(entry.plannedHours ?? 0)}h</span></div>` +
@@ -4941,6 +5051,19 @@
         `</div></details>`;
     }).join("");
   }
+
+  document.getElementById("sprintHistoryList").addEventListener("click", async e => {
+    const btn = e.target.closest(".history-sprint-remove");
+    if(!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(!(await showConfirm("Delete this Sprint from history? This cannot be undone.", "Delete"))) return;
+    sprintHistory = sprintHistory.filter(entry => entry.id !== btn.dataset.id);
+    saveSprintHistory();
+    renderSprintHistory();
+    renderStats();
+    renderBudget();
+  });
 
   // Sprint-cadence Stats metrics (Velocity, Planning, Review, Retro) share this window, configurable
   // in Board Settings: either a rolling window of the last N sprints (min 5) or all-time.
@@ -4969,6 +5092,217 @@
     const recent = recentSprintHistory();
     if(!recent.length) return null;
     return Math.round((recent.reduce((s, h) => s + h.completedTicketsCount, 0) / recent.length) * 10) / 10;
+  }
+
+  // --- Project Budget ---
+  let budgetData = Object.assign({ additions: [] }, Store.get("budget", null) || {});
+  if(!Array.isArray(budgetData.additions)) budgetData.additions = [];
+  budgetData.additions = budgetData.additions.map(a => ({
+    id: a.id || uuid(),
+    hours: Math.max(0, Number(a.hours) || 0),
+    note: typeof a.note === "string" ? a.note.slice(0, 120) : "",
+    date: a.date || new Date().toISOString()
+  }));
+  // Legacy data stored a single base amount directly; fold it into the entries list as the initial budget.
+  if(Number(budgetData.totalHours) > 0){
+    budgetData.additions.unshift({ id: uuid(), hours: roundHours(Number(budgetData.totalHours)), note: "Initial Budget", date: new Date().toISOString() });
+  }
+  delete budgetData.totalHours;
+  function clampBudgetThresholds(t){
+    const caution = Math.min(98, Math.max(1, Math.round(Number(t.caution) || 50)));
+    const atRisk = Math.min(99, Math.max(caution + 1, Math.round(Number(t.atRisk) || 70)));
+    const critical = Math.min(99, Math.max(atRisk + 1, Math.round(Number(t.critical) || 80)));
+    return { caution, atRisk, critical };
+  }
+  budgetData.thresholds = clampBudgetThresholds(Object.assign({ caution: 50, atRisk: 70, critical: 80 }, budgetData.thresholds || {}));
+  function saveBudget(){ Store.set("budget", budgetData); }
+
+  const BUDGET_STATUS_LABEL = { unset: "No budget set", "on-track": "On track", caution: "Caution", "at-risk": "At risk", critical: "Critical", over: "Over budget" };
+
+  // Hours delivered so far: archived sprints' final actuals plus actuals already logged in the active sprint.
+  function budgetUsedHours(){
+    const archived = sprintHistory.reduce((sum, entry) => sum + (Number(entry.actualHours) || 0), 0);
+    const live = planningData.productItems.filter(item => isSprintItemType(item.type)).reduce((sum, item) => sum + storyActualHours(item), 0);
+    return roundHours(archived + live);
+  }
+
+  // Forecast still ahead across the whole Product Backlog (not just the committed Sprint), used to warn early.
+  function budgetForecastAheadHours(){
+    return roundHours(planningData.productItems.filter(item => isSprintItemType(item.type) && !item.done).reduce((sum, item) => sum + storyForecastHours(item), 0));
+  }
+
+  // The project budget is the sum of every entry logged (the first one is the initial budget, the rest are later additions).
+  function budgetTotalHours(){
+    return roundHours(budgetData.additions.reduce((sum, a) => sum + (Number(a.hours) || 0), 0));
+  }
+
+  function budgetStatus(usedHours, totalHours){
+    if(totalHours <= 0) return "unset";
+    if(roundHours(totalHours - usedHours) < 0) return "over";
+    const pct = (usedHours / totalHours) * 100;
+    const { caution, atRisk, critical } = budgetData.thresholds;
+    if(pct >= critical) return "critical";
+    if(pct >= atRisk) return "at-risk";
+    if(pct >= caution) return "caution";
+    return "on-track";
+  }
+
+  const budgetStatusBadgeEl = document.getElementById("budgetStatusBadge");
+  const budgetUsedHoursEl = document.getElementById("budgetUsedHours");
+  const budgetRemainingHoursEl = document.getElementById("budgetRemainingHours");
+  const budgetPercentUsedEl = document.getElementById("budgetPercentUsed");
+  const budgetPlannedAheadEl = document.getElementById("budgetPlannedAhead");
+  const budgetBarFillEl = document.getElementById("budgetBarFill");
+  const budgetNoteEl = document.getElementById("budgetNote");
+  const airBudgetDotEl = document.getElementById("airBudgetDot");
+  const airBudgetLabelEl = document.getElementById("airBudgetLabel");
+  const productBudgetWarningEl = document.getElementById("productBudgetWarning");
+  const budgetAddBtnEl = document.getElementById("budgetAddBtn");
+  const budgetAddOverlayEl = document.getElementById("budgetAddOverlay");
+  const budgetAddDialogTitleEl = document.getElementById("budgetAddDialogTitle");
+  const budgetAddDialogDescEl = document.getElementById("budgetAddDialogDesc");
+  const budgetAddHoursLabelTextEl = document.getElementById("budgetAddHoursLabelText");
+  const budgetAddHoursInputEl = document.getElementById("budgetAddHoursInput");
+  const budgetAddNoteInputEl = document.getElementById("budgetAddNoteInput");
+  const budgetAddErrorEl = document.getElementById("budgetAddError");
+  const budgetAddConfirmEl = document.getElementById("budgetAddConfirm");
+  const budgetAdditionsWrapEl = document.getElementById("budgetAdditionsWrap");
+  const budgetInitialEntryEl = document.getElementById("budgetInitialEntry");
+  const budgetAddedGroupEl = document.getElementById("budgetAddedGroup");
+  const budgetAdditionsListEl = document.getElementById("budgetAdditionsList");
+  const budgetThresholdsToggleEl = document.getElementById("budgetThresholdsToggle");
+  const budgetThresholdsPanelEl = document.getElementById("budgetThresholdsPanel");
+  const budgetThresholdCautionEl = document.getElementById("budgetThresholdCaution");
+  const budgetThresholdAtRiskEl = document.getElementById("budgetThresholdAtRisk");
+  const budgetThresholdCriticalEl = document.getElementById("budgetThresholdCritical");
+  const budgetThresholdsResetEl = document.getElementById("budgetThresholdsReset");
+
+  budgetThresholdsToggleEl.addEventListener("click", () => {
+    const expanded = budgetThresholdsToggleEl.getAttribute("aria-expanded") === "true";
+    budgetThresholdsToggleEl.setAttribute("aria-expanded", String(!expanded));
+    budgetThresholdsPanelEl.classList.toggle("hidden", expanded);
+  });
+
+  function applyBudgetThresholdChange(){
+    budgetData.thresholds = clampBudgetThresholds({
+      caution: budgetThresholdCautionEl.value,
+      atRisk: budgetThresholdAtRiskEl.value,
+      critical: budgetThresholdCriticalEl.value
+    });
+    saveBudget();
+    renderBudget();
+  }
+  [budgetThresholdCautionEl, budgetThresholdAtRiskEl, budgetThresholdCriticalEl].forEach(el => el.addEventListener("change", applyBudgetThresholdChange));
+  budgetThresholdsResetEl.addEventListener("click", () => {
+    budgetData.thresholds = { caution: 50, atRisk: 70, critical: 80 };
+    saveBudget();
+    renderBudget();
+  });
+
+  function openBudgetAddDialog(){
+    const isInitial = budgetData.additions.length === 0;
+    budgetAddDialogTitleEl.textContent = isInitial ? "Set Initial Budget" : "+ Add Budget Hours";
+    budgetAddDialogDescEl.textContent = isInitial
+      ? "Set the starting hours budget for this project. You can log more budget later as scope grows."
+      : "Add extra hours to the project budget. Each addition is tracked separately so you can see how the budget grew over time, and can be removed later if needed.";
+    budgetAddHoursLabelTextEl.textContent = isInitial ? "Initial budget (hours) *" : "Additional hours *";
+    budgetAddConfirmEl.textContent = isInitial ? "Set Budget" : "Add Hours";
+    budgetAddHoursInputEl.value = "";
+    budgetAddNoteInputEl.value = isInitial ? "Initial Budget" : "";
+    budgetAddErrorEl.textContent = "";
+    budgetAddOverlayEl.classList.remove("hidden");
+    budgetAddHoursInputEl.focus();
+  }
+  function closeBudgetAddDialog(){
+    budgetAddOverlayEl.classList.add("hidden");
+  }
+  budgetAddBtnEl.addEventListener("click", openBudgetAddDialog);
+  document.getElementById("budgetAddCancel").addEventListener("click", closeBudgetAddDialog);
+  document.getElementById("budgetAddConfirm").addEventListener("click", () => {
+    const hours = Number(budgetAddHoursInputEl.value);
+    if(!(hours > 0)){
+      budgetAddErrorEl.textContent = "Enter an hours amount greater than 0.";
+      return;
+    }
+    budgetData.additions.push({ id: uuid(), hours: roundHours(hours), note: budgetAddNoteInputEl.value.trim().slice(0, 120), date: new Date().toISOString() });
+    saveBudget();
+    closeBudgetAddDialog();
+    renderBudget();
+  });
+  budgetAdditionsWrapEl.addEventListener("click", async e => {
+    const btn = e.target.closest(".budget-addition-remove");
+    if(!btn) return;
+    if(!(await showConfirm("Remove this budget entry? This lowers the total project budget.", "Remove"))) return;
+    budgetData.additions = budgetData.additions.filter(a => a.id !== btn.dataset.id);
+    saveBudget();
+    renderBudget();
+  });
+
+  function renderBudgetEntryRow(a, isInitial){
+    return `<div class="budget-addition-row" data-id="${a.id}">` +
+      `<span class="budget-addition-amount${isInitial ? " first" : ""}">+${formatHours(a.hours)}h</span>` +
+      `<span class="budget-addition-note">${escapeHtml(a.note || "No note")}</span>` +
+      `<span class="budget-addition-date">${new Date(a.date).toLocaleDateString()}</span>` +
+      `<button type="button" class="budget-addition-remove" data-id="${a.id}" title="Remove">\u2715</button>` +
+    `</div>`;
+  }
+
+  function renderBudgetAdditions(){
+    const items = budgetData.additions;
+    budgetAdditionsWrapEl.classList.toggle("hidden", items.length === 0);
+    const [initial, ...added] = items;
+    budgetInitialEntryEl.innerHTML = initial ? renderBudgetEntryRow(initial, true) : "";
+    budgetAddedGroupEl.classList.toggle("hidden", added.length === 0);
+    budgetAdditionsListEl.innerHTML = added.map(a => renderBudgetEntryRow(a, false)).join("");
+  }
+
+  function renderBudget(){
+    const totalHours = budgetTotalHours();
+    const usedHours = budgetUsedHours();
+    const remainingHours = roundHours(totalHours - usedHours);
+    const forecastAhead = budgetForecastAheadHours();
+    const status = budgetStatus(usedHours, totalHours);
+    const over = remainingHours < 0;
+
+    budgetAddBtnEl.textContent = budgetData.additions.length === 0 ? "Add Budget" : "+ Budget";
+    renderBudgetAdditions();
+    budgetThresholdCautionEl.value = budgetData.thresholds.caution;
+    budgetThresholdAtRiskEl.value = budgetData.thresholds.atRisk;
+    budgetThresholdCriticalEl.value = budgetData.thresholds.critical;
+
+    airBudgetDotEl.className = `budget-dot ${status}`;
+    airBudgetLabelEl.textContent = status === "unset" ? "Set Budget" : "Budget";
+    airBudgetLabelEl.classList.toggle("budget-label-warn", status === "unset");
+
+    budgetStatusBadgeEl.className = `budget-status ${status}`;
+    budgetStatusBadgeEl.textContent = BUDGET_STATUS_LABEL[status];
+    budgetUsedHoursEl.textContent = `${formatHours(usedHours)}h`;
+    budgetRemainingHoursEl.textContent = status === "unset" ? "\u2014" : `${over ? "-" : ""}${formatHours(Math.abs(remainingHours))}h`;
+    budgetPercentUsedEl.textContent = status === "unset" ? "\u2014" : `${Math.round((usedHours / totalHours) * 100)}%`;
+    budgetPlannedAheadEl.textContent = `${formatHours(forecastAhead)}h`;
+    budgetBarFillEl.className = `budget-bar-fill ${status}`;
+    budgetBarFillEl.style.width = `${totalHours > 0 ? Math.min(100, (usedHours / totalHours) * 100) : 0}%`;
+
+    const wouldExceed = totalHours > 0 && roundHours(usedHours + forecastAhead) > totalHours;
+    let note;
+    if(status === "unset") note = "Set a project budget to start tracking delivered hours against it.";
+    else if(over) note = `Budget exceeded by ${formatHours(Math.abs(remainingHours))}h. Review scope or raise the budget.`;
+    else note = `${formatHours(usedHours)}h used of ${formatHours(totalHours)}h \u2014 ${formatHours(remainingHours)}h remaining.`;
+    if(wouldExceed && !over) note += ` Heads up: ${formatHours(forecastAhead)}h still planned in the backlog would exceed the budget.`;
+    budgetNoteEl.textContent = note;
+
+    if(productBudgetWarningEl){
+      productBudgetWarningEl.classList.remove("at-risk", "critical");
+      if(wouldExceed){
+        const overBy = roundHours(usedHours + forecastAhead - totalHours);
+        productBudgetWarningEl.classList.add(status === "critical" || status === "over" ? "critical" : "at-risk");
+        productBudgetWarningEl.textContent = `\u26a0 Backlog plans ${formatHours(overBy)}h over budget`;
+        productBudgetWarningEl.classList.remove("hidden");
+      }else{
+        productBudgetWarningEl.classList.add("hidden");
+        productBudgetWarningEl.textContent = "";
+      }
+    }
   }
 
   function drawBurndownChart(svg, days, baselineHours, scopePoints, remainingPoints){
@@ -6078,8 +6412,7 @@
       label: "Daily Scrum",
       eyebrow: "Daily alignment",
       description: "Keep the team aligned, focused on the Sprint Goal, and within the 15-minute timebox."
-    },
-    capacity: {
+    },    capacity: {
       label: "Capacity planning",
       eyebrow: "Sprint workflow · Step 1",
       description: "Review team availability before committing work to the sprint."
@@ -6103,6 +6436,11 @@
       label: "Burndown",
       eyebrow: "Sprint insight",
       description: "Compare the Sprint commitment, scope changes, and remaining work across working days."
+    },
+    budget: {
+      label: "Budget",
+      eyebrow: "Project health",
+      description: "Track delivered hours against the project budget and catch overruns early."
     },
     roadmap: {
       label: "Roadmap",
